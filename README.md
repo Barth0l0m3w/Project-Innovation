@@ -1,2 +1,2 @@
-# Projecct Innovation
+# Project Innovation
 
