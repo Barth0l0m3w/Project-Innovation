@@ -107,7 +107,7 @@ namespace server
 		protected void removeAndCloseMember(TcpMessageChannel pMember)
 		{
 			removeMember(pMember);
-			_server.RemovePlayerInfo(pMember);
+			//_server.RemovePlayerInfo(pMember);
 			pMember.Close();
 
 			Log.LogInfo("Removed client at " + pMember.GetRemoteEndPoint(), this);

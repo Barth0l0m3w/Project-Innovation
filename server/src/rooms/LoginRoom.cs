@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using shared;
 
 namespace server
@@ -60,6 +61,8 @@ namespace server
                 playerJoinResponse.result = PlayerJoinResponse.RequestResult.ACCEPTED;
                 PlayerInfo newPlayer = new PlayerInfo();
                 newPlayer.name = pMessage.name;
+                newPlayer.sceneNumber = pMessage.room;
+                Console.WriteLine($"Room number: {newPlayer.sceneNumber}");
                 _server.AddPlayerInfo(pSender, newPlayer);
                 removeMember(pSender);
                 _server.GetLobbyRoom().AddMember(pSender);

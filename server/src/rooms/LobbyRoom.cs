@@ -33,7 +33,7 @@ namespace server
 			sendToAll(simpleMessage);
 
 			//send information to all clients that the lobby count has changed
-			sendLobbyUpdateCount();
+			//sendLobbyUpdateCount(pMember);
 		}
 
 		/**
@@ -45,13 +45,23 @@ namespace server
 			base.removeMember(pMember);
 			_readyMembers.Remove(pMember);
 
-			sendLobbyUpdateCount();
+			//sendLobbyUpdateCount(pMember);
 		}
 
 		protected override void handleNetworkMessage(ASerializable pMessage, TcpMessageChannel pSender)
 		{
 			if (pMessage is ChangeReadyStatusRequest) handleReadyNotification(pMessage as ChangeReadyStatusRequest, pSender);
 			if (pMessage is ChatMessage) sendMessage(pMessage as ChatMessage, pSender);
+			if (pMessage is ChoosePlayer) handlePlayer(pMessage as ChoosePlayer, pSender);
+		}
+
+		private void handlePlayer(ChoosePlayer pMessage, TcpMessageChannel pSender)
+		{
+			LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
+			infoUpdate.memberCount = memberCount;
+			infoUpdate.readyCount = _readyMembers.Count;
+			infoUpdate.sceneNumber = pMessage.sceneNumber;
+			pSender.SendMessage(infoUpdate);
 		}
 
 		private void sendMessage(ChatMessage pMessage, TcpMessageChannel pSender)
@@ -86,15 +96,16 @@ namespace server
 
 			//(un)ready-ing / starting a game changes the lobby/ready count so send out an update
 			//to all clients still in the lobby
-			sendLobbyUpdateCount();
+			sendLobbyUpdateCount(pSender);
 		}
 
-		private void sendLobbyUpdateCount()
+		private void sendLobbyUpdateCount(TcpMessageChannel pSender)
 		{
-			LobbyInfoUpdate lobbyInfoMessage = new LobbyInfoUpdate();
-			lobbyInfoMessage.memberCount = memberCount;
-			lobbyInfoMessage.readyCount = _readyMembers.Count;
-			sendToAll(lobbyInfoMessage);
+			// LobbyInfoUpdate lobbyInfoMessage = new LobbyInfoUpdate();
+			// lobbyInfoMessage.memberCount = memberCount;
+			// lobbyInfoMessage.readyCount = _readyMembers.Count;
+			// lobbyInfoMessage.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
+			// sendToAll(lobbyInfoMessage);
 		}
 		
 		

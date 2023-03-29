@@ -69,7 +69,7 @@ namespace server
                     TcpMessageChannel channel = new TcpMessageChannel(client);
 
                     PlayerInfo info = new PlayerInfo();
-                    //_playerInfo.Add(channel, info);
+                    _playerInfo.Add(channel, info);
 
                     //and add it to the login room for further 'processing'
                     _loginRoom.AddMember(channel);

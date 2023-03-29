@@ -8,17 +8,20 @@
 	{
 		public int memberCount;
 		public int readyCount;
+		public int sceneNumber;
 
 		public override void Serialize(Packet pPacket)
 		{
 			pPacket.Write(memberCount);
 			pPacket.Write(readyCount);
+			pPacket.Write(sceneNumber);
 		}
 
 		public override void Deserialize(Packet pPacket)
 		{
 			memberCount = pPacket.ReadInt();
 			readyCount = pPacket.ReadInt();
+			sceneNumber = pPacket.ReadInt();
 		}
 	}
 }

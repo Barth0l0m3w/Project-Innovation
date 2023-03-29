@@ -7,15 +7,18 @@
     public class PlayerInfo : ASerializable
     {
         public string name;
-        
+        public int sceneNumber;
+
         public override void Serialize(Packet pPacket)
         {
             pPacket.Write(name);
+            pPacket.Write(sceneNumber);
         }
 
         public override void Deserialize(Packet pPacket)
         {
             name = pPacket.ReadString();
+            sceneNumber = pPacket.ReadInt();
         }
     }
 }
