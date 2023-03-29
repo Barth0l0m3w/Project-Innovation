@@ -62,6 +62,7 @@ public class LobbyScreen : ClientState
             Client.Channel.SendMessage(choose);
             ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
             msg.ready = true;
+            msg.characterID = 1;
             Client.Channel.SendMessage(msg);
         } else if (Input.GetKeyUp(KeyCode.B))
         {
@@ -71,6 +72,7 @@ public class LobbyScreen : ClientState
             Client.Channel.SendMessage(choose);
             ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
             msg.ready = true;
+            msg.characterID = 2;
             Client.Channel.SendMessage(msg);
         }
     }

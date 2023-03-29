@@ -1,6 +1,7 @@
 ﻿using System;
 using shared;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace server
 {
@@ -12,7 +13,7 @@ namespace server
 	class LobbyRoom : SimpleRoom
 	{
 		//this list keeps tracks of which players are ready to play a game, this is a subset of the people in this room
-		private List<TcpMessageChannel> _readyMembers = new List<TcpMessageChannel>();
+		private Dictionary<TcpMessageChannel, int> _readyMembers = new Dictionary<TcpMessageChannel, int>();
 
 		public LobbyRoom(TCPGameServer pOwner) : base(pOwner)
 		{
@@ -74,8 +75,17 @@ namespace server
 			//if the given client was not marked as ready yet, mark the client as ready
 			if (pReadyNotification.ready)
 			{
-				if (!_readyMembers.Contains(pSender)) _readyMembers.Add(pSender);
-				Console.WriteLine("PLayer ready");
+				//if (_server.GetPlayerInfo((p) => p.id == _server.GetPlayerInfo(pSender).id).Count == 1)
+				if(_readyMembers.ContainsValue(pReadyNotification.characterID))
+				{
+					Console.WriteLine("This character already exists!");
+				}
+				else
+				{
+					_readyMembers.Add(pSender, pReadyNotification.characterID);
+					Console.WriteLine("PLayer ready");
+				}
+				
 			}
 			else //if the client is no longer ready, unmark it as ready
 			{
@@ -83,23 +93,21 @@ namespace server
 			}
 
 			//do we have enough people for a game and is there no game running yet?
-			if (_readyMembers.Count >= 2)
+			if (_readyMembers.Count == 2)
 			{
-				// GameRoom room = new GameRoom(_server);
-				// _server.GetRooms().Add(room);
-				// TcpMessageChannel player1 = _readyMembers[0];
-				// TcpMessageChannel player2 = _readyMembers[1];
-				// removeMember(player1);
-				// removeMember(player2);
-				// room.StartGame(player1,player2);
+				
 				Console.WriteLine("We're going to play the game now");
-				TcpMessageChannel player1 = _readyMembers[0];
-				TcpMessageChannel player2 = _readyMembers[1];
+				TcpMessageChannel player1 = _readyMembers.ElementAt(0).Key;
+				TcpMessageChannel player2 = _readyMembers.ElementAt(1).Key;
 				removeMember(player1);
 				removeMember(player2);
+				Console.WriteLine(player1 + " And " + player2);
 				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
 				infoUpdate.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
 				pSender.SendMessage(infoUpdate);
+				// GameRoom room = new GameRoom(_server);
+				// _server.GetRooms().Add(room);
+				// room.StartGame(player1,player2);
 			}
 
 			//(un)ready-ing / starting a game changes the lobby/ready count so send out an update
