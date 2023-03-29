@@ -95,7 +95,7 @@ namespace server
 				sendToAll(finished);
 
 				ChatMessage winnerMessage = new ChatMessage();
-				winnerMessage.message = $"{finished.player.name} has won!";
+				winnerMessage.message = $"{finished.player.id} has won!";
 				sendToAll(winnerMessage);
 
 				IsGameInPlay = false;

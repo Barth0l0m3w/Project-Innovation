@@ -35,6 +35,7 @@ namespace server
         private GameRoom _gameRoom; //this is the room a user moves to when a game is succesfully started
         public List<GameRoom> _rooms = new List<GameRoom>();
         List<GameRoom> inactiveRooms = new List<GameRoom>();
+        private int _id = 0;
 
         //stores additional info for a player, TODO: here add login name etc
         private Dictionary<TcpMessageChannel, PlayerInfo> _playerInfo = new Dictionary<TcpMessageChannel, PlayerInfo>();
@@ -70,6 +71,10 @@ namespace server
 
                     PlayerInfo info = new PlayerInfo();
                     _playerInfo.Add(channel, info);
+                    _id++;
+                    Console.WriteLine(_id);
+                    _playerInfo[channel].id = _id;
+                    Console.WriteLine(_playerInfo[channel].id);
 
                     //and add it to the login room for further 'processing'
                     _loginRoom.AddMember(channel);
@@ -142,7 +147,7 @@ namespace server
         {
             try
             {
-                Console.WriteLine("trying to add client :" + playerInfo.name + _playerInfo.Count);
+                Console.WriteLine("trying to add client :" + playerInfo.id);
                 _playerInfo[pClient] = playerInfo;
             }
             catch (Exception e)

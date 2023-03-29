@@ -76,8 +76,8 @@ public class GameState : ApplicationStateWithView<GameView>
 
     private void HandleRoomEntered(RoomEntered roomEntered)
     {
-        player1Name = roomEntered.player1.name;
-        player2Name = roomEntered.player2.name;
+        // player1Name = roomEntered.player1.name;
+        // player2Name = roomEntered.player2.name;
         player1MoveCount = 0;
         player2MoveCount = 0;
         view.playerLabel2.text = $"{player2Name} (Movecount: {player2MoveCount})";
@@ -87,7 +87,7 @@ public class GameState : ApplicationStateWithView<GameView>
     private void handleGameFinished(GameFinished pMessage)
     {
         PlayerJoinRequest join = new PlayerJoinRequest();
-        join.name = pMessage.player.name;
+            //join.name = pMessage.player.name;
         fsm.channel.SendMessage(join);
         fsm.ChangeState<LobbyState>();
     }

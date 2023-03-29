@@ -58,16 +58,20 @@ public class LobbyScreen : ClientState
         {
             Debug.Log("Pressing A");
             ChoosePlayer choose = new ChoosePlayer();
-            choose.sceneNumber = 1;
             choose.characterID = 1;
             Client.Channel.SendMessage(choose);
+            ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
+            msg.ready = true;
+            Client.Channel.SendMessage(msg);
         } else if (Input.GetKeyUp(KeyCode.B))
         {
             Debug.Log("Pressing B");
             ChoosePlayer choose = new ChoosePlayer();
-            choose.sceneNumber = 1;
             choose.characterID = 2;
             Client.Channel.SendMessage(choose);
+            ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
+            msg.ready = true;
+            Client.Channel.SendMessage(msg);
         }
     }
     
@@ -98,6 +102,7 @@ public class LobbyScreen : ClientState
     {
         //update the lobby heading
         //view.SetLobbyHeading($"Welcome to the Lobby ({pMessage.memberCount} people, {pMessage.readyCount} ready)");
+        //Put it in the game scene
         SceneManager.LoadScene(pMessage.sceneNumber);
     }
 

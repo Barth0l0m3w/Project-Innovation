@@ -1,15 +1,18 @@
 using shared;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 /**
  * Starting state where you can connect to the server.
  */
 public class LoginScreen : ClientState
 {
-    [SerializeField] private string _serverIP = null;
-    [SerializeField] private int _serverPort = 0;
-    [SerializeField] private int _sceneNumber = 1;
+    [SerializeField] private string serverIP = null;
+    [SerializeField] private int serverPort = 0;
+
+    private int _deviceType;
 
 
     public override void EnterState()
@@ -26,7 +29,7 @@ public class LoginScreen : ClientState
         Debug.Log("Trying to connect");
 
         //connect to the server and on success try to join the lobby
-        if (Client.Channel.Connect(_serverIP, _serverPort))
+        if (Client.Channel.Connect(serverIP, serverPort))
         {
             tryToJoinLobby();
         }
@@ -38,9 +41,15 @@ public class LoginScreen : ClientState
 
     private void tryToJoinLobby()
     {
-        //Construct a player join request based on the user name 
         PlayerJoinRequest playerJoinRequest = new PlayerJoinRequest();
-        playerJoinRequest.name = "player";
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            playerJoinRequest.DeviceType = 0;
+        }
+        else
+        {
+            playerJoinRequest.DeviceType = 1;
+        }
         Client.Channel.SendMessage(playerJoinRequest);
     }
 
@@ -65,8 +74,7 @@ public class LoginScreen : ClientState
     {
         //Dont do anything with this info at the moment, just leave it to the RoomJoinedEvent
         //We could handle duplicate name messages, get player info etc here
-
-        
+        Debug.Log("Player join response yes");
     }
 
     private void handleRoomJoinedEvent(RoomJoinedEvent pMessage)
@@ -74,7 +82,7 @@ public class LoginScreen : ClientState
         if (pMessage.room == RoomJoinedEvent.Room.LOBBY_ROOM)
         {
             Client.SetState<LobbyScreen>();
-            Debug.Log("Client joined the room");
+            Debug.Log("Client joined the lobby");
         }
     }
 }

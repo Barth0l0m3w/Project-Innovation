@@ -36,7 +36,7 @@ public class Client : MonoBehaviour
     private void Start()
     {
         SetState(_startState.GetType());
-        DontDestroyOnLoad(this.gameObject);     //TODO: TEST
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void SetState<T>() where T : ClientState

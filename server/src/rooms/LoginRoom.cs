@@ -52,25 +52,23 @@ namespace server
         private void handlePlayerJoinRequest(PlayerJoinRequest pMessage, TcpMessageChannel pSender)
         {
             Log.LogInfo("Moving new client to accepted...", this);
-
             PlayerJoinResponse playerJoinResponse = new PlayerJoinResponse();
             //Linq - if there's no other player like this in the server's data
             //Used because then you don't have to worry about removing names from a list
-            if (_server.GetPlayerInfo((p) => p.name == pMessage.name).Count == 0)
+            if(_server.GetPlayerInfo((p) => p.id == _server.GetPlayerInfo(pSender).id).Count == 1)
             {
                 playerJoinResponse.result = PlayerJoinResponse.RequestResult.ACCEPTED;
-                PlayerInfo newPlayer = new PlayerInfo();
-                newPlayer.name = pMessage.name;
-                newPlayer.sceneNumber = pMessage.room;
-                Console.WriteLine($"Room number: {newPlayer.sceneNumber}");
-                _server.AddPlayerInfo(pSender, newPlayer);
+                playerJoinResponse.DeviceType = pMessage.DeviceType;
+                _server.GetPlayerInfo(pSender).sceneNumber = pMessage.DeviceType + 1;
                 removeMember(pSender);
-                _server.GetLobbyRoom().AddMember(pSender);
+                _server.GetLobbyRoom().AddMember(pSender); 
             }
             else
             {
                 playerJoinResponse.result = PlayerJoinResponse.RequestResult.DENIED;
             }
+                
+            
             pSender.SendMessage(playerJoinResponse);
         }
     }
