@@ -12,7 +12,7 @@ public static class CameraSwitcher
 
     public static bool IsActiveCamera(CinemachineVirtualCamera cam)
     {
-        return cam = ActiveCamera;
+        return cam == ActiveCamera;
     }
 
     public static void SwitchCamera(CinemachineVirtualCamera cam)
