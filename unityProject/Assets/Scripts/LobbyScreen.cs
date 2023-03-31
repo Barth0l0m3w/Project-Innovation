@@ -1,5 +1,8 @@
+using System;
 using shared;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 
 /**
@@ -7,8 +10,8 @@ using UnityEngine.SceneManagement;
  */
 public class LobbyScreen : ClientState
 {
-    [Tooltip("Should we enter the lobby in a ready state or not?")]
-    [SerializeField] private bool autoQueueForGame = false;
+    private bool _isPlayerReady;
+    private int _playerNumber;
 
     public override void EnterState()
     {
@@ -19,6 +22,10 @@ public class LobbyScreen : ClientState
     public override void ExitState()
     {
         base.ExitState();
+    }
+
+    private void Start()
+    {
     }
 
     /**
@@ -54,7 +61,7 @@ public class LobbyScreen : ClientState
     private void Update()
     {
         receiveAndProcessNetworkMessages();
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Client.PlayerOneClicked)
         {
             Debug.Log("Pressing A");
             ChoosePlayer choose = new ChoosePlayer();
@@ -64,7 +71,7 @@ public class LobbyScreen : ClientState
             msg.ready = true;
             msg.characterID = 1;
             Client.Channel.SendMessage(msg);
-        } else if (Input.GetKeyUp(KeyCode.B))
+        } else if (Client.PlayerTwoClicked)
         {
             Debug.Log("Pressing B");
             ChoosePlayer choose = new ChoosePlayer();
@@ -105,7 +112,24 @@ public class LobbyScreen : ClientState
         //update the lobby heading
         //view.SetLobbyHeading($"Welcome to the Lobby ({pMessage.memberCount} people, {pMessage.readyCount} ready)");
         //Put it in the game scene
-        SceneManager.LoadScene(pMessage.sceneNumber);
+        //SceneManager.LoadScene(pMessage.sceneNumber);
+
+        if (pMessage.playerID == 1)
+        {
+            Client.PlayerOneClicked = true;
+            if (pMessage.ready)
+            {
+                Client.IsPlayerOneReady = true;
+            }
+        }
+        else if (pMessage.playerID == 2)
+        {
+            Client.PlayerTwoClicked = true;
+            if (pMessage.ready)
+            {
+                Client.IsPlayerTwoReady = true;
+            }
+        }
     }
 
 }

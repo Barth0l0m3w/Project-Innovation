@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/kamaTest.unity
     guid: 0f50d026e7c254eecaf9522e9f299681
   - enabled: 1
+    path: Assets/Scenes/LoginScenes/LoginPhone.unity
+    guid: eeaf5d2f7d68147518296b061bf46da8
+  - enabled: 0
     path: Assets/Scenes/RotatePhone.unity
     guid: 1b7c904d3d74e72448929e23cf2ade16
   - enabled: 1

@@ -6,22 +6,22 @@
 	 */
 	public class LobbyInfoUpdate : ASerializable
 	{
-		public int memberCount;
-		public int readyCount;
 		public int sceneNumber;
+		public int playerID;
+		public bool ready;
 
 		public override void Serialize(Packet pPacket)
 		{
-			pPacket.Write(memberCount);
-			pPacket.Write(readyCount);
 			pPacket.Write(sceneNumber);
+			pPacket.Write(playerID);
+			pPacket.Write(ready);
 		}
 
 		public override void Deserialize(Packet pPacket)
 		{
-			memberCount = pPacket.ReadInt();
-			readyCount = pPacket.ReadInt();
 			sceneNumber = pPacket.ReadInt();
+			playerID = pPacket.ReadInt();
+			ready = pPacket.ReadBool();
 		}
 	}
 }

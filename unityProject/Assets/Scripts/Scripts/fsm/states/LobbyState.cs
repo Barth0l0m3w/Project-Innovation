@@ -96,7 +96,7 @@ public class LobbyState : ApplicationStateWithView<LobbyView>
     private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
         //update the lobby heading
-        view.SetLobbyHeading($"Welcome to the Lobby ({pMessage.memberCount} people, {pMessage.readyCount} ready)");
+        //view.SetLobbyHeading($"Welcome to the Lobby ({pMessage.memberCount} people, {pMessage.readyCount} ready)");
     }
 
 }

@@ -61,6 +61,7 @@ namespace server
 		{
 			LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
 			infoUpdate.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
+			infoUpdate.playerID = pMessage.characterID;
 			pSender.SendMessage(infoUpdate);
 		}
 
@@ -84,6 +85,9 @@ namespace server
 				{
 					_readyMembers.Add(pSender, pReadyNotification.characterID);
 					Console.WriteLine("PLayer ready");
+					LobbyInfoUpdate update = new LobbyInfoUpdate();
+					update.ready = true;
+					pSender.SendMessage(update);
 				}
 				
 			}
