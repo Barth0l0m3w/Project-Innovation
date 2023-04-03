@@ -15,31 +15,15 @@ public static class CameraSwitcher
         return cam == ActiveCamera;
     }
 
-    public static void SwitchCamera(CinemachineVirtualCamera cam)
-    {
-        cam.Priority = 10;
-        ActiveCamera = cam;
-
-        foreach (CinemachineVirtualCamera c in cameras)
-        {
-            if (c != cam && c.Priority != 0)
-            {
-                c.Priority = 0;
-            }
-        }
-    }
-
     public static void Register(CinemachineVirtualCamera cam)
     {
+        cam.Priority = 10;
         cameras.Add(cam);
-        Debug.Log("camera Regisers" + cam);
     }
 
     public static void Unregister(CinemachineVirtualCamera cam)
     {
+        cam.Priority = 0;
         cameras.Remove(cam);
-        Debug.Log("camera Unregisers" + cam);
     }
-
-
 }
