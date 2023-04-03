@@ -112,10 +112,11 @@ public class LobbyScreen : ClientState
 
     private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
-        if (pMessage.playerID == 1)
+        Debug.Log("I received something");
+        if (pMessage.characterID == 1)
         {
             Debug.Log("Player one is chosen!");
-
+            Client.IsPlayerOneReady = true;
         }
         else
         {

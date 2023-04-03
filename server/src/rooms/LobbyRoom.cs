@@ -62,9 +62,6 @@ namespace server
 
 		private void handlePlayer(ChoosePlayer pMessage, TcpMessageChannel pSender)
 		{
-			ChatMessage simpleMessage = new ChatMessage();
-			simpleMessage.message = "AAAAA";
-			sendToAll(simpleMessage);
 			Console.WriteLine($"Handling player {_server.GetPlayerInfo(pSender).id}");
 			//check if noone else took this character
 			if (!_playerOneTaken && pMessage.characterID == 1)
@@ -73,8 +70,9 @@ namespace server
 				playerInfo.characterID = pMessage.characterID;
 				pSender.SendMessage(playerInfo);
 				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
-				infoUpdate.playerID = pMessage.characterID;
-				sendToAll(pMessage);
+				infoUpdate.playerID = _server.GetPlayerInfo(pSender).id;
+				infoUpdate.characterID = pMessage.characterID;
+				sendToAll(infoUpdate);
 				_playerOneTaken = true;
 			}
 			else if (!_playerTwoTaken && pMessage.characterID == 2)

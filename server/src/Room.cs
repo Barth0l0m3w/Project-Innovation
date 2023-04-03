@@ -141,6 +141,7 @@ namespace server
 		{
 			foreach (TcpMessageChannel member in _members)
 			{
+				Console.WriteLine($"Sending to {member}");
 				member.SendMessage(pMessage);
 			}
 		}
