@@ -1,5 +1,6 @@
 using System;
 using shared;
+using States;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -20,40 +21,6 @@ public class LobbyScreen : ClientState
         Debug.Log("Welcome to the Lobby...");
     }
 
-    public override void ExitState()
-    {
-        base.ExitState();
-    }
-
-    private void Start()
-    {
-    }
-
-    /**
-     * Called when you enter text and press enter.
-     */
-    private void onTextEntered(string pText)
-    {
-        ChatMessage message = new ChatMessage();
-        message.message = pText;
-        Client.Channel.SendMessage(message);      
-    }
-
-    /**
-     * Called when you click on the ready checkbox
-     */
-    private void onReadyToggleClicked(bool pNewValue)
-    {
-        ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
-        msg.ready = pNewValue;
-        Client.Channel.SendMessage(msg);
-    }
-
-    private void addOutput(string pInfo)
-    {
-        //view.AddOutput(pInfo);
-    }
-
     /// //////////////////////////////////////////////////////////////////
     ///                     NETWORK MESSAGE PROCESSING
     /// //////////////////////////////////////////////////////////////////
@@ -67,20 +34,20 @@ public class LobbyScreen : ClientState
             ChoosePlayer choose = new ChoosePlayer();
             choose.characterID = 1;
             Client.Channel.SendMessage(choose);
+            Client.PlayerOneClicked = false;
         } else if (Client.PlayerTwoClicked && !_playerProcessed)
         {
             _playerProcessed = true;
             ChoosePlayer choose = new ChoosePlayer();
             choose.characterID = 2;
             Client.Channel.SendMessage(choose);
+            Client.PlayerTwoClicked = false;
         }
     }
     
     protected override void handleNetworkMessage(ASerializable pMessage)
     {
-        if (pMessage is ChatMessage) handleChatMessage(pMessage as ChatMessage);
-        else if (pMessage is RoomJoinedEvent) handleRoomJoinedEvent(pMessage as RoomJoinedEvent);
-        else if (pMessage is LobbyInfoUpdate) handleLobbyInfoUpdate(pMessage as LobbyInfoUpdate);
+        if (pMessage is LobbyInfoUpdate) handleLobbyInfoUpdate(pMessage as LobbyInfoUpdate);
         else if (pMessage is CharacterNotAccepted) handleNotAccepted(pMessage as CharacterNotAccepted);
         else if (pMessage is ChangeReadyStatusRequest) updateReady(pMessage as ChangeReadyStatusRequest);
         else if (pMessage is GoToNextScene) changeScene(pMessage as GoToNextScene);
@@ -91,6 +58,8 @@ public class LobbyScreen : ClientState
         if (pMessage.goToScene)
         {
             Debug.Log("AAAAAAAAAAA");
+            SceneManager.LoadScene(2);
+            Client.SetState<GameScreen>();
         }
     }
 
@@ -107,27 +76,8 @@ public class LobbyScreen : ClientState
         _playerProcessed = pMessage.NotAccepted;
     }
 
-    private void handleChatMessage(ChatMessage pMessage)
-    {
-        //just show the message
-        addOutput(pMessage.message);
-    }
-
-    private void handleRoomJoinedEvent(RoomJoinedEvent pMessage)
-    {
-        //did we move to the game room?
-        if (pMessage.room == RoomJoinedEvent.Room.GAME_ROOM)
-        {
-            Debug.Log("Starting the game");
-            //SceneManager.LoadScene(2);
-            //Client.SetState(GameState);
-        }
-    }
-
     private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
-        Debug.Log("I received something");
-        Debug.Log(pMessage.ready);
         if (pMessage.characterID == 1 && !Client.IsPlayerOneReady)
         {
             Client.IsPlayerOneReady = true;

@@ -31,14 +31,13 @@ namespace server
 			roomJoinedEvent.room = RoomJoinedEvent.Room.LOBBY_ROOM;
 			pMember.SendMessage(roomJoinedEvent);
 
-			//print some info in the lobby (can be made more applicable to the current member that joined)
-			ChatMessage simpleMessage = new ChatMessage();
-			simpleMessage.message = $"Client {_infos[pMember].id} has joined the lobby!";
-			//pMember.SendMessage(simpleMessage);
-			sendToAll(simpleMessage);
-
-			//send information to all clients that the lobby count has changed
-			//sendLobbyUpdateCount(pMember);
+			if (_server.GetPlayerInfo(pMember).deviceType == 0)
+			{
+				_readyMembers.Add(pMember,0);
+				ChangeReadyStatusRequest changeReadyStatusRequest = new ChangeReadyStatusRequest();
+				changeReadyStatusRequest.ready = true;
+				pMember.SendMessage(changeReadyStatusRequest);
+			}
 		}
 
 		/**
@@ -67,7 +66,7 @@ namespace server
 			if (!_playerOneTaken && pMessage.characterID == 1)
 			{
 				PlayerInfo playerInfo = new PlayerInfo();
-				playerInfo.characterID = pMessage.characterID;
+				_server.GetPlayerInfo(pSender).characterID = pMessage.characterID;
 				pSender.SendMessage(playerInfo);
 				ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
 				readyStatusRequest.characterID = pMessage.characterID;
@@ -82,7 +81,7 @@ namespace server
 			else if (!_playerTwoTaken && pMessage.characterID == 2)
 			{
 				PlayerInfo playerInfo = new PlayerInfo();
-				playerInfo.characterID = pMessage.characterID;
+				_server.GetPlayerInfo(pSender).characterID  = pMessage.characterID;
 				pSender.SendMessage(playerInfo);
 				ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
 				readyStatusRequest.characterID = pMessage.characterID;
@@ -132,20 +131,23 @@ namespace server
 			}
 
 			//do we have enough people for a game and is there no game running yet?
-			if (_readyMembers.Count == 2)
+			if (_readyMembers.Count == 3)
 			{
 				
 				Console.WriteLine("We're going to play the game now");
 				GoToNextScene goToNextScene = new GoToNextScene();
 				goToNextScene.goToScene = true;
 				sendToAll(goToNextScene);
-				TcpMessageChannel player1 = _readyMembers.ElementAt(0).Key;
-				TcpMessageChannel player2 = _readyMembers.ElementAt(1).Key;
+				TcpMessageChannel laptop = _readyMembers.ElementAt(0).Key;
+				TcpMessageChannel player1 = _readyMembers.ElementAt(1).Key;
+				TcpMessageChannel player2 = _readyMembers.ElementAt(2).Key;
+				removeMember(laptop);
 				removeMember(player1);
 				removeMember(player2);
 				Console.WriteLine(_server.GetPlayerInfo(player1).id + " And " + _server.GetPlayerInfo(player2).id);
 				
-				// GameRoom room = new GameRoom(_server);
+				GameRoom room = new GameRoom(_server);
+				room.StartGame(player1,player2, laptop);
 				// _server.GetRooms().Add(room);
 				// room.StartGame(player1,player2);
 			}

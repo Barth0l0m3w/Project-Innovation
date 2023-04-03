@@ -23,19 +23,18 @@ namespace server
 		{
 		}
 
-		public void StartGame (TcpMessageChannel pPlayer1, TcpMessageChannel pPlayer2)
+		public void StartGame (TcpMessageChannel pPlayer1, TcpMessageChannel pPlayer2, TcpMessageChannel laptop)
 		{
 			if (IsGameInPlay) throw new Exception("Programmer error duuuude.");
 
 			IsGameInPlay = true;
 			addMember(pPlayer1);
 			addMember(pPlayer2);
+			addMember(laptop);
 			RoomEntered roomEntered = new RoomEntered();
 			roomEntered.player1 = _server.GetPlayerInfo(pPlayer1);
 			roomEntered.player2 = _server.GetPlayerInfo(pPlayer2);
-			//If you send to all, it crashes - don't know exactly why
-			// pPlayer1.SendMessage(roomEntered);
-			// pPlayer2.SendMessage(roomEntered);
+			roomEntered.laptop = _server.GetPlayerInfo(laptop);
 			sendToAll(roomEntered);
 		}
 
