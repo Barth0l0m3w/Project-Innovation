@@ -1,5 +1,7 @@
+using System;
 using shared;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -9,11 +11,12 @@ using UnityEngine.Serialization;
  */
 public class LoginScreen : ClientState
 {
+    [Tooltip("Server's IP. Remember to change is also on the server!!!")]
     [SerializeField] private string serverIP = null;
+    [Tooltip("Port on the laptop so we can connect. 55558 if we want to run it on kama's laptop")]
     [SerializeField] private int serverPort = 0;
+    [Tooltip("Debug thing to check the device's type. In final version we will have auto detection :)")]
     [SerializeField] private int debugDeviceType;
-
-    private int _deviceType;
 
 
     public override void EnterState()
@@ -32,11 +35,16 @@ public class LoginScreen : ClientState
         //connect to the server and on success try to join the lobby
         if (Client.Channel.Connect(serverIP, serverPort))
         {
-            tryToJoinLobby();
-        }
-        else
-        {
-            Debug.Log("Oops, couldn't connect:" + string.Join("\n", Client.Channel.GetErrors()));
+            try
+            {
+                tryToJoinLobby();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Debug.Log("Oops, couldn't connect:" + string.Join("\n", Client.Channel.GetErrors()));
+                throw;
+            }
         }
     }
 
@@ -55,32 +63,20 @@ public class LoginScreen : ClientState
         }
         Client.Channel.SendMessage(playerJoinRequest);
     }
-
-    /// //////////////////////////////////////////////////////////////////
-    ///                     NETWORK MESSAGE PROCESSING
-    /// //////////////////////////////////////////////////////////////////
+    
     private void Update()
     {
         //if we are connected, start processing messages
-        if (Client.Channel.Connected) receiveAndProcessNetworkMessages();
+        if (Client.Channel.Connected) ReceiveAndProcessNetworkMessages();
     }
 
 
-    protected override void handleNetworkMessage(ASerializable pMessage)
+    protected override void HandleNetworkMessage(ASerializable pMessage)
     {
-        if (pMessage is PlayerJoinResponse) handlePlayerJoinResponse(pMessage as PlayerJoinResponse);
-        else if (pMessage is RoomJoinedEvent) handleRoomJoinedEvent(pMessage as RoomJoinedEvent);
+        if (pMessage is RoomJoinedEvent) HandleRoomJoinedEvent(pMessage as RoomJoinedEvent);
     }
 
-
-    private void handlePlayerJoinResponse(PlayerJoinResponse pMessage)
-    {
-        //Dont do anything with this info at the moment, just leave it to the RoomJoinedEvent
-        //We could handle duplicate name messages, get player info etc here
-        Debug.Log("Player join response yes");
-    }
-
-    private void handleRoomJoinedEvent(RoomJoinedEvent pMessage)
+    private void HandleRoomJoinedEvent(RoomJoinedEvent pMessage)
     {
         if (pMessage.room == RoomJoinedEvent.Room.LOBBY_ROOM)
         {

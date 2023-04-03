@@ -1,9 +1,7 @@
 using System;
 using shared;
 using States;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 
 /**
@@ -20,50 +18,58 @@ public class LobbyScreen : ClientState
         base.EnterState();
         Debug.Log("Welcome to the Lobby...");
     }
-
-    /// //////////////////////////////////////////////////////////////////
-    ///                     NETWORK MESSAGE PROCESSING
-    /// //////////////////////////////////////////////////////////////////
-
+    
     private void Update()
     {
-        receiveAndProcessNetworkMessages();
+        ReceiveAndProcessNetworkMessages();
         if (Client.PlayerOneClicked && !_playerProcessed)
         {
-            _playerProcessed = true;
-            ChoosePlayer choose = new ChoosePlayer();
-            choose.characterID = 1;
-            Client.Channel.SendMessage(choose);
+            ChoosePlayerMessage(1);
             Client.PlayerOneClicked = false;
-        } else if (Client.PlayerTwoClicked && !_playerProcessed)
+        } 
+        else if (Client.PlayerTwoClicked && !_playerProcessed)
         {
-            _playerProcessed = true;
-            ChoosePlayer choose = new ChoosePlayer();
-            choose.characterID = 2;
-            Client.Channel.SendMessage(choose);
+            ChoosePlayerMessage(2);
             Client.PlayerTwoClicked = false;
         }
     }
-    
-    protected override void handleNetworkMessage(ASerializable pMessage)
+
+    /// <summary>
+    /// Creates new ChoosePlayer packet depending on what player was clicked
+    /// </summary>
+    private void ChoosePlayerMessage(int playerID)
     {
-        if (pMessage is LobbyInfoUpdate) handleLobbyInfoUpdate(pMessage as LobbyInfoUpdate);
-        else if (pMessage is CharacterNotAccepted) handleNotAccepted(pMessage as CharacterNotAccepted);
-        else if (pMessage is ChangeReadyStatusRequest) updateReady(pMessage as ChangeReadyStatusRequest);
-        else if (pMessage is GoToNextScene) changeScene(pMessage as GoToNextScene);
+        _playerProcessed = true;
+        ChoosePlayer choose = new ChoosePlayer();
+        choose.characterID = playerID;
+        Client.Channel.SendMessage(choose);
+    }
+    
+    protected override void HandleNetworkMessage(ASerializable pMessage)
+    {
+        if (pMessage is LobbyInfoUpdate) HandleLobbyInfoUpdate(pMessage as LobbyInfoUpdate);
+        else if (pMessage is CharacterNotAccepted) HandleNotAccepted(pMessage as CharacterNotAccepted);
+        else if (pMessage is ChangeReadyStatusRequest) UpdateReady(pMessage as ChangeReadyStatusRequest);
+        else if (pMessage is GoToNextScene) ChangeScene(pMessage as GoToNextScene);
     }
 
-    private void changeScene(GoToNextScene pMessage)
+    /// <summary>
+    /// Changes the unity scene when players join the game
+    /// </summary>
+    private void ChangeScene(GoToNextScene pMessage)
     {
         if (pMessage.goToScene)
         {
-            Debug.Log("AAAAAAAAAAA");
+            //THIS NUMBER WILL CHANGE!!!
             SceneManager.LoadScene(2);
             Client.SetState<GameScreen>();
         }
     }
 
-    private void updateReady(ChangeReadyStatusRequest pMessage)
+    /// <summary>
+    /// Updates the ready status so the server can react
+    /// </summary>
+    private void UpdateReady(ChangeReadyStatusRequest pMessage)
     {
         ChangeReadyStatusRequest changeReadyStatusRequest = new ChangeReadyStatusRequest();
         changeReadyStatusRequest.ready = pMessage.ready;
@@ -71,12 +77,18 @@ public class LobbyScreen : ClientState
         Client.Channel.SendMessage(changeReadyStatusRequest);
     }
 
-    private void handleNotAccepted(CharacterNotAccepted pMessage)
+    /// <summary>
+    /// If player does not get accepted (the character is already picked) let him choose again
+    /// </summary>
+    private void HandleNotAccepted(CharacterNotAccepted pMessage)
     {
         _playerProcessed = pMessage.NotAccepted;
     }
 
-    private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
+    /// <summary>
+    /// Used to show which character got already chosen on the laptop
+    /// </summary>]
+    private void HandleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
         if (pMessage.characterID == 1 && !Client.IsPlayerOneReady)
         {
@@ -85,12 +97,6 @@ public class LobbyScreen : ClientState
         else if (pMessage.characterID == 2 && !Client.IsPlayerTwoReady)
         {
             Client.IsPlayerTwoReady = true;
-        }
-
-        if (pMessage.ready)
-        {
-            SceneManager.LoadScene(2);
-            Debug.Log("Going to the next scene!");
         }
     }
 

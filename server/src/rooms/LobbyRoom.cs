@@ -14,7 +14,7 @@ namespace server
 	class LobbyRoom : SimpleRoom
 	{
 		//this list keeps tracks of which players are ready to play a game, this is a subset of the people in this room
-		private Dictionary<TcpMessageChannel, int> _readyMembers = new Dictionary<TcpMessageChannel, int>();
+		private readonly Dictionary<TcpMessageChannel, int> _readyMembers = new Dictionary<TcpMessageChannel, int>();
 		private bool _playerOneTaken;
 		private bool _playerTwoTaken;
 
@@ -65,32 +65,12 @@ namespace server
 			//check if noone else took this character
 			if (!_playerOneTaken && pMessage.characterID == 1)
 			{
-				PlayerInfo playerInfo = new PlayerInfo();
-				_server.GetPlayerInfo(pSender).characterID = pMessage.characterID;
-				pSender.SendMessage(playerInfo);
-				ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
-				readyStatusRequest.characterID = pMessage.characterID;
-				readyStatusRequest.ready = true;
-				pSender.SendMessage(readyStatusRequest);
-				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
-				infoUpdate.playerID = _server.GetPlayerInfo(pSender).id;
-				infoUpdate.characterID = pMessage.characterID;
-				sendToAll(infoUpdate);
+				SendPlayerInfo(pMessage, pSender);
 				_playerOneTaken = true;
 			}
 			else if (!_playerTwoTaken && pMessage.characterID == 2)
 			{
-				PlayerInfo playerInfo = new PlayerInfo();
-				_server.GetPlayerInfo(pSender).characterID  = pMessage.characterID;
-				pSender.SendMessage(playerInfo);
-				ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
-				readyStatusRequest.characterID = pMessage.characterID;
-				readyStatusRequest.ready = true;
-				pSender.SendMessage(readyStatusRequest);
-				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
-				infoUpdate.playerID = _server.GetPlayerInfo(pSender).id;
-				infoUpdate.characterID = pMessage.characterID;
-				sendToAll(infoUpdate);
+				SendPlayerInfo(pMessage,pSender);
 				_playerTwoTaken = true;
 			}
 			else
@@ -100,6 +80,21 @@ namespace server
 				pSender.SendMessage(notAccepted);
 			}
 			
+		}
+
+		private void SendPlayerInfo(ChoosePlayer pMessage, TcpMessageChannel pSender)
+		{
+			PlayerInfo playerInfo = new PlayerInfo();
+			_server.GetPlayerInfo(pSender).characterID = pMessage.characterID;
+			pSender.SendMessage(playerInfo);
+			ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
+			readyStatusRequest.characterID = pMessage.characterID;
+			readyStatusRequest.ready = true;
+			pSender.SendMessage(readyStatusRequest);
+			LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
+			infoUpdate.playerID = _server.GetPlayerInfo(pSender).id;
+			infoUpdate.characterID = pMessage.characterID;
+			sendToAll(infoUpdate);
 		}
 
 		private void sendMessage(ChatMessage pMessage, TcpMessageChannel pSender)

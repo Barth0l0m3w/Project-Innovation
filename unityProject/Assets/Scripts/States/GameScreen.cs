@@ -13,10 +13,10 @@ namespace States
         
         private void Update()
         {
-            receiveAndProcessNetworkMessages();
+            ReceiveAndProcessNetworkMessages();
         }
         
-        protected override void handleNetworkMessage(ASerializable pMessage)
+        protected override void HandleNetworkMessage(ASerializable pMessage)
         {
             if (pMessage is GameFinished)
             {
