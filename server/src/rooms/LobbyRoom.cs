@@ -69,6 +69,10 @@ namespace server
 				PlayerInfo playerInfo = new PlayerInfo();
 				playerInfo.characterID = pMessage.characterID;
 				pSender.SendMessage(playerInfo);
+				ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
+				readyStatusRequest.characterID = pMessage.characterID;
+				readyStatusRequest.ready = true;
+				pSender.SendMessage(readyStatusRequest);
 				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
 				infoUpdate.playerID = _server.GetPlayerInfo(pSender).id;
 				infoUpdate.characterID = pMessage.characterID;
@@ -77,13 +81,24 @@ namespace server
 			}
 			else if (!_playerTwoTaken && pMessage.characterID == 2)
 			{
-				
+				PlayerInfo playerInfo = new PlayerInfo();
+				playerInfo.characterID = pMessage.characterID;
+				pSender.SendMessage(playerInfo);
+				ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
+				readyStatusRequest.characterID = pMessage.characterID;
+				readyStatusRequest.ready = true;
+				pSender.SendMessage(readyStatusRequest);
+				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
+				infoUpdate.playerID = _server.GetPlayerInfo(pSender).id;
+				infoUpdate.characterID = pMessage.characterID;
+				sendToAll(infoUpdate);
+				_playerTwoTaken = true;
 			}
 			else
 			{
-				ChatMessage message = new ChatMessage();
-				message.message = "This character is already taken!";
-				pSender.SendMessage(message);
+				CharacterNotAccepted notAccepted = new CharacterNotAccepted();
+				notAccepted.NotAccepted = false;
+				pSender.SendMessage(notAccepted);
 			}
 			
 		}
@@ -104,13 +119,10 @@ namespace server
 				{
 					Console.WriteLine("This character already exists!");
 				}
-				else
+				else if (_server.GetPlayerInfo(pSender).deviceType == 1)
 				{
 					_readyMembers.Add(pSender, pReadyNotification.characterID);
-					Console.WriteLine("PLayer ready");
-					LobbyInfoUpdate update = new LobbyInfoUpdate();
-					update.ready = true;
-					pSender.SendMessage(update);
+					Console.WriteLine("Player ready");
 				}
 				
 			}
@@ -124,14 +136,15 @@ namespace server
 			{
 				
 				Console.WriteLine("We're going to play the game now");
+				GoToNextScene goToNextScene = new GoToNextScene();
+				goToNextScene.goToScene = true;
+				sendToAll(goToNextScene);
 				TcpMessageChannel player1 = _readyMembers.ElementAt(0).Key;
 				TcpMessageChannel player2 = _readyMembers.ElementAt(1).Key;
 				removeMember(player1);
 				removeMember(player2);
-				Console.WriteLine(player1 + " And " + player2);
-				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
-				infoUpdate.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
-				pSender.SendMessage(infoUpdate);
+				Console.WriteLine(_server.GetPlayerInfo(player1).id + " And " + _server.GetPlayerInfo(player2).id);
+				
 				// GameRoom room = new GameRoom(_server);
 				// _server.GetRooms().Add(room);
 				// room.StartGame(player1,player2);
@@ -139,15 +152,13 @@ namespace server
 
 			//(un)ready-ing / starting a game changes the lobby/ready count so send out an update
 			//to all clients still in the lobby
-			sendLobbyUpdateCount(pSender);
+			//sendLobbyUpdateCount(pSender);
 		}
 
 		private void sendLobbyUpdateCount(TcpMessageChannel pSender)
 		{
-			// LobbyInfoUpdate lobbyInfoMessage = new LobbyInfoUpdate();
-			// lobbyInfoMessage.memberCount = memberCount;
-			// lobbyInfoMessage.readyCount = _readyMembers.Count;
-			// lobbyInfoMessage.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
+			// RoomJoinedEvent lobbyInfoMessage = new RoomJoinedEvent();
+			// lobbyInfoMessage.room = RoomJoinedEvent.Room.GAME_ROOM;
 			// sendToAll(lobbyInfoMessage);
 		}
 		

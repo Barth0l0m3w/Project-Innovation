@@ -40,18 +40,6 @@ public class Client : MonoBehaviour
         set => _playerTwoClicked = value;
     }
 
-    private void Update()
-    {
-        if (_playerOneClicked)
-        {
-            Debug.Log("Player one got selected");
-        } else if (_playerTwoClicked)
-        {
-            Debug.Log("Player two got selected");
-        }
-    }
-
-
     private TcpMessageChannel _channel;
 
     public TcpMessageChannel Channel

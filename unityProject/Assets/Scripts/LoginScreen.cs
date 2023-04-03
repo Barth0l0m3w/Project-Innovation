@@ -45,10 +45,12 @@ public class LoginScreen : ClientState
         PlayerJoinRequest playerJoinRequest = new PlayerJoinRequest();
         if (debugDeviceType == 0)               //(SystemInfo.deviceType == DeviceType.Desktop)
         {
+            //LAPTOP
             playerJoinRequest.DeviceType = 0;
         }
         else
         {
+            //PHONE
             playerJoinRequest.DeviceType = 1;
         }
         Client.Channel.SendMessage(playerJoinRequest);

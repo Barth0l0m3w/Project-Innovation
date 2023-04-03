@@ -59,6 +59,7 @@ namespace server
             {
                 playerJoinResponse.result = PlayerJoinResponse.RequestResult.ACCEPTED;
                 playerJoinResponse.DeviceType = pMessage.DeviceType;
+                _server.GetPlayerInfo(pSender).deviceType = pMessage.DeviceType;
                 _server.GetPlayerInfo(pSender).sceneNumber = pMessage.DeviceType + 1;
                 removeMember(pSender);
                 _server.GetLobbyRoom().AddMember(pSender); 

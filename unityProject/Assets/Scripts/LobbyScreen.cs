@@ -36,8 +36,7 @@ public class LobbyScreen : ClientState
     {
         ChatMessage message = new ChatMessage();
         message.message = pText;
-        Client.Channel.SendMessage(message);
-        //addOutput("(noone else will see this because I broke the chat on purpose):"+pText);        
+        Client.Channel.SendMessage(message);      
     }
 
     /**
@@ -65,25 +64,15 @@ public class LobbyScreen : ClientState
         if (Client.PlayerOneClicked && !_playerProcessed)
         {
             _playerProcessed = true;
-            Debug.Log("Pressing A");
             ChoosePlayer choose = new ChoosePlayer();
             choose.characterID = 1;
             Client.Channel.SendMessage(choose);
-            // ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
-            // msg.ready = true;
-            // msg.characterID = 1;
-            // Client.Channel.SendMessage(msg);
-            //TODO: Check if available
-        } else if (Client.PlayerTwoClicked)
+        } else if (Client.PlayerTwoClicked && !_playerProcessed)
         {
-            Debug.Log("Pressing B");
+            _playerProcessed = true;
             ChoosePlayer choose = new ChoosePlayer();
             choose.characterID = 2;
             Client.Channel.SendMessage(choose);
-            // ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
-            // msg.ready = true;
-            // msg.characterID = 2;
-            // Client.Channel.SendMessage(msg);
         }
     }
     
@@ -92,6 +81,30 @@ public class LobbyScreen : ClientState
         if (pMessage is ChatMessage) handleChatMessage(pMessage as ChatMessage);
         else if (pMessage is RoomJoinedEvent) handleRoomJoinedEvent(pMessage as RoomJoinedEvent);
         else if (pMessage is LobbyInfoUpdate) handleLobbyInfoUpdate(pMessage as LobbyInfoUpdate);
+        else if (pMessage is CharacterNotAccepted) handleNotAccepted(pMessage as CharacterNotAccepted);
+        else if (pMessage is ChangeReadyStatusRequest) updateReady(pMessage as ChangeReadyStatusRequest);
+        else if (pMessage is GoToNextScene) changeScene(pMessage as GoToNextScene);
+    }
+
+    private void changeScene(GoToNextScene pMessage)
+    {
+        if (pMessage.goToScene)
+        {
+            Debug.Log("AAAAAAAAAAA");
+        }
+    }
+
+    private void updateReady(ChangeReadyStatusRequest pMessage)
+    {
+        ChangeReadyStatusRequest changeReadyStatusRequest = new ChangeReadyStatusRequest();
+        changeReadyStatusRequest.ready = pMessage.ready;
+        changeReadyStatusRequest.characterID = pMessage.characterID;
+        Client.Channel.SendMessage(changeReadyStatusRequest);
+    }
+
+    private void handleNotAccepted(CharacterNotAccepted pMessage)
+    {
+        _playerProcessed = pMessage.NotAccepted;
     }
 
     private void handleChatMessage(ChatMessage pMessage)
@@ -106,6 +119,7 @@ public class LobbyScreen : ClientState
         if (pMessage.room == RoomJoinedEvent.Room.GAME_ROOM)
         {
             Debug.Log("Starting the game");
+            //SceneManager.LoadScene(2);
             //Client.SetState(GameState);
         }
     }
@@ -113,14 +127,20 @@ public class LobbyScreen : ClientState
     private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
         Debug.Log("I received something");
-        if (pMessage.characterID == 1)
+        Debug.Log(pMessage.ready);
+        if (pMessage.characterID == 1 && !Client.IsPlayerOneReady)
         {
-            Debug.Log("Player one is chosen!");
             Client.IsPlayerOneReady = true;
         }
-        else
+        else if (pMessage.characterID == 2 && !Client.IsPlayerTwoReady)
         {
-            Debug.Log("I cannot read");
+            Client.IsPlayerTwoReady = true;
+        }
+
+        if (pMessage.ready)
+        {
+            SceneManager.LoadScene(2);
+            Debug.Log("Going to the next scene!");
         }
     }
 
