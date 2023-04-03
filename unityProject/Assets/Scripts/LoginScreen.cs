@@ -11,6 +11,7 @@ public class LoginScreen : ClientState
 {
     [SerializeField] private string serverIP = null;
     [SerializeField] private int serverPort = 0;
+    [SerializeField] private int debugDeviceType;
 
     private int _deviceType;
 
@@ -42,7 +43,7 @@ public class LoginScreen : ClientState
     private void tryToJoinLobby()
     {
         PlayerJoinRequest playerJoinRequest = new PlayerJoinRequest();
-        if (SystemInfo.deviceType == DeviceType.Desktop)
+        if (debugDeviceType == 0)               //(SystemInfo.deviceType == DeviceType.Desktop)
         {
             playerJoinRequest.DeviceType = 0;
         }

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 /**
  * 'Chat' state while you are waiting to start a game where you can signal that you are ready or not.
  */
-public class LobbyScreen : ClientState
+public class LobbyScreenLaptop : ClientState
 {
     private bool _isPlayerReady;
     private int _playerNumber;
@@ -62,29 +62,29 @@ public class LobbyScreen : ClientState
     private void Update()
     {
         receiveAndProcessNetworkMessages();
-        if (Client.PlayerOneClicked && !_playerProcessed)
-        {
-            _playerProcessed = true;
-            Debug.Log("Pressing A");
-            ChoosePlayer choose = new ChoosePlayer();
-            choose.characterID = 1;
-            Client.Channel.SendMessage(choose);
-            // ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
-            // msg.ready = true;
-            // msg.characterID = 1;
-            // Client.Channel.SendMessage(msg);
-            //TODO: Check if available
-        } else if (Client.PlayerTwoClicked)
-        {
-            Debug.Log("Pressing B");
-            ChoosePlayer choose = new ChoosePlayer();
-            choose.characterID = 2;
-            Client.Channel.SendMessage(choose);
-            // ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
-            // msg.ready = true;
-            // msg.characterID = 2;
-            // Client.Channel.SendMessage(msg);
-        }
+        // if (Client.PlayerOneClicked && !_playerProcessed)
+        // {
+        //     _playerProcessed = true;
+        //     Debug.Log("Pressing A");
+        //     ChoosePlayer choose = new ChoosePlayer();
+        //     choose.characterID = 1;
+        //     Client.Channel.SendMessage(choose);
+        //     // ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
+        //     // msg.ready = true;
+        //     // msg.characterID = 1;
+        //     // Client.Channel.SendMessage(msg);
+        //     //TODO: Check if available
+        // } else if (Client.PlayerTwoClicked)
+        // {
+        //     Debug.Log("Pressing B");
+        //     ChoosePlayer choose = new ChoosePlayer();
+        //     choose.characterID = 2;
+        //     Client.Channel.SendMessage(choose);
+        //     // ChangeReadyStatusRequest msg = new ChangeReadyStatusRequest();
+        //     // msg.ready = true;
+        //     // msg.characterID = 2;
+        //     // Client.Channel.SendMessage(msg);
+        // }
     }
     
     protected override void handleNetworkMessage(ASerializable pMessage)
@@ -112,14 +112,27 @@ public class LobbyScreen : ClientState
 
     private void handleLobbyInfoUpdate(LobbyInfoUpdate pMessage)
     {
+        //update the lobby heading
+        //view.SetLobbyHeading($"Welcome to the Lobby ({pMessage.memberCount} people, {pMessage.readyCount} ready)");
+        //Put it in the game scene
+        //SceneManager.LoadScene(pMessage.sceneNumber);
+
         if (pMessage.playerID == 1)
         {
             Debug.Log("Player one is chosen!");
-
+            //Client.PlayerOneClicked = true;
+            if (pMessage.ready)
+            {
+                Client.IsPlayerOneReady = true;
+            }
         }
-        else
+        else if (pMessage.playerID == 2)
         {
-            Debug.Log("I cannot read");
+            //Client.PlayerTwoClicked = true;
+            if (pMessage.ready)
+            {
+                Client.IsPlayerTwoReady = true;
+            }
         }
     }
 

@@ -2,6 +2,7 @@
 using shared;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 
 namespace server
 {
@@ -14,6 +15,8 @@ namespace server
 	{
 		//this list keeps tracks of which players are ready to play a game, this is a subset of the people in this room
 		private Dictionary<TcpMessageChannel, int> _readyMembers = new Dictionary<TcpMessageChannel, int>();
+		private bool _playerOneTaken;
+		private bool _playerTwoTaken;
 
 		public LobbyRoom(TCPGameServer pOwner) : base(pOwner)
 		{
@@ -59,10 +62,32 @@ namespace server
 
 		private void handlePlayer(ChoosePlayer pMessage, TcpMessageChannel pSender)
 		{
-			LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
-			infoUpdate.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
-			infoUpdate.playerID = pMessage.characterID;
-			pSender.SendMessage(infoUpdate);
+			ChatMessage simpleMessage = new ChatMessage();
+			simpleMessage.message = "AAAAA";
+			sendToAll(simpleMessage);
+			Console.WriteLine($"Handling player {_server.GetPlayerInfo(pSender).id}");
+			//check if noone else took this character
+			if (!_playerOneTaken && pMessage.characterID == 1)
+			{
+				PlayerInfo playerInfo = new PlayerInfo();
+				playerInfo.characterID = pMessage.characterID;
+				pSender.SendMessage(playerInfo);
+				LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
+				infoUpdate.playerID = pMessage.characterID;
+				sendToAll(pMessage);
+				_playerOneTaken = true;
+			}
+			else if (!_playerTwoTaken && pMessage.characterID == 2)
+			{
+				
+			}
+			else
+			{
+				ChatMessage message = new ChatMessage();
+				message.message = "This character is already taken!";
+				pSender.SendMessage(message);
+			}
+			
 		}
 
 		private void sendMessage(ChatMessage pMessage, TcpMessageChannel pSender)
