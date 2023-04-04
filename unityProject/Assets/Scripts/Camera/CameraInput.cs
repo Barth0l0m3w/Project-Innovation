@@ -86,15 +86,15 @@ public class CameraInput : MonoBehaviour
     void Update()
     {
         // Check for keyboard input to cycle through the cameras
-        // if (Input.GetKeyUp(KeyCode.D))
-        // {
-        //     CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 + 1) % camerasP2.Count];
-        // }
-        // else if (Input.GetKeyUp(KeyCode.A))
-        // {
-        //     // Set the current camera to the previous camera in the list
-        //     CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 - 1 + camerasP2.Count) % camerasP2.Count];
-        // }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 + 1) % camerasP2.Count];
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            // Set the current camera to the previous camera in the list
+            CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 - 1 + camerasP2.Count) % camerasP2.Count];
+        }
         // if (Input.GetKeyUp(KeyCode.RightArrow))
         // {
         //     // Set the current camera to the next camera in the list
