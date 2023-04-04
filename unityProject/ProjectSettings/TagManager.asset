@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX
@@ -12,10 +13,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - P1Cam
+  - P2Cam
+  - Camera1Ignore
+  - Camera2Ignore
   - 
   - 
   - 
