@@ -56,7 +56,9 @@ namespace server
             //Used because then you don't have to worry about removing names from a list
             if(_server.GetPlayerInfo((p) => p.id == _server.GetPlayerInfo(pSender).id).Count == 1)
             {
+                Console.WriteLine(_server.GetPlayerInfo(pSender).deviceType + ":" + pMessage.DeviceType);
                 _server.GetPlayerInfo(pSender).deviceType = pMessage.DeviceType;
+                Console.WriteLine(_server.GetPlayerInfo(pSender).deviceType + ":" + pMessage.DeviceType);
                 _server.GetPlayerInfo(pSender).sceneNumber = pMessage.DeviceType + 1;
                 removeMember(pSender);
                 _server.GetLobbyRoom().AddMember(pSender); 

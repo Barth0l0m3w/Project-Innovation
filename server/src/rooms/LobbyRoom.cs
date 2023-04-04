@@ -85,7 +85,10 @@ namespace server
 		private void SendPlayerInfo(ChoosePlayer pMessage, TcpMessageChannel pSender)
 		{
 			PlayerInfo playerInfo = new PlayerInfo();
-			_server.GetPlayerInfo(pSender).characterID = pMessage.characterID;
+			playerInfo.id = _server.GetPlayerInfo(pSender).id;
+			playerInfo.characterID = pMessage.characterID;
+			playerInfo.deviceType = _server.GetPlayerInfo(pSender).deviceType;
+			playerInfo.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
 			pSender.SendMessage(playerInfo);
 			ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
 			readyStatusRequest.characterID = pMessage.characterID;
