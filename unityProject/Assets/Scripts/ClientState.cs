@@ -15,36 +15,26 @@ public abstract class ClientState : MonoBehaviour
     
     public virtual void EnterState()
     {
-        Debug.Log("Entering application state " + this);
         gameObject.SetActive(true);
     }
     
     public virtual void ExitState()
     {
-        Debug.Log("Exiting application state " + this);
         gameObject.SetActive(false);
     }
     
-    virtual protected void receiveAndProcessNetworkMessages()
+    protected virtual void ReceiveAndProcessNetworkMessages()
     {
         if (!Client.Channel.Connected)
         {
-            Debug.LogWarning("Trying to receive network messages, but we are no longer connected.");
             return;
         }
-
-        //while there are messages, we have no issues AAAND we haven't been disabled (important!!):
-        //we need to check for gameObject.activeSelf because after sending a message and switching state,
-        //we might get an immediate reply from the server. If we don't add this, the wrong state will be processing the message
+        
         while (Client.Channel.HasMessage() && gameObject.activeSelf)
         {
             ASerializable message = Client.Channel.ReceiveMessage();
-            handleNetworkMessage(message);
+            HandleNetworkMessage(message);
         }
     }
-
-    /**
-	 * Override/implement in a subclass
-	 */
-    abstract protected void handleNetworkMessage(ASerializable pMessage);
+    abstract protected void HandleNetworkMessage(ASerializable pMessage);
 }

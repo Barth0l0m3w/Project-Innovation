@@ -1,5 +1,8 @@
-﻿using shared;
+using System;
+using shared;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security;
 
 namespace server
 {
@@ -11,7 +14,9 @@ namespace server
 	class LobbyRoom : SimpleRoom
 	{
 		//this list keeps tracks of which players are ready to play a game, this is a subset of the people in this room
-		private List<TcpMessageChannel> _readyMembers = new List<TcpMessageChannel>();
+		private readonly Dictionary<TcpMessageChannel, int> _readyMembers = new Dictionary<TcpMessageChannel, int>();
+		private bool _playerOneTaken;
+		private bool _playerTwoTaken;
 
 		public LobbyRoom(TCPGameServer pOwner) : base(pOwner)
 		{
@@ -26,14 +31,13 @@ namespace server
 			roomJoinedEvent.room = RoomJoinedEvent.Room.LOBBY_ROOM;
 			pMember.SendMessage(roomJoinedEvent);
 
-			//print some info in the lobby (can be made more applicable to the current member that joined)
-			ChatMessage simpleMessage = new ChatMessage();
-			simpleMessage.message = $"Client {_infos[pMember].name} has joined the lobby!";
-			//pMember.SendMessage(simpleMessage);
-			sendToAll(simpleMessage);
-
-			//send information to all clients that the lobby count has changed
-			//sendLobbyUpdateCount(pMember);
+			if (_server.GetPlayerInfo(pMember).deviceType == 0)
+			{
+				_readyMembers.Add(pMember,0);
+				ChangeReadyStatusRequest changeReadyStatusRequest = new ChangeReadyStatusRequest();
+				changeReadyStatusRequest.ready = true;
+				pMember.SendMessage(changeReadyStatusRequest);
+			}
 		}
 
 		/**
@@ -57,16 +61,45 @@ namespace server
 
 		private void handlePlayer(ChoosePlayer pMessage, TcpMessageChannel pSender)
 		{
+			Console.WriteLine($"Handling player {_server.GetPlayerInfo(pSender).id}");
+			//check if noone else took this character
+			if (!_playerOneTaken && pMessage.characterID == 1)
+			{
+				SendPlayerInfo(pMessage, pSender);
+				_playerOneTaken = true;
+			}
+			else if (!_playerTwoTaken && pMessage.characterID == 2)
+			{
+				SendPlayerInfo(pMessage,pSender);
+				_playerTwoTaken = true;
+			}
+			else
+			{
+				CharacterNotAccepted notAccepted = new CharacterNotAccepted();
+				notAccepted.NotAccepted = false;
+				pSender.SendMessage(notAccepted);
+			}
+			
+		}
+
+		private void SendPlayerInfo(ChoosePlayer pMessage, TcpMessageChannel pSender)
+		{
+			PlayerInfo playerInfo = new PlayerInfo();
+			_server.GetPlayerInfo(pSender).characterID = pMessage.characterID;
+			pSender.SendMessage(playerInfo);
+			ChangeReadyStatusRequest readyStatusRequest = new ChangeReadyStatusRequest();
+			readyStatusRequest.characterID = pMessage.characterID;
+			readyStatusRequest.ready = true;
+			pSender.SendMessage(readyStatusRequest);
 			LobbyInfoUpdate infoUpdate = new LobbyInfoUpdate();
-			infoUpdate.memberCount = memberCount;
-			infoUpdate.readyCount = _readyMembers.Count;
-			infoUpdate.sceneNumber = pMessage.sceneNumber;
-			pSender.SendMessage(infoUpdate);
+			infoUpdate.playerID = _server.GetPlayerInfo(pSender).id;
+			infoUpdate.characterID = pMessage.characterID;
+			sendToAll(infoUpdate);
 		}
 
 		private void sendMessage(ChatMessage pMessage, TcpMessageChannel pSender)
 		{
-			pMessage.message = $"{_infos[pSender].name} says: {pMessage.message}";
+			pMessage.message = $"{_infos[pSender].id} says: {pMessage.message}";
 			sendToAll(pMessage);
 		}
 
@@ -75,7 +108,17 @@ namespace server
 			//if the given client was not marked as ready yet, mark the client as ready
 			if (pReadyNotification.ready)
 			{
-				if (!_readyMembers.Contains(pSender)) _readyMembers.Add(pSender);
+				//if (_server.GetPlayerInfo((p) => p.id == _server.GetPlayerInfo(pSender).id).Count == 1)
+				if(_readyMembers.ContainsValue(pReadyNotification.characterID))
+				{
+					Console.WriteLine("This character already exists!");
+				}
+				else if (_server.GetPlayerInfo(pSender).deviceType == 1)
+				{
+					_readyMembers.Add(pSender, pReadyNotification.characterID);
+					Console.WriteLine("Player ready");
+				}
+				
 			}
 			else //if the client is no longer ready, unmark it as ready
 			{
@@ -83,28 +126,36 @@ namespace server
 			}
 
 			//do we have enough people for a game and is there no game running yet?
-			if (_readyMembers.Count >= 2)
+			if (_readyMembers.Count == 3)
 			{
-				GameRoom room = new GameRoom(_server);
-				_server.GetRooms().Add(room);
-				TcpMessageChannel player1 = _readyMembers[0];
-				TcpMessageChannel player2 = _readyMembers[1];
+				
+				Console.WriteLine("We're going to play the game now");
+				GoToNextScene goToNextScene = new GoToNextScene();
+				goToNextScene.goToScene = true;
+				sendToAll(goToNextScene);
+				TcpMessageChannel laptop = _readyMembers.ElementAt(0).Key;
+				TcpMessageChannel player1 = _readyMembers.ElementAt(1).Key;
+				TcpMessageChannel player2 = _readyMembers.ElementAt(2).Key;
+				removeMember(laptop);
 				removeMember(player1);
 				removeMember(player2);
-				room.StartGame(player1,player2);
+				Console.WriteLine(_server.GetPlayerInfo(player1).id + " And " + _server.GetPlayerInfo(player2).id);
+				
+				GameRoom room = new GameRoom(_server);
+				room.StartGame(player1,player2, laptop);
+				// _server.GetRooms().Add(room);
+				// room.StartGame(player1,player2);
 			}
 
 			//(un)ready-ing / starting a game changes the lobby/ready count so send out an update
 			//to all clients still in the lobby
-			sendLobbyUpdateCount(pSender);
+			//sendLobbyUpdateCount(pSender);
 		}
 
 		private void sendLobbyUpdateCount(TcpMessageChannel pSender)
 		{
-			// LobbyInfoUpdate lobbyInfoMessage = new LobbyInfoUpdate();
-			// lobbyInfoMessage.memberCount = memberCount;
-			// lobbyInfoMessage.readyCount = _readyMembers.Count;
-			// lobbyInfoMessage.sceneNumber = _server.GetPlayerInfo(pSender).sceneNumber;
+			// RoomJoinedEvent lobbyInfoMessage = new RoomJoinedEvent();
+			// lobbyInfoMessage.room = RoomJoinedEvent.Room.GAME_ROOM;
 			// sendToAll(lobbyInfoMessage);
 		}
 		

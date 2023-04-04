@@ -1,4 +1,4 @@
-﻿using shared;
+using shared;
 using System;
 
 namespace server
@@ -23,19 +23,18 @@ namespace server
 		{
 		}
 
-		public void StartGame (TcpMessageChannel pPlayer1, TcpMessageChannel pPlayer2)
+		public void StartGame (TcpMessageChannel pPlayer1, TcpMessageChannel pPlayer2, TcpMessageChannel laptop)
 		{
 			if (IsGameInPlay) throw new Exception("Programmer error duuuude.");
 
 			IsGameInPlay = true;
 			addMember(pPlayer1);
 			addMember(pPlayer2);
+			addMember(laptop);
 			RoomEntered roomEntered = new RoomEntered();
 			roomEntered.player1 = _server.GetPlayerInfo(pPlayer1);
 			roomEntered.player2 = _server.GetPlayerInfo(pPlayer2);
-			//If you send to all, it crashes - don't know exactly why
-			// pPlayer1.SendMessage(roomEntered);
-			// pPlayer2.SendMessage(roomEntered);
+			roomEntered.laptop = _server.GetPlayerInfo(laptop);
 			sendToAll(roomEntered);
 		}
 
@@ -95,7 +94,7 @@ namespace server
 				sendToAll(finished);
 
 				ChatMessage winnerMessage = new ChatMessage();
-				winnerMessage.message = $"{finished.player.name} has won!";
+				winnerMessage.message = $"{finished.player.id} has won!";
 				sendToAll(winnerMessage);
 
 				IsGameInPlay = false;

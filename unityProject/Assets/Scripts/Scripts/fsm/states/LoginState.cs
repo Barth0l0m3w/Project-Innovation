@@ -1,4 +1,4 @@
-﻿using shared;
+using shared;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,7 +61,7 @@ public class LoginState : ApplicationStateWithView<LoginView>
     {
         //Construct a player join request based on the user name 
         PlayerJoinRequest playerJoinRequest = new PlayerJoinRequest();
-        playerJoinRequest.name = view.userName;
+       // playerJoinRequest.name = view.userName;
         fsm.channel.SendMessage(playerJoinRequest);
     }
 

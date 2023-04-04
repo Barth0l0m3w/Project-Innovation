@@ -1,23 +1,20 @@
-﻿namespace shared
+namespace shared
 {
     /**
      * Send from CLIENT to SERVER to request joining the server.
      */
     public class PlayerJoinRequest : ASerializable
     {
-        public string name;
-        public int room;
+        public int DeviceType;
 
         public override void Serialize(Packet pPacket)
         {
-            pPacket.Write(name);
-            pPacket.Write(room);
+            pPacket.Write(DeviceType);
         }
 
         public override void Deserialize(Packet pPacket)
         {
-            name = pPacket.ReadString();
-            room = pPacket.ReadInt();
+            DeviceType = pPacket.ReadInt();
         }
     }
 }

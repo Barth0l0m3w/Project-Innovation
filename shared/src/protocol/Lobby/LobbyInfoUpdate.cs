@@ -1,4 +1,4 @@
-﻿namespace shared
+namespace shared
 {
 	/**
 	 * Send from SERVER to all CLIENTS to provide info on how many people are in the lobby
@@ -6,22 +6,25 @@
 	 */
 	public class LobbyInfoUpdate : ASerializable
 	{
-		public int memberCount;
-		public int readyCount;
 		public int sceneNumber;
+		public int playerID;
+		public int characterID;
+		public bool ready;
 
 		public override void Serialize(Packet pPacket)
 		{
-			pPacket.Write(memberCount);
-			pPacket.Write(readyCount);
 			pPacket.Write(sceneNumber);
+			pPacket.Write(playerID);
+			pPacket.Write(characterID);
+			pPacket.Write(ready);
 		}
 
 		public override void Deserialize(Packet pPacket)
 		{
-			memberCount = pPacket.ReadInt();
-			readyCount = pPacket.ReadInt();
 			sceneNumber = pPacket.ReadInt();
+			playerID = pPacket.ReadInt();
+			characterID = pPacket.ReadInt();
+			ready = pPacket.ReadBool();
 		}
 	}
 }

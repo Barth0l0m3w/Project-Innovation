@@ -6,23 +6,61 @@ using UnityEngine.XR;
 
 public class Client : MonoBehaviour
 {
-    //make it a singleton, don't destroy on load
-    [SerializeField] private ClientState _startState = null; //needs to have one state as the starting one
+    private static Client _instance;
+    [Tooltip("Please remember to add one state as a start one (preferably LoginScreen)")]
+    [SerializeField] private ClientState _startState = null;
+    
     private Dictionary<Type, ClientState> _states = new Dictionary<Type, ClientState>();
     private ClientState _currentState = null;
-
     private TcpMessageChannel _channel;
+    private bool _playerOneClicked;
+    private bool _playerTwoClicked;
+    private bool _isPlayerOneReady;
+    private bool _isPlayerTwoReady;
+    private bool _isCurrentStateNotNull;
 
+    /// <summary>
+    /// Those variables are used mostly to connect client to buttons and objects in the actual game
+    /// The names might still change
+    /// </summary>
+    public bool IsPlayerOneReady
+    {
+        get => _isPlayerOneReady;
+        set => _isPlayerOneReady = value;
+    }
+    public bool IsPlayerTwoReady
+    {
+        get => _isPlayerTwoReady;
+        set => _isPlayerTwoReady = value;
+    }
+    public bool PlayerOneClicked
+    {
+        get => _playerOneClicked;
+        set => _playerOneClicked = value;
+    }
+    public bool PlayerTwoClicked
+    {
+        get => _playerTwoClicked;
+        set => _playerTwoClicked = value;
+    }
+    
     public TcpMessageChannel Channel
     {
         get => _channel;
         set => _channel = value;
     }
 
+    public static Client Instance => _instance;
+    
+
     protected void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        
         _channel = new TcpMessageChannel();
-        Debug.Log("Initializing Client:" + this);
 
         //All the states MUST BE children of the client object
         ClientState[] clientStates = GetComponentsInChildren<ClientState>(true);
@@ -36,12 +74,12 @@ public class Client : MonoBehaviour
     private void Start()
     {
         SetState(_startState.GetType());
-        DontDestroyOnLoad(this.gameObject);     //TODO: TEST
+        DontDestroyOnLoad(this.gameObject);
     }
 
+    //For some reason if I change it, it does not work - TODO: ask Hans
     public void SetState<T>() where T : ClientState
     {
-        //delegates to a general change state method
         SetState(typeof(T));
     }
     
@@ -67,16 +105,6 @@ public class Client : MonoBehaviour
             _currentState = _states[pType];
             _currentState.EnterState();
         }
-    }
-    
-    public void Update()
-    {
-        //Quick and dirty reset handler so that you do not have to reset the client all the time
-        // if (Input.GetKeyDown(KeyCode.F1))
-        // {
-        //     _channel.Close();
-        //     SetState(_startState.GetType());
-        // }
     }
 
     public void OnApplicationQuit()
