@@ -15,8 +15,6 @@ public class HideWalls : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("AAAAA" + other);
-
         other.gameObject.layer = _layerIgnore;
     }
 

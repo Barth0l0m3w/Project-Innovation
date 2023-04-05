@@ -1122,7 +1122,7 @@ Transform:
   - {fileID: 1115198022}
   - {fileID: 950066382}
   m_Father: {fileID: 757433997}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &478985057
 GameObject:
@@ -1155,10 +1155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Walking: {fileID: 1708598151}
   camerasP1:
-  - {fileID: 1857554225}
-  - {fileID: 1734163572}
-  - {fileID: 1115198023}
-  - {fileID: 950066383}
   - {fileID: 1000943146}
   - {fileID: 295808067}
   - {fileID: 780483759}
@@ -1167,6 +1163,10 @@ MonoBehaviour:
   - {fileID: 2099240633}
   - {fileID: 1938602024}
   - {fileID: 1564192820}
+  - {fileID: 1857554225}
+  - {fileID: 1734163572}
+  - {fileID: 1115198023}
+  - {fileID: 950066383}
   camerasP2:
   - {fileID: 91311923}
   - {fileID: 1491217390}
@@ -1180,8 +1180,7 @@ MonoBehaviour:
   - {fileID: 1890651631}
   - {fileID: 1339570993}
   - {fileID: 761698969}
-  room: 2
-  cameraP1: {fileID: 0}
+  numberOfRooms: 3
 --- !u!4 &478985059
 Transform:
   m_ObjectHideFlags: 0
@@ -2044,7 +2043,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713716659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14, y: 3, z: -14}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2283,9 +2282,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 713716662}
-  - {fileID: 432225147}
   - {fileID: 1852632827}
   - {fileID: 1829072780}
+  - {fileID: 432225147}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3301,7 +3300,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20.9, y: 30.6}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3517,7 +3516,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 0
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -5355,7 +5354,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20.9, y: 30.6}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6458,7 +6457,7 @@ Transform:
   - {fileID: 1938602023}
   - {fileID: 1564192819}
   m_Father: {fileID: 757433997}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1852632826
 GameObject:
@@ -6493,7 +6492,7 @@ Transform:
   - {fileID: 780483760}
   - {fileID: 1255056905}
   m_Father: {fileID: 757433997}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1857554223
 GameObject:
@@ -6544,7 +6543,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -6964,7 +6963,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20.9, y: 30.6}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7434,7 +7433,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20.9, y: 30.6}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
