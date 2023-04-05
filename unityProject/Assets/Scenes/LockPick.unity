@@ -149,8 +149,8 @@ Transform:
   m_GameObject: {fileID: 149818015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.82, y: 0.33, z: 0.03547102}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.825, y: 0.825, z: 0.825}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 240893892}
   m_RootOrder: 1
@@ -266,8 +266,8 @@ Transform:
   m_GameObject: {fileID: 275392750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.83, y: 0.24, z: 0.03547102}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.825, y: 0.825, z: 0.825}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1943489105}
   m_Father: {fileID: 240893892}
@@ -517,12 +517,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6d16577e890ce49915718b4a4bcbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1145276563}
   InnerLock: {fileID: 275392751}
   pickPosition: {fileID: 1943489105}
   maxAngle: 90
   lockSpeed: 5
-  lockRange: 10
+  lockRange: 5
+  unlockAngle: 0
 --- !u!1 &1145276561
 GameObject:
   m_ObjectHideFlags: 0

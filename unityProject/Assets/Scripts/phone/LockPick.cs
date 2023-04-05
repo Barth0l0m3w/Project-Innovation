@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
-
 public class LockPick : MonoBehaviour
 {
     [SerializeField]
-    private Camera cam;
-    [SerializeField]
-    private Transform InnerLock;
+    private Transform innerLock;
     [SerializeField]
     private Transform pickPosition;
 
@@ -18,92 +14,76 @@ public class LockPick : MonoBehaviour
     private float maxAngle = 90;
 
     [SerializeField]
-    private float lockSpeed = 10;
+    private float lockSpeed = 5f;
 
     [SerializeField]
-    [Min(1)][Range(1, 25)] private float lockRange = 10;
+    private float lockRange = 10;
 
+    private float differenceAngle;
     private float eulerAngle;
-    private float unlockAngle;
-    private Vector2 unlockRange;
 
-    private float keyPressTime;
+    [SerializeField]
+    private float unlockAngle;
+
+    [SerializeField]
+    private int timesTurned = 0;
+
+    private Vector3 pickRotation;
 
     private bool movePick = true;
 
-    // Start is called before the first frame update 
+    private bool correct = false;
+
     void Start()
     {
-        newLock();
+        NewLock();
+        pickRotation = Vector3.zero;
+        Input.gyro.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.localPosition = pickPosition.position;
+        pickRotation.z = Input.gyro.rotationRateUnbiased.z;
 
         if (movePick)
         {
-            Vector3 dir = Input.mousePosition - cam.WorldToScreenPoint(transform.position);
+            eulerAngle = Input.gyro.attitude.eulerAngles.z;
 
-            eulerAngle = Vector3.Angle(dir, Vector3.up);
+            transform.rotation = Quaternion.Euler(0, 0, eulerAngle);
 
-            Vector3 cross = Vector3.Cross(Vector3.up, dir);
+            differenceAngle = eulerAngle - unlockAngle;
 
-            if (cross.z < 0)
+            if (differenceAngle > 180)
             {
-                eulerAngle = -eulerAngle;
+                differenceAngle = Mathf.Abs(360 - differenceAngle);
             }
-
-            eulerAngle = Mathf.Clamp(eulerAngle, -maxAngle, maxAngle);
-
-            Quaternion rotateT0 = Quaternion.AngleAxis(eulerAngle, Vector3.forward);
-            transform.rotation = rotateT0;
-
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.touchCount > 0)
         {
             movePick = false;
-            keyPressTime = 1;
 
+            if(differenceAngle < lockRange)
+            {
+                Debug.Log("unlock");
+                RotateInner();
+                NewLock();
+            }
         }
-        if (Input.GetKeyUp(KeyCode.D))
+        else
         {
             movePick = true;
-            keyPressTime = 0;
-        }
-
-        keyPressTime = Mathf.Clamp(keyPressTime, 0, 1);
-
-        float percentage = Mathf.Round(100 - Mathf.Abs(((eulerAngle - unlockAngle) / 100) * 100));
-        float lockRotation = ((percentage / 100) * maxAngle * keyPressTime);
-        float maxRotation = (percentage / 100) * maxAngle;
-
-        float lockLerp = Mathf.Lerp(InnerLock.eulerAngles.z, lockRotation, Time.deltaTime * lockSpeed);
-        InnerLock.eulerAngles = new Vector3(0, 0, lockLerp);
-
-        if(lockLerp>=maxRotation -1)
-        {
-            if(eulerAngle<unlockRange.y && eulerAngle> unlockRange.x)
-            {
-                Debug.Log("unlocked");
-                newLock();
-
-                movePick = true;
-                keyPressTime = 0;
-            }
-            else
-            {
-                float randomRotation = Random.insideUnitCircle.x;
-                transform.eulerAngles += new Vector3(0, 0, Random.Range(-randomRotation, randomRotation));
-            }
         }
     }
 
-    void newLock()
+    void RotateInner()
     {
-        unlockAngle = Random.Range(-maxAngle + lockRange, maxAngle += -lockRange);
-        unlockRange = new Vector2(unlockAngle - lockRange, unlockAngle + lockRange);
+        innerLock.transform.Rotate(new Vector3(0, 0, -10 * lockSpeed) * Time.deltaTime);
+    }
+    void NewLock()
+    {
+        unlockAngle = Mathf.Abs(Random.Range(0, 180));
     }
 }
