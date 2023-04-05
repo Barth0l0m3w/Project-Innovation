@@ -517,12 +517,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6d16577e890ce49915718b4a4bcbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InnerLock: {fileID: 275392751}
+  innerLock: {fileID: 275392751}
   pickPosition: {fileID: 1943489105}
-  maxAngle: 90
   lockSpeed: 5
   lockRange: 5
   unlockAngle: 0
+  timesTurned: 0
 --- !u!1 &1145276561
 GameObject:
   m_ObjectHideFlags: 0

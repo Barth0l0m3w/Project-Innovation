@@ -11,9 +11,6 @@ public class LockPick : MonoBehaviour
     private Transform pickPosition;
 
     [SerializeField]
-    private float maxAngle = 90;
-
-    [SerializeField]
     private float lockSpeed = 5f;
 
     [SerializeField]
@@ -44,23 +41,29 @@ public class LockPick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //set the rotation of the pick to the rotation of the gyro
         transform.localPosition = pickPosition.position;
         pickRotation.z = Input.gyro.rotationRateUnbiased.z;
 
+        //when not checking the position by touching the pick is movable
         if (movePick)
         {
+            //give eulerAngle the gyro information to make calculations
             eulerAngle = Input.gyro.attitude.eulerAngles.z;
 
             transform.rotation = Quaternion.Euler(0, 0, eulerAngle);
 
+            //calculate the difference between the unlockable angle and the angle the pick is in
             differenceAngle = eulerAngle - unlockAngle;
 
+            //unity works with 360 degrees. when the angle of the pick is over 180, reverse the numbers so the difference van be calculated correctly
             if (differenceAngle > 180)
             {
                 differenceAngle = Mathf.Abs(360 - differenceAngle);
             }
         }
 
+        //touching the phone to check the lock position
         if (Input.touchCount > 0)
         {
             movePick = false;
