@@ -19,7 +19,7 @@ public class CameraInput : MonoBehaviour
             //get the index of the new camera
             int newIndex = camerasP1.IndexOf(value);
 
-            //check is the camera is falid
+            //check is the camera is valid
             if (newIndex >= 0 && newIndex < camerasP1.Count)
             {
                 //set the new camera index and activate the new camera
@@ -28,7 +28,7 @@ public class CameraInput : MonoBehaviour
             }
             else
             {
-                Debug.Log("invalif camera selection");
+                Debug.Log("invalid camera selection");
             }
         }
     }
