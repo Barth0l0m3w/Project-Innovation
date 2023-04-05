@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CameraInput : MonoBehaviour
@@ -10,8 +11,9 @@ public class CameraInput : MonoBehaviour
     [SerializeField] private Image player1Walking;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP1;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP2;
-    [SerializeField] private int room;
-    [SerializeField] private Camera cameraP1;
+    [SerializeField] private int numberOfRooms;
+    private int _camerasInOneRoom;
+    private int _room;
     private int _currentCameraIndexP1;
     private int _currentCameraIndexP2;
 
@@ -81,6 +83,7 @@ public class CameraInput : MonoBehaviour
         }
 
         player1Walking.enabled = false;
+        _camerasInOneRoom = camerasP1.Count / numberOfRooms;
     }
 
     void Update()
@@ -95,43 +98,91 @@ public class CameraInput : MonoBehaviour
             // Set the current camera to the previous camera in the list
             CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 - 1 + camerasP2.Count) % camerasP2.Count];
         }
-        // if (Input.GetKeyUp(KeyCode.RightArrow))
-        // {
-        //     // Set the current camera to the next camera in the list
-        //     CurrentCameraP1 = camerasP1[(_currentCameraIndexP1 + 1) % camerasP1.Count];
-        // }
-        // else if (Input.GetKeyUp(KeyCode.LeftArrow))
-        // {
-        //     // Set the current camera to the previous camera in the list
-        //     CurrentCameraP1 = camerasP1[(_currentCameraIndexP1 - 1 + camerasP1.Count) % camerasP1.Count];
-        // }
-
+        //PLAYER 1 ---------------------------
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            CurrentCameraP1 = camerasP1[1*room+0];
+            SwitchToCamera(1,1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            CurrentCameraP1 = camerasP1[1*room+1];
+            SwitchToCamera(2,1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            CurrentCameraP1 = camerasP1[1*room+2];
+            SwitchToCamera(3,1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            CurrentCameraP1 = camerasP1[1*room+3];
+            SwitchToCamera(4,1);
         }
         
         if (Input.GetKeyUp(KeyCode.Alpha5))
         {
-            player1Walking.enabled = true;
-            Invoke(nameof(ShowImage), 2f);
-            CurrentCameraP1 = camerasP1[1*room+4];
-        }  
+            //Go forward
+            GoToTheRoom(1,1);
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha6))
+        {
+            //Go backwards
+            GoToTheRoom(numberOfRooms-1,1);
+        }
         
+        //PLAYER 2 --------------------------------
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            SwitchToCamera(1,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            SwitchToCamera(2,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            SwitchToCamera(3,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.R))
+        {
+            SwitchToCamera(4,2);
+        }
+        
+        if (Input.GetKeyUp(KeyCode.T))
+        {
+            //Go forward
+            GoToTheRoom(1,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.Y))
+        {
+            //Go backwards
+            GoToTheRoom(numberOfRooms-1,2);
+        }
+        
+        
+        
+    }
 
+    private void SwitchToCamera(int camera, int player)
+    {
+        if (player == 1)
+        {
+            CurrentCameraP1 = ChooseCorrectCamera(camerasP1, camera);
+        } else if (player == 2)
+        {
+            CurrentCameraP2 = ChooseCorrectCamera(camerasP2, camera);
+        }
+        
+    }
 
+    private CinemachineVirtualCamera ChooseCorrectCamera(List<CinemachineVirtualCamera> cameras, int camera)
+    {
+        return cameras[_camerasInOneRoom * (_room % numberOfRooms) + (camera - 1)];
+    }
+
+    private void GoToTheRoom(int room, int player)
+    {
+        _room += room;
+        player1Walking.enabled = true;
+        Invoke(nameof(ShowImage), 2f);
+        SwitchToCamera(1,player);
     }
 
     private void ShowImage()
