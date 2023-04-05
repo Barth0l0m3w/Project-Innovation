@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CameraInput : MonoBehaviour
@@ -10,10 +11,10 @@ public class CameraInput : MonoBehaviour
     [SerializeField] private Image player1Walking;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP1;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP2;
-    [SerializeField] private int room;
+    [SerializeField] private int room = 2;
     [SerializeField] private Camera cameraP1;
-    private int _currentCameraIndexP1;
-    private int _currentCameraIndexP2;
+    [SerializeField]private int _currentCameraIndexP1 = 0;
+    private int _currentCameraIndexP2 = 0;
 
     private CinemachineVirtualCamera CurrentCameraP1
     {
@@ -108,27 +109,38 @@ public class CameraInput : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            CurrentCameraP1 = camerasP1[1*room+0];
+            CurrentCameraP1 = camerasP1[4*(room%3)+0];
+            Debug.Log(4*(room%3)+0);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            CurrentCameraP1 = camerasP1[1*room+1];
+            CurrentCameraP1 = camerasP1[4*(room%3)+1];
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            CurrentCameraP1 = camerasP1[1*room+2];
+            CurrentCameraP1 = camerasP1[4*(room%3)+2];
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            CurrentCameraP1 = camerasP1[1*room+3];
+            CurrentCameraP1 = camerasP1[4*(room%3)+3];
         }
         
         if (Input.GetKeyUp(KeyCode.Alpha5))
         {
+            room++;
+            Debug.Log(4*(room%3));
             player1Walking.enabled = true;
             Invoke(nameof(ShowImage), 2f);
-            CurrentCameraP1 = camerasP1[1*room+4];
-        }  
+            CurrentCameraP1 = camerasP1[4*(room%3)];
+        } 
+        else if (Input.GetKeyUp(KeyCode.Alpha6))
+        {
+            room+=2;
+            int noNegativeRoom = Math.Abs(room);
+            player1Walking.enabled = true;
+            Invoke(nameof(ShowImage), 2f);
+            CurrentCameraP1 = camerasP1[4*(noNegativeRoom%3)];
+        }
         
 
 
