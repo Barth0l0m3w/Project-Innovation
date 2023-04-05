@@ -98,57 +98,91 @@ public class CameraInput : MonoBehaviour
             // Set the current camera to the previous camera in the list
             CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 - 1 + camerasP2.Count) % camerasP2.Count];
         }
-        // if (Input.GetKeyUp(KeyCode.RightArrow))
-        // {
-        //     // Set the current camera to the next camera in the list
-        //     CurrentCameraP1 = camerasP1[(_currentCameraIndexP1 + 1) % camerasP1.Count];
-        // }
-        // else if (Input.GetKeyUp(KeyCode.LeftArrow))
-        // {
-        //     // Set the current camera to the previous camera in the list
-        //     CurrentCameraP1 = camerasP1[(_currentCameraIndexP1 - 1 + camerasP1.Count) % camerasP1.Count];
-        // }
-
+        //PLAYER 1 ---------------------------
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            SwitchToCamera(1);
+            SwitchToCamera(1,1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            SwitchToCamera(2);
+            SwitchToCamera(2,1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            SwitchToCamera(3);
+            SwitchToCamera(3,1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            SwitchToCamera(4);
+            SwitchToCamera(4,1);
         }
         
         if (Input.GetKeyUp(KeyCode.Alpha5))
         {
             //Go forward
-            GoToTheRoom(1);
+            GoToTheRoom(1,1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha6))
         {
             //Go backwards
-            GoToTheRoom(numberOfRooms-1);
+            GoToTheRoom(numberOfRooms-1,1);
         }
+        
+        //PLAYER 2 --------------------------------
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            SwitchToCamera(1,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            SwitchToCamera(2,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            SwitchToCamera(3,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.R))
+        {
+            SwitchToCamera(4,2);
+        }
+        
+        if (Input.GetKeyUp(KeyCode.T))
+        {
+            //Go forward
+            GoToTheRoom(1,2);
+        }
+        else if (Input.GetKeyUp(KeyCode.Y))
+        {
+            //Go backwards
+            GoToTheRoom(numberOfRooms-1,2);
+        }
+        
+        
+        
     }
 
-    private void SwitchToCamera(int camera)
+    private void SwitchToCamera(int camera, int player)
     {
-        CurrentCameraP1 = camerasP1[_camerasInOneRoom*(_room%numberOfRooms)+(camera - 1)];
+        if (player == 1)
+        {
+            CurrentCameraP1 = ChooseCorrectCamera(camerasP1, camera);
+        } else if (player == 2)
+        {
+            CurrentCameraP2 = ChooseCorrectCamera(camerasP2, camera);
+        }
+        
     }
 
-    private void GoToTheRoom(int room)
+    private CinemachineVirtualCamera ChooseCorrectCamera(List<CinemachineVirtualCamera> cameras, int camera)
+    {
+        return cameras[_camerasInOneRoom * (_room % numberOfRooms) + (camera - 1)];
+    }
+
+    private void GoToTheRoom(int room, int player)
     {
         _room += room;
         player1Walking.enabled = true;
         Invoke(nameof(ShowImage), 2f);
-        CurrentCameraP1 = camerasP1[4*(_room%numberOfRooms)];
+        SwitchToCamera(1,player);
     }
 
     private void ShowImage()
