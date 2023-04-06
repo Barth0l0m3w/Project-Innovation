@@ -82,20 +82,22 @@ public class LockPick : MonoBehaviour
             movePick = true;
         }
 
-        //timer stuff
+        //timer stuff, only running when the function is needed
         if (isRunning)
         {
+            //when called start the timer, disable the moving of the pick and start rotating the inner lock
             countdownTime -= Time.deltaTime;
             movePick = false;
             RotateInner();
 
             if (countdownTime <= 0)
             {
+                //when done: up the int, reset timer, enable moving the pick and stop the function
                 timesTurned++;
-                Debug.Log("Timer reset");
                 countdownTime = timerTime;
-                isRunning = false;
                 movePick = true;
+                isRunning = false;
+                
             }
         }
 
@@ -118,6 +120,7 @@ public class LockPick : MonoBehaviour
 
     void RotateInner()
     {
+        //rotate the inner lock image
         innerLock.transform.Rotate(new Vector3(0, 0, -10 * lockSpeed) * Time.deltaTime);
     }
 
