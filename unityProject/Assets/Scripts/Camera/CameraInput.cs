@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class CameraInput : MonoBehaviour
 {
-    [SerializeField] private Image player1Walking;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP1;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP2;
+    [SerializeField] private List<CinemachineVirtualCamera> transitionCameras;
     [SerializeField] private int numberOfRooms;
     private int _camerasInOneRoom;
     private int _room;
@@ -19,7 +19,9 @@ public class CameraInput : MonoBehaviour
 
     private CinemachineVirtualCamera CurrentCameraP1
     {
+        get => camerasP1[_currentCameraIndexP1];
         set => SetProperCamera(camerasP1, value,1);
+        
     }
 
     private CinemachineVirtualCamera CurrentCameraP2
@@ -82,7 +84,7 @@ public class CameraInput : MonoBehaviour
             CurrentCameraP2 = camerasP2[_currentCameraIndexP2];
         }
 
-        player1Walking.enabled = false;
+        //player1Walking.enabled = false;
         _camerasInOneRoom = camerasP1.Count / numberOfRooms;
     }
 
@@ -119,11 +121,14 @@ public class CameraInput : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Alpha5))
         {
             //Go forward
-            GoToTheRoom(1,1);
+            if (transitionCameras.Contains(CurrentCameraP1))
+            {
+                GoToTheRoom(1,1);
+            }
         }
         else if (Input.GetKeyUp(KeyCode.Alpha6))
         {
-            //Go backwards
+            //Go to the basement
             GoToTheRoom(numberOfRooms-1,1);
         }
         
@@ -179,14 +184,52 @@ public class CameraInput : MonoBehaviour
 
     private void GoToTheRoom(int room, int player)
     {
+        //StartCoroutine(FadeInImageOverTime(player1Walking, 1f)); // Fade out over 3 seconds
+        
+
         _room += room;
-        player1Walking.enabled = true;
-        Invoke(nameof(ShowImage), 2f);
+        Debug.Log(_room);
+        //player1Walking.enabled = true;
+        //Invoke(nameof(ShowImage), 2f);
         SwitchToCamera(1,player);
     }
 
-    private void ShowImage()
+    private void QuickSwitchToCamera(CinemachineVirtualCamera camera)
     {
-        player1Walking.enabled = false;
+        CurrentCameraP1 = camera;
     }
+
+    IEnumerator FadeOutImageOverTime(Image image, float time)
+    {
+        Color startingColor = image.color;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < time)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / time);
+            image.color = new Color(startingColor.r, startingColor.g, startingColor.b, alpha);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+    
+    IEnumerator FadeInImageOverTime(Image image, float time)
+    {
+        Color startingColor = image.color;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < time)
+        {
+            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / time);
+            image.color = new Color(startingColor.r, startingColor.g, startingColor.b, alpha);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        image.color = new Color(startingColor.r, startingColor.g, startingColor.b, 0f);
+        //image.color = startingColor;
+    }
+
+
+
 }
