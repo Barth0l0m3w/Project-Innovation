@@ -1,35 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class LockPick : MonoBehaviour
 {
+    //images for the turning linked
     [SerializeField]
     private Transform innerLock;
     [SerializeField]
     private Transform pickPosition;
 
+    //unlock mechanism variables
     [SerializeField]
     private float lockSpeed = 5f;
-
     [SerializeField]
     private float lockRange = 10;
-
-    private float differenceAngle;
-    private float eulerAngle;
-
     [SerializeField]
     private float unlockAngle;
-
-    [SerializeField]
-    private int timesTurned = 0;
-
+    private float differenceAngle;
+    private float eulerAngle;
     private Vector3 pickRotation;
 
+    //stuff
+    [SerializeField]
+    private int timesTurned = 0;
     private bool movePick = true;
 
-    private bool correct = false;
+    //timer variables
+    [SerializeField]
+    private float timerTime;
+    private float countdownTime = 1f;
+    private bool isRunning;
 
     void Start()
     {
@@ -38,7 +41,6 @@ public class LockPick : MonoBehaviour
         Input.gyro.enabled = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //set the rotation of the pick to the rotation of the gyro
@@ -56,7 +58,7 @@ public class LockPick : MonoBehaviour
             //calculate the difference between the unlockable angle and the angle the pick is in
             differenceAngle = eulerAngle - unlockAngle;
 
-            //unity works with 360 degrees. when the angle of the pick is over 180, reverse the numbers so the difference van be calculated correctly
+            //unity works with 360 degrees. when the angle of the pick is over 180, reverse the numbers so the difference can be calculated correctly
             if (differenceAngle > 180)
             {
                 differenceAngle = Mathf.Abs(360 - differenceAngle);
@@ -68,10 +70,10 @@ public class LockPick : MonoBehaviour
         {
             movePick = false;
 
-            if(differenceAngle < lockRange)
+            if (differenceAngle < lockRange)
             {
                 Debug.Log("unlock");
-                RotateInner();
+                ActivateTimer();
                 NewLock();
             }
         }
@@ -79,14 +81,49 @@ public class LockPick : MonoBehaviour
         {
             movePick = true;
         }
+
+        //timer stuff
+        if (isRunning)
+        {
+            countdownTime -= Time.deltaTime;
+            movePick = false;
+            RotateInner();
+
+            if (countdownTime <= 0)
+            {
+                timesTurned++;
+                Debug.Log("Timer reset");
+                countdownTime = timerTime;
+                isRunning = false;
+                movePick = true;
+            }
+        }
+
+        if(timesTurned == 3)
+        {
+            GameDone();
+        }
+    }
+
+    void GameDone()
+    {
+        Debug.Log("game finished, yay");
+        //switch scenes here
+    }
+
+    void ActivateTimer()
+    {
+        isRunning = true;
     }
 
     void RotateInner()
     {
         innerLock.transform.Rotate(new Vector3(0, 0, -10 * lockSpeed) * Time.deltaTime);
     }
+
     void NewLock()
     {
+        //get a random angle between 0 and 180 degrees for the new pick location
         unlockAngle = Mathf.Abs(Random.Range(0, 180));
     }
 }

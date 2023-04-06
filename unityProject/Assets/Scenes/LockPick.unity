@@ -523,6 +523,7 @@ MonoBehaviour:
   lockRange: 5
   unlockAngle: 0
   timesTurned: 0
+  timerTime: 1
 --- !u!1 &1145276561
 GameObject:
   m_ObjectHideFlags: 0
