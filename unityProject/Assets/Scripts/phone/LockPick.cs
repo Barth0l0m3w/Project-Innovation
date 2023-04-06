@@ -18,7 +18,7 @@ public class LockPick : MonoBehaviour
     [SerializeField]
     private float lockRange = 10;
     [SerializeField]
-    private float unlockAngle;
+    private float unlockAngle = 15;
     private float differenceAngle;
     private float eulerAngle;
     private Vector3 pickRotation;
@@ -74,7 +74,7 @@ public class LockPick : MonoBehaviour
             {
                 Debug.Log("unlock");
                 ActivateTimer();
-                NewLock();
+
             }
         }
         else
@@ -92,7 +92,7 @@ public class LockPick : MonoBehaviour
             if (countdownTime <= 0)
             {
                 timesTurned++;
-                Debug.Log("Timer reset");
+                NewLock();
                 countdownTime = timerTime;
                 isRunning = false;
                 movePick = true;
@@ -123,7 +123,17 @@ public class LockPick : MonoBehaviour
 
     void NewLock()
     {
-        //get a random angle between 0 and 180 degrees for the new pick location
-        unlockAngle = Mathf.Abs(Random.Range(0, 180));
+        if (timesTurned == 0)
+        {
+            unlockAngle = 90;
+        }
+        if (timesTurned == 1)
+        {
+            unlockAngle = 15;
+        }
+        if (timesTurned == 2)
+        {
+            unlockAngle = 90;
+        }
     }
 }
