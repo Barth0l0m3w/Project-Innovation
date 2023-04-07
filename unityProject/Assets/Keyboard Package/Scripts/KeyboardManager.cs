@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class KeyboardManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static KeyboardManager Instance;
     [SerializeField] TextMeshProUGUI textBox;
     [SerializeField] TextMeshProUGUI printBox;
 
