@@ -13,7 +13,8 @@ public class CameraInput : MonoBehaviour
     [SerializeField] private List<CinemachineVirtualCamera> transitionCameras;
     [SerializeField] private int numberOfRooms;
     private int _camerasInOneRoom;
-    private int _room;
+    private int _roomP1;
+    private int _roomP2;
     private int _currentCameraIndexP1;
     private int _currentCameraIndexP2;
 
@@ -26,6 +27,7 @@ public class CameraInput : MonoBehaviour
 
     private CinemachineVirtualCamera CurrentCameraP2
     {
+        get => camerasP2[_currentCameraIndexP2];
         set => SetProperCamera(camerasP2, value, 2);
     }
 
@@ -90,108 +92,75 @@ public class CameraInput : MonoBehaviour
 
     void Update()
     {
-        // Check for keyboard input to cycle through the cameras
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 + 1) % camerasP2.Count];
-        }
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            // Set the current camera to the previous camera in the list
-            CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 - 1 + camerasP2.Count) % camerasP2.Count];
-        }
         //PLAYER 1 ---------------------------
-        if (Input.GetKeyUp(KeyCode.Alpha1))
+        if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             SwitchToCamera(1,1);
         }
+        else if (Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            SwitchToCamera(_camerasInOneRoom-1,1);
+        }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            SwitchToCamera(2,1);
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            SwitchToCamera(3,1);
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha4))
-        {
-            SwitchToCamera(4,1);
-        }
-        
-        if (Input.GetKeyUp(KeyCode.Alpha5))
-        {
-            //Go forward
             if (transitionCameras.Contains(CurrentCameraP1))
             {
+                Debug.Log("Switching to the basement player 1");
                 GoToTheRoom(1,1);
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha6))
-        {
-            //Go to the basement
-            GoToTheRoom(numberOfRooms-1,1);
-        }
-        
+
         //PLAYER 2 --------------------------------
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.E))
         {
             SwitchToCamera(1,2);
         }
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            SwitchToCamera(_camerasInOneRoom-1,2);
+        }
         else if (Input.GetKeyUp(KeyCode.W))
         {
-            SwitchToCamera(2,2);
-        }
-        else if (Input.GetKeyUp(KeyCode.E))
-        {
-            SwitchToCamera(3,2);
-        }
-        else if (Input.GetKeyUp(KeyCode.R))
-        {
-            SwitchToCamera(4,2);
-        }
-        
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-            //Go forward
-            GoToTheRoom(1,2);
-        }
-        else if (Input.GetKeyUp(KeyCode.Y))
-        {
-            //Go backwards
-            GoToTheRoom(numberOfRooms-1,2);
+            if (transitionCameras.Contains(CurrentCameraP2))
+            {
+                Debug.Log("Switching to the basement player 2");
+                GoToTheRoom(1,2);
+            }
         }
         
         
         
     }
 
-    private void SwitchToCamera(int camera, int player)
+    private void SwitchToCamera(int cameraValue, int player)
     {
         if (player == 1)
         {
-            CurrentCameraP1 = ChooseCorrectCamera(camerasP1, camera);
+            CurrentCameraP1 = ChooseCorrectCamera(camerasP1, cameraValue, _currentCameraIndexP1, _roomP1);
         } else if (player == 2)
         {
-            CurrentCameraP2 = ChooseCorrectCamera(camerasP2, camera);
+            CurrentCameraP2 = ChooseCorrectCamera(camerasP2, cameraValue, _currentCameraIndexP2, _roomP2);
         }
         
     }
 
-    private CinemachineVirtualCamera ChooseCorrectCamera(List<CinemachineVirtualCamera> cameras, int camera)
+    private CinemachineVirtualCamera ChooseCorrectCamera(List<CinemachineVirtualCamera> cameras, int cameraValue, int currentCameraIndex, int room)
     {
-        return cameras[_camerasInOneRoom * (_room % numberOfRooms) + (camera - 1)];
+        int goToTheCamera = Math.Abs(currentCameraIndex + cameraValue);
+        Debug.Log(goToTheCamera%_camerasInOneRoom);
+        return cameras[_camerasInOneRoom * (room % numberOfRooms) + goToTheCamera%_camerasInOneRoom];
     }
 
     private void GoToTheRoom(int room, int player)
     {
-        //StartCoroutine(FadeInImageOverTime(player1Walking, 1f)); // Fade out over 3 seconds
-        
-
-        _room += room;
-        Debug.Log(_room);
-        //player1Walking.enabled = true;
-        //Invoke(nameof(ShowImage), 2f);
-        SwitchToCamera(1,player);
+        if (player == 1)
+        {
+            _roomP1 += room;
+        } else if (player == 2)
+        {
+            _roomP2 += room;
+        }
+        SwitchToCamera(0,player);
     }
 
     private void QuickSwitchToCamera(CinemachineVirtualCamera camera)
