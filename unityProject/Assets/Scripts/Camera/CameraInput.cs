@@ -21,8 +21,7 @@ public class CameraInput : MonoBehaviour
     private CinemachineVirtualCamera CurrentCameraP1
     {
         get => camerasP1[_currentCameraIndexP1];
-        set => SetProperCamera(camerasP1, value,1);
-        
+        set => SetProperCamera(camerasP1, value, 1);
     }
 
     private CinemachineVirtualCamera CurrentCameraP2
@@ -58,14 +57,12 @@ public class CameraInput : MonoBehaviour
             {
                 _currentCameraIndexP1 = newIndex;
                 CameraSwitcher.RegisterP1(cameras[newIndex]);
-                
             }
             else
             {
                 _currentCameraIndexP2 = newIndex;
                 CameraSwitcher.RegisterP2(cameras[newIndex]);
             }
-            
         }
         else
         {
@@ -95,41 +92,50 @@ public class CameraInput : MonoBehaviour
         //PLAYER 1 ---------------------------
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            SwitchToCamera(1,1);
+            SwitchToCamera(1, 1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            SwitchToCamera(_camerasInOneRoom-1,1);
+            SwitchToCamera(_camerasInOneRoom - 1, 1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             if (transitionCameras.Contains(CurrentCameraP1))
             {
-                Debug.Log("Switching to the basement player 1");
-                GoToTheRoom(1,1);
+                if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
+                {
+                    GoToTheRoom(-1, 1);
+                }
+                else
+                {
+                    GoToTheRoom(1, 1);
+                }
             }
         }
 
         //PLAYER 2 --------------------------------
         if (Input.GetKeyUp(KeyCode.E))
         {
-            SwitchToCamera(1,2);
+            SwitchToCamera(1, 2);
         }
         else if (Input.GetKeyUp(KeyCode.Q))
         {
-            SwitchToCamera(_camerasInOneRoom-1,2);
+            SwitchToCamera(_camerasInOneRoom - 1, 2);
         }
         else if (Input.GetKeyUp(KeyCode.W))
         {
             if (transitionCameras.Contains(CurrentCameraP2))
             {
-                Debug.Log("Switching to the basement player 2");
-                GoToTheRoom(1,2);
+                if (transitionCameras.IndexOf(CurrentCameraP2) >= 8)
+                {
+                    GoToTheRoom(-1, 2);
+                }
+                else
+                {
+                    GoToTheRoom(1, 2);
+                }
             }
         }
-        
-        
-        
     }
 
     private void SwitchToCamera(int cameraValue, int player)
@@ -137,18 +143,30 @@ public class CameraInput : MonoBehaviour
         if (player == 1)
         {
             CurrentCameraP1 = ChooseCorrectCamera(camerasP1, cameraValue, _currentCameraIndexP1, _roomP1);
-        } else if (player == 2)
+        }
+        else if (player == 2)
         {
             CurrentCameraP2 = ChooseCorrectCamera(camerasP2, cameraValue, _currentCameraIndexP2, _roomP2);
         }
-        
     }
 
-    private CinemachineVirtualCamera ChooseCorrectCamera(List<CinemachineVirtualCamera> cameras, int cameraValue, int currentCameraIndex, int room)
+    private void SetTransitionCamera(int player)
+    {
+        if (player == 1)
+        {
+            CurrentCameraP1 = camerasP1[_camerasInOneRoom * (_roomP1 % numberOfRooms)];
+        }
+        else if (player == 2)
+        {
+            CurrentCameraP2 = camerasP2[_camerasInOneRoom * (_roomP2 % numberOfRooms)];
+        }
+    }
+
+    private CinemachineVirtualCamera ChooseCorrectCamera(List<CinemachineVirtualCamera> cameras, int cameraValue,
+        int currentCameraIndex, int room)
     {
         int goToTheCamera = Math.Abs(currentCameraIndex + cameraValue);
-        Debug.Log(goToTheCamera%_camerasInOneRoom);
-        return cameras[_camerasInOneRoom * (room % numberOfRooms) + goToTheCamera%_camerasInOneRoom];
+        return cameras[_camerasInOneRoom * (room % numberOfRooms) + goToTheCamera % _camerasInOneRoom];
     }
 
     private void GoToTheRoom(int room, int player)
@@ -156,49 +174,12 @@ public class CameraInput : MonoBehaviour
         if (player == 1)
         {
             _roomP1 += room;
-        } else if (player == 2)
+        }
+        else if (player == 2)
         {
             _roomP2 += room;
         }
-        SwitchToCamera(0,player);
+
+        SetTransitionCamera(player);
     }
-
-    private void QuickSwitchToCamera(CinemachineVirtualCamera camera)
-    {
-        CurrentCameraP1 = camera;
-    }
-
-    IEnumerator FadeOutImageOverTime(Image image, float time)
-    {
-        Color startingColor = image.color;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < time)
-        {
-            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / time);
-            image.color = new Color(startingColor.r, startingColor.g, startingColor.b, alpha);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-    
-    IEnumerator FadeInImageOverTime(Image image, float time)
-    {
-        Color startingColor = image.color;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < time)
-        {
-            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / time);
-            image.color = new Color(startingColor.r, startingColor.g, startingColor.b, alpha);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        image.color = new Color(startingColor.r, startingColor.g, startingColor.b, 0f);
-        //image.color = startingColor;
-    }
-
-
-
 }
