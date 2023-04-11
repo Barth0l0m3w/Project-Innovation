@@ -520,7 +520,7 @@ MonoBehaviour:
   innerLock: {fileID: 275392751}
   pickPosition: {fileID: 1943489105}
   lockSpeed: 5
-  lockRange: 5
+  lockRange: 2.5
   unlockAngle: 0
   timesTurned: 0
   timerTime: 1

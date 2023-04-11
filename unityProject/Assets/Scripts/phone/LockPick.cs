@@ -16,7 +16,7 @@ public class LockPick : MonoBehaviour
     [SerializeField]
     private float lockSpeed = 5f;
     [SerializeField]
-    private float lockRange = 10;
+    private float lockRange;
     [SerializeField]
     private float unlockAngle = 15;
     private float differenceAngle;
@@ -25,7 +25,7 @@ public class LockPick : MonoBehaviour
 
     //stuff
     [SerializeField]
-    private int timesTurned = 0;
+    private int timesTurned;
     private bool movePick = true;
 
     //timer variables
@@ -53,9 +53,10 @@ public class LockPick : MonoBehaviour
             //give eulerAngle the gyro information to make calculations
             eulerAngle = Input.gyro.attitude.eulerAngles.z;
 
-            transform.rotation = Quaternion.Euler(0, 0, eulerAngle);
+            transform.rotation = Quaternion.Euler(0, 0, eulerAngle - 90);
 
             //calculate the difference between the unlockable angle and the angle the pick is in
+            //NEED: make a function that gives an indication when the player is in the correct spot with the pick
             differenceAngle = eulerAngle - unlockAngle;
 
             //unity works with 360 degrees. when the angle of the pick is over 180, reverse the numbers so the difference can be calculated correctly
@@ -82,24 +83,25 @@ public class LockPick : MonoBehaviour
             movePick = true;
         }
 
-        //timer stuff
+        //timer stuff, only running when the function is needed
         if (isRunning)
         {
+            //when called start the timer, disable the moving of the pick and start rotating the inner lock
             countdownTime -= Time.deltaTime;
             movePick = false;
             RotateInner();
 
             if (countdownTime <= 0)
             {
+                //when done: up the int, reset timer, enable moving the pick and stop the function
                 timesTurned++;
-                NewLock();
                 countdownTime = timerTime;
-                isRunning = false;
                 movePick = true;
+                isRunning = false;
             }
         }
 
-        if(timesTurned == 3)
+        if (timesTurned == 3)
         {
             GameDone();
         }
@@ -118,6 +120,7 @@ public class LockPick : MonoBehaviour
 
     void RotateInner()
     {
+        //rotate the inner lock image
         innerLock.transform.Rotate(new Vector3(0, 0, -10 * lockSpeed) * Time.deltaTime);
     }
 
