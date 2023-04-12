@@ -692,7 +692,7 @@ GameObject:
   - component: {fileID: 1032424600}
   - component: {fileID: 1032424599}
   m_Layer: 0
-  m_Name: Dummy Game Manager
+  m_Name: TextInputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -712,6 +712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBox: {fileID: 852178559}
   printBox: {fileID: 63264406}
+  correctWord: word
 --- !u!4 &1032424600
 Transform:
   m_ObjectHideFlags: 0
