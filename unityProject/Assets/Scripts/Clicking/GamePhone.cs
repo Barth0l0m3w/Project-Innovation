@@ -11,7 +11,7 @@ public class GamePhone : MonoBehaviour
 
     private void Update()
     {
-        if (isCameraForward)
+        if (Client.Instance.ShowDoorButton)
         {
             forwardButton.SetActive(true);
         }

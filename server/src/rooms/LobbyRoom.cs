@@ -48,8 +48,6 @@ namespace server
 		{
 			base.removeMember(pMember);
 			_readyMembers.Remove(pMember);
-
-			//sendLobbyUpdateCount(pMember);
 		}
 
 		protected override void handleNetworkMessage(ASerializable pMessage, TcpMessageChannel pSender)

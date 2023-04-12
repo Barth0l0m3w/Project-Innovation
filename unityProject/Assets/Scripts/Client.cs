@@ -17,12 +17,80 @@ public class Client : MonoBehaviour
     private bool _playerTwoClicked;
     private bool _isPlayerOneReady;
     private bool _isPlayerTwoReady;
-    private bool _isDoorVisibleP1P1;
+    private bool _isDoorVisibleP1;
+    private bool _isDoorVisibleP2;
+    private int _buttonClicked;
+    private int _cameraNumberP1;
+    private int _cameraNumberP2;
+    private int _roomP1;
+    private int _roomP2;
+
+    public int RoomP1
+    {
+        get => _roomP1;
+        set => _roomP1 = value;
+    }
+
+    public int RoomP2
+    {
+        get => _roomP2;
+        set => _roomP2 = value;
+    }
+
+
+    public int CameraNumberP1
+    {
+        get => _cameraNumberP1;
+        set => _cameraNumberP1 = value;
+    }
+
+    public int CameraNumberP2
+    {
+        get => _cameraNumberP2;
+        set => _cameraNumberP2 = value;
+    }
+
+
+    public int ButtonClicked
+    {
+        get => _buttonClicked;
+        set => _buttonClicked = value;
+    }
+
+    private int _buttonP1;
+    private int _buttonP2;
+
+    public int ButtonP1
+    {
+        get => _buttonP1;
+        set => _buttonP1 = value;
+    }
+
+    public int ButtonP2
+    {
+        get => _buttonP2;
+        set => _buttonP2 = value;
+    }
+
+
+    public bool IsDoorVisibleP2
+    {
+        get => _isDoorVisibleP2;
+        set => _isDoorVisibleP2 = value;
+    }
+
+    public bool ShowDoorButton
+    {
+        get => _showDoorButton;
+        set => _showDoorButton = value;
+    }
+
+    private bool _showDoorButton;
 
     public bool IsDoorVisibleP1
     {
-        get => _isDoorVisibleP1P1;
-        set => _isDoorVisibleP1P1 = value;
+        get => _isDoorVisibleP1;
+        set => _isDoorVisibleP1 = value;
     }
 
     private bool _isCurrentStateNotNull;

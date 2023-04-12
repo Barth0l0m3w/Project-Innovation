@@ -100,24 +100,42 @@ namespace server
 			{
 				SetTheDoorActive(pMessage as DoorActive);
 			}
+
+			if (pMessage is ChooseCamera)
+			{
+				ChooseCorrectCamera(pMessage as ChooseCamera, pSender);
+			}
+		}
+
+		private void ChooseCorrectCamera(ChooseCamera pMessage, TcpMessageChannel pSender)
+		{
+			int character = _server.GetPlayerInfo(pSender).characterID;
+
+			if (character == 1)
+			{
+				ChooseCamera camera = new ChooseCamera();
+				camera.Camera = pMessage.Camera;
+				camera.Player = 1;
+				_laptop.SendMessage(camera);
+			}
 		}
 
 		private void SetTheDoorActive(DoorActive doorActive)
 		{
-			if (doorActive.IsActive)
-			{
+			
 				if (doorActive.Player == 1)
 				{
 					DoorActive sendDoor = new DoorActive();
 					sendDoor.IsActive = doorActive.IsActive;
 					_player1.SendMessage(sendDoor);
-				}	
-				Console.WriteLine("Door is ready");	
-			}
-			else
-			{
-				Console.WriteLine("Door is not ready");
-			}
+				}
+				else
+				{
+					DoorActive sendDoor = new DoorActive();
+					sendDoor.IsActive = doorActive.IsActive;
+					_player2.SendMessage(sendDoor);
+				}
+
 		}
 
 		private void HandleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)

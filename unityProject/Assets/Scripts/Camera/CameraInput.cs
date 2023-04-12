@@ -90,20 +90,21 @@ public class CameraInput : MonoBehaviour
     void Update()
     {
         //PLAYER 1 ---------------------------
-        if (Input.GetKeyUp(KeyCode.Alpha3))
+        if (Input.GetKeyUp(KeyCode.Alpha3) || Client.Instance.ButtonP1 == 3)
         {
             SwitchToCamera(1, 1);
+            Client.Instance.ButtonP1 = 0;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha1))
+        else if (Input.GetKeyUp(KeyCode.Alpha1) || Client.Instance.ButtonP1 == 1)
         {
             SwitchToCamera(_camerasInOneRoom - 1, 1);
+            Client.Instance.ButtonP1 = 0;
         }
         
         if (transitionCameras.Contains(CurrentCameraP1))
         {
             Client.Instance.IsDoorVisibleP1 = true;
-            Debug.Log("Looking at the door");
-            if (Input.GetKeyUp(KeyCode.Alpha2))
+            if (Input.GetKeyUp(KeyCode.Alpha2) || Client.Instance.ButtonP1 == 2)
             {
                 if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
                 {
@@ -113,8 +114,12 @@ public class CameraInput : MonoBehaviour
                 {
                     GoToTheRoom(1, 1);
                 }
+                Client.Instance.ButtonP1 = 0;
             }
-            
+        }
+        else
+        {
+            Client.Instance.IsDoorVisibleP1 = false;
         }
         
 
@@ -127,9 +132,11 @@ public class CameraInput : MonoBehaviour
         {
             SwitchToCamera(_camerasInOneRoom - 1, 2);
         }
-        else if (Input.GetKeyUp(KeyCode.W))
+        
+        if (transitionCameras.Contains(CurrentCameraP2))
         {
-            if (transitionCameras.Contains(CurrentCameraP2))
+            Client.Instance.IsDoorVisibleP2 = true;
+            if (Input.GetKeyUp(KeyCode.W))
             {
                 if (transitionCameras.IndexOf(CurrentCameraP2) >= 8)
                 {
@@ -141,12 +148,17 @@ public class CameraInput : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            Client.Instance.IsDoorVisibleP2 = false;
+        }
     }
 
     private void SwitchToCamera(int cameraValue, int player)
     {
         if (player == 1)
         {
+            Client.Instance.CameraNumberP1 = _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom;
             CurrentCameraP1 = ChooseCorrectCamera(camerasP1, cameraValue, _currentCameraIndexP1, _roomP1);
         }
         else if (player == 2)
