@@ -98,9 +98,12 @@ public class CameraInput : MonoBehaviour
         {
             SwitchToCamera(_camerasInOneRoom - 1, 1);
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
+        
+        if (transitionCameras.Contains(CurrentCameraP1))
         {
-            if (transitionCameras.Contains(CurrentCameraP1))
+            Client.Instance.IsDoorVisibleP1 = true;
+            Debug.Log("Looking at the door");
+            if (Input.GetKeyUp(KeyCode.Alpha2))
             {
                 if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
                 {
@@ -111,7 +114,9 @@ public class CameraInput : MonoBehaviour
                     GoToTheRoom(1, 1);
                 }
             }
+            
         }
+        
 
         //PLAYER 2 --------------------------------
         if (Input.GetKeyUp(KeyCode.E))

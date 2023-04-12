@@ -119,6 +119,7 @@ namespace server
 				else if (_server.GetPlayerInfo(pSender).deviceType == 1)
 				{
 					_readyMembers.Add(pSender, pReadyNotification.characterID);
+					_server.GetPlayerInfo(pSender).characterID = pReadyNotification.characterID;
 					Console.WriteLine("Player ready");
 				}
 				
@@ -146,6 +147,7 @@ namespace server
 				
 				GameRoom room = new GameRoom(_server);
 				room.StartGame(player1,player2, laptop);
+				_server.GetRooms().Add(room);
 				// _server.GetRooms().Add(room);
 				// room.StartGame(player1,player2);
 			}

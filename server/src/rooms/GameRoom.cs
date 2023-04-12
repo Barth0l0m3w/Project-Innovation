@@ -1,5 +1,6 @@
 using shared;
 using System;
+using System.Dynamic;
 
 namespace server
 {
@@ -12,9 +13,12 @@ namespace server
 	 * The game has no end yet (that is up to you), in other words:
 	 * all players that are added to this room, stay in here indefinitely.
 	 */
-	class GameRoom : Room
+	class GameRoom : SimpleRoom
 	{
 		public bool IsGameInPlay { get; private set; }
+		private TcpMessageChannel _player1;
+		private TcpMessageChannel _player2;
+		private TcpMessageChannel _laptop;
 
 		//wraps the board to play on...
 		private TicTacToeBoard _board = new TicTacToeBoard();
@@ -31,6 +35,25 @@ namespace server
 			addMember(pPlayer1);
 			addMember(pPlayer2);
 			addMember(laptop);
+			if (_server.GetPlayerInfo(pPlayer1).characterID == 1)
+			{
+				_player1 = pPlayer1;
+			}
+			else
+			{
+				_player2 = pPlayer1;
+			}
+			
+			if (_server.GetPlayerInfo(pPlayer2).characterID == 1)
+			{
+				_player1 = pPlayer2;
+			}
+			else
+			{
+				_player2 = pPlayer2;
+			}
+			
+			_laptop = laptop;
 			RoomEntered roomEntered = new RoomEntered();
 			roomEntered.player1 = _server.GetPlayerInfo(pPlayer1);
 			roomEntered.player2 = _server.GetPlayerInfo(pPlayer2);
@@ -54,7 +77,6 @@ namespace server
 			int oldMemberCount = memberCount;
 			base.Update();
 			int newMemberCount = memberCount;
-
 			if (oldMemberCount != newMemberCount)
 			{
 				Log.LogInfo("People left the game...", this);
@@ -63,18 +85,42 @@ namespace server
 
 		protected override void handleNetworkMessage(ASerializable pMessage, TcpMessageChannel pSender)
 		{
-			if (pMessage is MakeMoveRequest)
-			{
-				handleMakeMoveRequest(pMessage as MakeMoveRequest, pSender);
-			}
+			
+			// if (pMessage is MakeMoveRequest)
+			// {
+			// 	HandleMakeMoveRequest(pMessage as MakeMoveRequest, pSender);
+			// }
+			//
+			// if (pMessage is PlayerJoinRequest)
+			// {
+			// 	HandlePlayerJoin(pSender);
+			// }
 
-			if (pMessage is PlayerJoinRequest)
+			if (pMessage is DoorActive)
 			{
-				HandlePlayerJoin(pSender);
+				SetTheDoorActive(pMessage as DoorActive);
 			}
 		}
 
-		private void handleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)
+		private void SetTheDoorActive(DoorActive doorActive)
+		{
+			if (doorActive.IsActive)
+			{
+				if (doorActive.Player == 1)
+				{
+					DoorActive sendDoor = new DoorActive();
+					sendDoor.IsActive = doorActive.IsActive;
+					_player1.SendMessage(sendDoor);
+				}	
+				Console.WriteLine("Door is ready");	
+			}
+			else
+			{
+				Console.WriteLine("Door is not ready");
+			}
+		}
+
+		private void HandleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)
 		{
 			//we have two players, so index of sender is 0 or 1, which means playerID becomes 1 or 2
 			int playerID = indexOfMember(pSender) + 1;
@@ -101,19 +147,19 @@ namespace server
 			}
 		}
 		
-		private void HandlePlayerJoin(TcpMessageChannel pSender)
-		{
-			PlayerJoinResponse response = new PlayerJoinResponse();
-			response.result = PlayerJoinResponse.RequestResult.ACCEPTED;
-			PlayerInfo newPlayerInfo = _server.GetPlayerInfo(pSender);
-			if (newPlayerInfo != null)
-			{
-				removeMember(pSender);
-				pSender.SendMessage(response);
-				_infos.Remove(pSender);
-				_server.GetLobbyRoom().AddMember(pSender);
-			}
-		}
+		// private void HandlePlayerJoin(TcpMessageChannel pSender)
+		// {
+		// 	PlayerJoinResponse response = new PlayerJoinResponse();
+		// 	response.result = PlayerJoinResponse.RequestResult.ACCEPTED;
+		// 	PlayerInfo newPlayerInfo = _server.GetPlayerInfo(pSender);
+		// 	if (newPlayerInfo != null)
+		// 	{
+		// 		removeMember(pSender);
+		// 		pSender.SendMessage(response);
+		// 		_infos.Remove(pSender);
+		// 		_server.GetLobbyRoom().AddMember(pSender);
+		// 	}
+		// }
 		
 		public void AddRoom(GameRoom room)
 		{

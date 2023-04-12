@@ -17,6 +17,14 @@ public class Client : MonoBehaviour
     private bool _playerTwoClicked;
     private bool _isPlayerOneReady;
     private bool _isPlayerTwoReady;
+    private bool _isDoorVisibleP1P1;
+
+    public bool IsDoorVisibleP1
+    {
+        get => _isDoorVisibleP1P1;
+        set => _isDoorVisibleP1P1 = value;
+    }
+
     private bool _isCurrentStateNotNull;
 
     /// <summary>
