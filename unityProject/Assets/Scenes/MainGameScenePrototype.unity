@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -351,7 +351,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -623,7 +623,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1158,7 +1158,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1312,7 +1312,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1865,7 +1865,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1936,7 +1936,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2007,7 +2007,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2173,7 +2173,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2342,7 +2342,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2543,7 +2543,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3307,7 +3307,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3461,7 +3461,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3662,7 +3662,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3733,7 +3733,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3899,7 +3899,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4714,7 +4714,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4986,7 +4986,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5250,7 +5250,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5416,7 +5416,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6293,7 +6293,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6459,7 +6459,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6569,7 +6569,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6925,7 +6925,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6996,7 +6996,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7471,7 +7471,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -9437,7 +9437,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -9686,7 +9686,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
