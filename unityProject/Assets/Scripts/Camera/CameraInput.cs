@@ -8,22 +8,25 @@ using UnityEngine.UI;
 
 public class CameraInput : MonoBehaviour
 {
-    [SerializeField] private Image player1Walking;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP1;
     [SerializeField] private List<CinemachineVirtualCamera> camerasP2;
+    [SerializeField] private List<CinemachineVirtualCamera> transitionCameras;
     [SerializeField] private int numberOfRooms;
     private int _camerasInOneRoom;
-    private int _room;
+    private int _roomP1;
+    private int _roomP2;
     private int _currentCameraIndexP1;
     private int _currentCameraIndexP2;
 
     private CinemachineVirtualCamera CurrentCameraP1
     {
-        set => SetProperCamera(camerasP1, value,1);
+        get => camerasP1[_currentCameraIndexP1];
+        set => SetProperCamera(camerasP1, value, 1);
     }
 
     private CinemachineVirtualCamera CurrentCameraP2
     {
+        get => camerasP2[_currentCameraIndexP2];
         set => SetProperCamera(camerasP2, value, 2);
     }
 
@@ -54,14 +57,12 @@ public class CameraInput : MonoBehaviour
             {
                 _currentCameraIndexP1 = newIndex;
                 CameraSwitcher.RegisterP1(cameras[newIndex]);
-                
             }
             else
             {
                 _currentCameraIndexP2 = newIndex;
                 CameraSwitcher.RegisterP2(cameras[newIndex]);
             }
-            
         }
         else
         {
@@ -82,77 +83,103 @@ public class CameraInput : MonoBehaviour
             CurrentCameraP2 = camerasP2[_currentCameraIndexP2];
         }
 
-        player1Walking.enabled = false;
+        //player1Walking.enabled = false;
         _camerasInOneRoom = camerasP1.Count / numberOfRooms;
     }
 
     void Update()
     {
-        // Check for keyboard input to cycle through the cameras
-        if (Input.GetKeyUp(KeyCode.D))
+        //PLAYER 1 ---------------------------
+        if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 + 1) % camerasP2.Count];
+            SwitchToCamera(1, 1);
         }
-        else if (Input.GetKeyUp(KeyCode.A))
+        else if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            // Set the current camera to the previous camera in the list
-            CurrentCameraP2 = camerasP2[(_currentCameraIndexP2 - 1 + camerasP2.Count) % camerasP2.Count];
-        }
-        // if (Input.GetKeyUp(KeyCode.RightArrow))
-        // {
-        //     // Set the current camera to the next camera in the list
-        //     CurrentCameraP1 = camerasP1[(_currentCameraIndexP1 + 1) % camerasP1.Count];
-        // }
-        // else if (Input.GetKeyUp(KeyCode.LeftArrow))
-        // {
-        //     // Set the current camera to the previous camera in the list
-        //     CurrentCameraP1 = camerasP1[(_currentCameraIndexP1 - 1 + camerasP1.Count) % camerasP1.Count];
-        // }
-
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            SwitchToCamera(1);
+            SwitchToCamera(_camerasInOneRoom - 1, 1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            SwitchToCamera(2);
+            if (transitionCameras.Contains(CurrentCameraP1))
+            {
+                if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
+                {
+                    GoToTheRoom(-1, 1);
+                }
+                else
+                {
+                    GoToTheRoom(1, 1);
+                }
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
+
+        //PLAYER 2 --------------------------------
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            SwitchToCamera(3);
+            SwitchToCamera(1, 2);
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha4))
+        else if (Input.GetKeyUp(KeyCode.Q))
         {
-            SwitchToCamera(4);
+            SwitchToCamera(_camerasInOneRoom - 1, 2);
         }
-        
-        if (Input.GetKeyUp(KeyCode.Alpha5))
+        else if (Input.GetKeyUp(KeyCode.W))
         {
-            //Go forward
-            GoToTheRoom(1);
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha6))
-        {
-            //Go backwards
-            GoToTheRoom(numberOfRooms-1);
+            if (transitionCameras.Contains(CurrentCameraP2))
+            {
+                if (transitionCameras.IndexOf(CurrentCameraP2) >= 8)
+                {
+                    GoToTheRoom(-1, 2);
+                }
+                else
+                {
+                    GoToTheRoom(1, 2);
+                }
+            }
         }
     }
 
-    private void SwitchToCamera(int camera)
+    private void SwitchToCamera(int cameraValue, int player)
     {
-        CurrentCameraP1 = camerasP1[_camerasInOneRoom*(_room%numberOfRooms)+(camera - 1)];
+        if (player == 1)
+        {
+            CurrentCameraP1 = ChooseCorrectCamera(camerasP1, cameraValue, _currentCameraIndexP1, _roomP1);
+        }
+        else if (player == 2)
+        {
+            CurrentCameraP2 = ChooseCorrectCamera(camerasP2, cameraValue, _currentCameraIndexP2, _roomP2);
+        }
     }
 
-    private void GoToTheRoom(int room)
+    private void SetTransitionCamera(int player)
     {
-        _room += room;
-        player1Walking.enabled = true;
-        Invoke(nameof(ShowImage), 2f);
-        CurrentCameraP1 = camerasP1[4*(_room%numberOfRooms)];
+        if (player == 1)
+        {
+            CurrentCameraP1 = camerasP1[_camerasInOneRoom * (_roomP1 % numberOfRooms)];
+        }
+        else if (player == 2)
+        {
+            CurrentCameraP2 = camerasP2[_camerasInOneRoom * (_roomP2 % numberOfRooms)];
+        }
     }
 
-    private void ShowImage()
+    private CinemachineVirtualCamera ChooseCorrectCamera(List<CinemachineVirtualCamera> cameras, int cameraValue,
+        int currentCameraIndex, int room)
     {
-        player1Walking.enabled = false;
+        int goToTheCamera = Math.Abs(currentCameraIndex + cameraValue);
+        return cameras[_camerasInOneRoom * (room % numberOfRooms) + goToTheCamera % _camerasInOneRoom];
+    }
+
+    private void GoToTheRoom(int room, int player)
+    {
+        if (player == 1)
+        {
+            _roomP1 += room;
+        }
+        else if (player == 2)
+        {
+            _roomP2 += room;
+        }
+
+        SetTransitionCamera(player);
     }
 }

@@ -17,5 +17,7 @@ public class Gyroscope : MonoBehaviour
         rot.z = Input.gyro.rotationRateUnbiased.z;
 
         transform.Rotate(rot);
+
+        //Debug.Log(rot);
     }
 }
