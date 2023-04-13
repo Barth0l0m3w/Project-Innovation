@@ -38,7 +38,6 @@ public class Zoom : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            /*cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = position1;*/
             cinemachineVirtualCamera.transform.position = position1;
             cinemachineVirtualCamera.transform.eulerAngles = rotation1;
         }
