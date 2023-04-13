@@ -8,6 +8,8 @@ namespace States
     {
         private bool _setActiveProcessedP1;
         private bool _setInactiveProcessedP1;
+        private bool _setActiveProcessedP2;
+        private bool _setInactiveProcessedP2;
         private bool _player1CameraUpdated;
         private bool _player2CameraUpdated;
         private bool _lockPickFinished = false;
@@ -21,6 +23,7 @@ namespace States
         private void Update()
         {
             ReceiveAndProcessNetworkMessages();
+            //PLAYER 1 --------------------
             if (Client.IsDoorVisibleP1 && !_setActiveProcessedP1 && Client.LockPickedLaptop)
             {
                 DoorActive doorActive = new DoorActive();
@@ -50,7 +53,40 @@ namespace States
                 Client.Channel.SendMessage(camera);
                 _player1CameraUpdated = true;
             }
+            
+            //PLAYER 2 ---------------------
+            
+            if (Client.IsDoorVisibleP2 && !_setActiveProcessedP2 && Client.LockPickedLaptop)
+            {
+                DoorActive doorActive = new DoorActive();
+                doorActive.IsActive = true;
+                doorActive.Player = 2;
+                Client.Channel.SendMessage(doorActive);
+                _setActiveProcessedP1 = true;
+                _setInactiveProcessedP1 = false;
+            }
+            
+            if (!Client.IsDoorVisibleP2 && !_setInactiveProcessedP2 && Client.LockPickedLaptop)
+            {
+                DoorActive doorActive = new DoorActive();
+                doorActive.IsActive = false;
+                doorActive.Player = 2;
+                Client.Channel.SendMessage(doorActive);
+                _setActiveProcessedP1 = false;
+                _setInactiveProcessedP1 = true;
+            }
+            
+            if (!_player2CameraUpdated)
+            {
+                ShowNotes camera = new ShowNotes();
+                camera.Player = 2;
+                camera.PlayerRoom = Client.RoomP2;
+                Debug.Log("Player room: " + Client.RoomP2);
+                Client.Channel.SendMessage(camera);
+                _player1CameraUpdated = true;
+            }
 
+            //OTHER FUNCTIONALITY
             if (Client.ButtonClicked != 0 && Client.ButtonClicked <= 3)
             {
                 ChooseCamera camera = new ChooseCamera();
@@ -104,9 +140,10 @@ namespace States
 
         private void ShowCorrectNotes(ShowNotes pMessage)
         {
-            //Client.Instance.CameraNumberP1 = pMessage.PlayerCamera;
+            
             Client.Instance.RoomP1 = pMessage.PlayerRoom;
             Client.Instance.CameraNumberP1 = pMessage.Player;
+            
         }
 
         private void SwitchCameras(ChooseCamera pMessage)
@@ -116,6 +153,11 @@ namespace States
                 Client.ButtonP1 = pMessage.Camera;
                 _player1CameraUpdated = false; //only laptop sees it, the phone needs to see it somehow else
                 Debug.Log(Client.ButtonP1);
+            } else if (pMessage.Player == 2)
+            {
+                Client.ButtonP2 = pMessage.Camera;
+                _player2CameraUpdated = false; //only laptop sees it, the phone needs to see it somehow else
+                Debug.Log(Client.ButtonP2);
             }
         }
 

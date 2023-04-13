@@ -134,6 +134,14 @@ namespace server
 				notes.Player = 1;
 				_player1.SendMessage(notes);
 			}
+			if (pMessage.Player == 2)
+			{
+				ShowNotes notes = new ShowNotes();
+				notes.PlayerCamera = pMessage.PlayerCamera;
+				notes.PlayerRoom = pMessage.PlayerRoom;
+				notes.Player = 2;
+				_player2.SendMessage(notes);
+			}
 		}
 
 		private void ChooseCorrectCamera(ChooseCamera pMessage, TcpMessageChannel pSender)
@@ -145,6 +153,13 @@ namespace server
 				ChooseCamera camera = new ChooseCamera();
 				camera.Camera = pMessage.Camera;
 				camera.Player = 1;
+				_laptop.SendMessage(camera);
+			}
+			if (character == 2)
+			{
+				ChooseCamera camera = new ChooseCamera();
+				camera.Camera = pMessage.Camera;
+				camera.Player = 2;
 				_laptop.SendMessage(camera);
 			}
 		}

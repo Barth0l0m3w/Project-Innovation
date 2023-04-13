@@ -55,6 +55,33 @@ public class GamePhone : MonoBehaviour
                     break;
             }
         }
+        
+        if (_clientPhone.CameraNumberP1 == 2)
+        {
+            switch (_clientPhone.RoomP2)
+            {
+                case 0:
+                    notes[1].SetActive(true);
+                    notes[2].SetActive(false);
+                    notes[3].SetActive(false);
+                    break;
+                case 2:
+                    notes[2].SetActive(true);
+                    notes[3].SetActive(false);
+                    notes[1].SetActive(false);
+                    break;
+                case 4:
+                    notes[3].SetActive(true);
+                    notes[2].SetActive(false);
+                    notes[1].SetActive(false);
+                    break;
+                default:
+                    notes[3].SetActive(false);
+                    notes[2].SetActive(false);
+                    notes[1].SetActive(false);
+                    break;
+            }
+        }
 
         Debug.Log(_clientPhone.ButtonClicked + " : " +_clientPhone.RoomP1);
         if (Client.Instance.ButtonClicked == 4 && Client.Instance.RoomP1 == 0)
