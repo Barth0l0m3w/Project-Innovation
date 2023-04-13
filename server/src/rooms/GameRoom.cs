@@ -105,6 +105,23 @@ namespace server
 			{
 				ChooseCorrectCamera(pMessage as ChooseCamera, pSender);
 			}
+
+			if (pMessage is ShowNotes)
+			{
+				ShowNotesForThePlayer(pMessage as ShowNotes);
+			}
+		}
+
+		private void ShowNotesForThePlayer(ShowNotes pMessage)
+		{
+			if (pMessage.Player == 1)
+			{
+				ShowNotes notes = new ShowNotes();
+				notes.PlayerCamera = pMessage.PlayerCamera;
+				notes.PlayerRoom = pMessage.PlayerRoom;
+				notes.Player = 1;
+				_player1.SendMessage(notes);
+			}
 		}
 
 		private void ChooseCorrectCamera(ChooseCamera pMessage, TcpMessageChannel pSender)

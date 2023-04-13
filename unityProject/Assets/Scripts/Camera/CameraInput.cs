@@ -158,11 +158,13 @@ public class CameraInput : MonoBehaviour
     {
         if (player == 1)
         {
-            Client.Instance.CameraNumberP1 = _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom;
+            //Debug.Log("Player 1: " + _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom);
+            //Client.Instance.CameraNumberP1 = _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom;
             CurrentCameraP1 = ChooseCorrectCamera(camerasP1, cameraValue, _currentCameraIndexP1, _roomP1);
         }
         else if (player == 2)
         {
+            //Client.Instance.CameraNumberP2 = _roomP2 % numberOfRooms + Math.Abs(_currentCameraIndexP2 + cameraValue) % _camerasInOneRoom;
             CurrentCameraP2 = ChooseCorrectCamera(camerasP2, cameraValue, _currentCameraIndexP2, _roomP2);
         }
     }
@@ -191,10 +193,12 @@ public class CameraInput : MonoBehaviour
         if (player == 1)
         {
             _roomP1 += room;
+            Client.Instance.RoomP1 = _roomP1;
         }
         else if (player == 2)
         {
             _roomP2 += room;
+            Client.Instance.RoomP2 = _roomP2;
         }
 
         SetTransitionCamera(player);

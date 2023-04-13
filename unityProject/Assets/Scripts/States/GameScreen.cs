@@ -7,6 +7,8 @@ namespace States
     {
         private bool _setActiveProcessedP1;
         private bool _setInactiveProcessedP1;
+        private bool _player1CameraUpdated;
+        private bool _player2CameraUpdated;
 
         public override void EnterState()
         {
@@ -19,7 +21,6 @@ namespace States
             ReceiveAndProcessNetworkMessages();
             if (Client.IsDoorVisibleP1 && !_setActiveProcessedP1)
             {
-                Debug.Log("Player 1 sees the door");
                 DoorActive doorActive = new DoorActive();
                 doorActive.IsActive = true;
                 doorActive.Player = 1;
@@ -30,7 +31,6 @@ namespace States
             
             if (!Client.IsDoorVisibleP1 && !_setInactiveProcessedP1)
             {
-                Debug.Log("Player one does not see the door");
                 DoorActive doorActive = new DoorActive();
                 doorActive.IsActive = false;
                 doorActive.Player = 1;
@@ -39,6 +39,15 @@ namespace States
                 _setInactiveProcessedP1 = true;
             }
             
+            if (!_player1CameraUpdated)
+            {
+                ShowNotes camera = new ShowNotes();
+                camera.Player = 1;
+                camera.PlayerRoom = Client.RoomP1;
+                Debug.Log("Player room: " + Client.RoomP1);
+                Client.Channel.SendMessage(camera);
+                _player1CameraUpdated = true;
+            }
 
             if (Client.ButtonClicked != 0)
             {
@@ -65,6 +74,18 @@ namespace States
             {
                 SwitchCameras(pMessage as ChooseCamera);
             }
+
+            if (pMessage is ShowNotes)
+            {
+                ShowCorrectNotes(pMessage as ShowNotes);
+            }
+        }
+
+        private void ShowCorrectNotes(ShowNotes pMessage)
+        {
+            //Client.Instance.CameraNumberP1 = pMessage.PlayerCamera;
+            Client.Instance.RoomP1 = pMessage.PlayerRoom;
+            Client.Instance.CameraNumberP1 = pMessage.Player;
         }
 
         private void SwitchCameras(ChooseCamera pMessage)
@@ -72,6 +93,8 @@ namespace States
             if (pMessage.Player == 1)
             {
                 Client.ButtonP1 = pMessage.Camera;
+                Debug.Log(Client.ButtonP1);
+                _player1CameraUpdated = false;
             }
         }
 
@@ -87,12 +110,10 @@ namespace States
             if (pMessage.IsActive)
             {
                 Client.ShowDoorButton = true;
-                Debug.Log("SHOW BUTTON");
             }
             else
             {
                 Client.ShowDoorButton = false;
-                Debug.Log("DO NOT SHOW BUTTON");
             }
         }
     }

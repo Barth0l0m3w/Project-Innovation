@@ -22,8 +22,8 @@ public class Client : MonoBehaviour
     private int _buttonClicked;
     private int _cameraNumberP1;
     private int _cameraNumberP2;
-    private int _roomP1;
-    private int _roomP2;
+    private int _roomP1 = 0;
+    private int _roomP2 = 1;
 
     public int RoomP1
     {
