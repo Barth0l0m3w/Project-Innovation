@@ -90,17 +90,21 @@ public class CameraInput : MonoBehaviour
     void Update()
     {
         //PLAYER 1 ---------------------------
-        if (Input.GetKeyUp(KeyCode.Alpha3))
+        if (Input.GetKeyUp(KeyCode.Alpha3))// || Client.Instance.ButtonP1 == 3)
         {
             SwitchToCamera(1, 1);
+            //Client.Instance.ButtonP1 = 0;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha1))
+        else if (Input.GetKeyUp(KeyCode.Alpha1))// || Client.Instance.ButtonP1 == 1)
         {
             SwitchToCamera(_camerasInOneRoom - 1, 1);
+            //Client.Instance.ButtonP1 = 0;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
+        
+        if (transitionCameras.Contains(CurrentCameraP1))
         {
-            if (transitionCameras.Contains(CurrentCameraP1))
+            //Client.Instance.IsDoorVisibleP1 = true;
+            if (Input.GetKeyUp(KeyCode.Alpha2))// || Client.Instance.ButtonP1 == 2)
             {
                 if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
                 {
@@ -110,8 +114,14 @@ public class CameraInput : MonoBehaviour
                 {
                     GoToTheRoom(1, 1);
                 }
+                //Client.Instance.ButtonP1 = 0;
             }
         }
+        else
+        {
+            //Client.Instance.IsDoorVisibleP1 = false;
+        }
+        
 
         //PLAYER 2 --------------------------------
         if (Input.GetKeyUp(KeyCode.E))
@@ -122,9 +132,11 @@ public class CameraInput : MonoBehaviour
         {
             SwitchToCamera(_camerasInOneRoom - 1, 2);
         }
-        else if (Input.GetKeyUp(KeyCode.W))
+        
+        if (transitionCameras.Contains(CurrentCameraP2))
         {
-            if (transitionCameras.Contains(CurrentCameraP2))
+            //Client.Instance.IsDoorVisibleP2 = true;
+            if (Input.GetKeyUp(KeyCode.W))
             {
                 if (transitionCameras.IndexOf(CurrentCameraP2) >= 8)
                 {
@@ -136,16 +148,23 @@ public class CameraInput : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            //Client.Instance.IsDoorVisibleP2 = false;
+        }
     }
 
     private void SwitchToCamera(int cameraValue, int player)
     {
         if (player == 1)
         {
+            //Debug.Log("Player 1: " + _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom);
+            //Client.Instance.CameraNumberP1 = _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom;
             CurrentCameraP1 = ChooseCorrectCamera(camerasP1, cameraValue, _currentCameraIndexP1, _roomP1);
         }
         else if (player == 2)
         {
+            //Client.Instance.CameraNumberP2 = _roomP2 % numberOfRooms + Math.Abs(_currentCameraIndexP2 + cameraValue) % _camerasInOneRoom;
             CurrentCameraP2 = ChooseCorrectCamera(camerasP2, cameraValue, _currentCameraIndexP2, _roomP2);
         }
     }
@@ -174,10 +193,13 @@ public class CameraInput : MonoBehaviour
         if (player == 1)
         {
             _roomP1 += room;
+            //Client.Instance.RoomP1 = _roomP1;
         }
         else if (player == 2)
         {
             _roomP2 += room;
+            Debug.Log(_roomP2);
+            //Client.Instance.RoomP2 = _roomP2;
         }
 
         SetTransitionCamera(player);

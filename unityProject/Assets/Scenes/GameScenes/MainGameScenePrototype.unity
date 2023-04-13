@@ -958,7 +958,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 666260af71229a14a8ec34cbf64135e3, type: 2}
+  - {fileID: 2100000, guid: 3e43d4ec64793634198146671b5bf082, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2643,7 +2643,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 666260af71229a14a8ec34cbf64135e3, type: 2}
+  - {fileID: 2100000, guid: 3e43d4ec64793634198146671b5bf082, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2932,7 +2932,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 666260af71229a14a8ec34cbf64135e3, type: 2}
+  - {fileID: 2100000, guid: 3e43d4ec64793634198146671b5bf082, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6569,7 +6569,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6925,7 +6925,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6996,7 +6996,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7176,7 +7176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 666260af71229a14a8ec34cbf64135e3, type: 2}
+  - {fileID: 2100000, guid: 3e43d4ec64793634198146671b5bf082, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7471,7 +7471,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7963,7 +7963,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 666260af71229a14a8ec34cbf64135e3, type: 2}
+  - {fileID: 2100000, guid: 3e43d4ec64793634198146671b5bf082, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9086,6 +9086,7 @@ MonoBehaviour:
   - {fileID: 228728712}
   - {fileID: 1088991584}
   - {fileID: 90213248}
+  - {fileID: 1318210338}
   numberOfRooms: 5
 --- !u!4 &1690311257
 Transform:
@@ -9437,7 +9438,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -9686,7 +9687,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 20, y: 30}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
