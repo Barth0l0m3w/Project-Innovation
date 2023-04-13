@@ -8,10 +8,19 @@ public class GamePhone : MonoBehaviour
 {
     [SerializeField] private GameObject forwardButton;
     [SerializeField] private List<GameObject> notes;
+    [SerializeField] private GameObject safe;
+
+    private Client _clientPhone;
+
+    private void Start()
+    {
+        safe.SetActive(false);
+        _clientPhone = Client.Instance;
+    }
 
     private void Update()
     {
-        if (Client.Instance.ShowDoorButton)
+        if (_clientPhone.ShowDoorButton)
         {
             forwardButton.SetActive(true);
         }
@@ -20,9 +29,9 @@ public class GamePhone : MonoBehaviour
             forwardButton.SetActive(false);
         }
 
-        if (Client.Instance.CameraNumberP1 == 1)
+        if (_clientPhone.CameraNumberP1 == 1)
         {
-            switch (Client.Instance.RoomP1)
+            switch (_clientPhone.RoomP1)
             {
                 case 0:
                     notes[0].SetActive(true);
@@ -45,6 +54,17 @@ public class GamePhone : MonoBehaviour
                     notes[0].SetActive(false);
                     break;
             }
+        }
+
+        Debug.Log(_clientPhone.ButtonClicked + " : " +_clientPhone.RoomP1);
+        if (Client.Instance.ButtonClicked == 4 && Client.Instance.RoomP1 == 0)
+        {
+            safe.SetActive(true);
+        }
+
+        if (_clientPhone.LockPickedPhone)
+        {
+            safe.SetActive(false);
         }
     }
 }

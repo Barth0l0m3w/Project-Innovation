@@ -101,7 +101,7 @@ public class CameraInput : MonoBehaviour
             Client.Instance.ButtonP1 = 0;
         }
         
-        if (transitionCameras.Contains(CurrentCameraP1))
+        if (transitionCameras.Contains(CurrentCameraP1) && Client.Instance.LockPickedLaptop)
         {
             Client.Instance.IsDoorVisibleP1 = true;
             if (Input.GetKeyUp(KeyCode.Alpha2) || Client.Instance.ButtonP1 == 2)
@@ -133,7 +133,7 @@ public class CameraInput : MonoBehaviour
             SwitchToCamera(_camerasInOneRoom - 1, 2);
         }
         
-        if (transitionCameras.Contains(CurrentCameraP2))
+        if (transitionCameras.Contains(CurrentCameraP2) && Client.Instance.LockPickedLaptop)
         {
             Client.Instance.IsDoorVisibleP2 = true;
             if (Input.GetKeyUp(KeyCode.W))

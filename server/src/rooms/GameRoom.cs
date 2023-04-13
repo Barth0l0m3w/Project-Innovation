@@ -110,6 +110,18 @@ namespace server
 			{
 				ShowNotesForThePlayer(pMessage as ShowNotes);
 			}
+
+			if (pMessage is LockPickedStatus)
+			{
+				UpdateLockPickStatus(pMessage as LockPickedStatus);
+			}
+		}
+
+		private void UpdateLockPickStatus(LockPickedStatus pMessage)
+		{
+			LockPickedStatus lockPick = new LockPickedStatus();
+			lockPick.IsLockPicked = pMessage.IsLockPicked;
+			sendToAll(lockPick);
 		}
 
 		private void ShowNotesForThePlayer(ShowNotes pMessage)

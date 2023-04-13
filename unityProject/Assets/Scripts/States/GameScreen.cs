@@ -1,5 +1,6 @@
 using shared;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace States
 {
@@ -9,6 +10,7 @@ namespace States
         private bool _setInactiveProcessedP1;
         private bool _player1CameraUpdated;
         private bool _player2CameraUpdated;
+        private bool _lockPickFinished = false;
 
         public override void EnterState()
         {
@@ -19,7 +21,7 @@ namespace States
         private void Update()
         {
             ReceiveAndProcessNetworkMessages();
-            if (Client.IsDoorVisibleP1 && !_setActiveProcessedP1)
+            if (Client.IsDoorVisibleP1 && !_setActiveProcessedP1 && Client.LockPickedLaptop)
             {
                 DoorActive doorActive = new DoorActive();
                 doorActive.IsActive = true;
@@ -29,7 +31,7 @@ namespace States
                 _setInactiveProcessedP1 = false;
             }
             
-            if (!Client.IsDoorVisibleP1 && !_setInactiveProcessedP1)
+            if (!Client.IsDoorVisibleP1 && !_setInactiveProcessedP1 && Client.LockPickedLaptop)
             {
                 DoorActive doorActive = new DoorActive();
                 doorActive.IsActive = false;
@@ -49,12 +51,19 @@ namespace States
                 _player1CameraUpdated = true;
             }
 
-            if (Client.ButtonClicked != 0)
+            if (Client.ButtonClicked != 0 && Client.ButtonClicked <= 3)
             {
                 ChooseCamera camera = new ChooseCamera();
                 camera.Camera = Client.ButtonClicked;
                 Client.Channel.SendMessage(camera);
                 Client.ButtonClicked = 0;
+            }
+
+            if (Client.LockPickedPhone && !_lockPickFinished)
+            {
+                LockPickedStatus lockPick = new LockPickedStatus();
+                lockPick.IsLockPicked = true;
+                Client.Channel.SendMessage(lockPick);
             }
         }
 
@@ -79,6 +88,18 @@ namespace States
             {
                 ShowCorrectNotes(pMessage as ShowNotes);
             }
+
+            if (pMessage is LockPickedStatus)
+            {
+                UnlockTheDoors();
+            }
+        }
+
+        private void UnlockTheDoors()
+        {
+            Client.LockPickedLaptop = true;
+            Client.LockPickedPhone = true;
+            _lockPickFinished = true;
         }
 
         private void ShowCorrectNotes(ShowNotes pMessage)
@@ -93,8 +114,8 @@ namespace States
             if (pMessage.Player == 1)
             {
                 Client.ButtonP1 = pMessage.Camera;
+                _player1CameraUpdated = false; //only laptop sees it, the phone needs to see it somehow else
                 Debug.Log(Client.ButtonP1);
-                _player1CameraUpdated = false;
             }
         }
 
