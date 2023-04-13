@@ -90,21 +90,21 @@ public class CameraInput : MonoBehaviour
     void Update()
     {
         //PLAYER 1 ---------------------------
-        if (Input.GetKeyUp(KeyCode.Alpha3) || Client.Instance.ButtonP1 == 3)
+        if (Input.GetKeyUp(KeyCode.Alpha3))// || Client.Instance.ButtonP1 == 3)
         {
             SwitchToCamera(1, 1);
-            Client.Instance.ButtonP1 = 0;
+            //Client.Instance.ButtonP1 = 0;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha1) || Client.Instance.ButtonP1 == 1)
+        else if (Input.GetKeyUp(KeyCode.Alpha1))// || Client.Instance.ButtonP1 == 1)
         {
             SwitchToCamera(_camerasInOneRoom - 1, 1);
-            Client.Instance.ButtonP1 = 0;
+            //Client.Instance.ButtonP1 = 0;
         }
         
         if (transitionCameras.Contains(CurrentCameraP1))
         {
-            Client.Instance.IsDoorVisibleP1 = true;
-            if (Input.GetKeyUp(KeyCode.Alpha2) || Client.Instance.ButtonP1 == 2)
+            //Client.Instance.IsDoorVisibleP1 = true;
+            if (Input.GetKeyUp(KeyCode.Alpha2))// || Client.Instance.ButtonP1 == 2)
             {
                 if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
                 {
@@ -114,12 +114,12 @@ public class CameraInput : MonoBehaviour
                 {
                     GoToTheRoom(1, 1);
                 }
-                Client.Instance.ButtonP1 = 0;
+                //Client.Instance.ButtonP1 = 0;
             }
         }
         else
         {
-            Client.Instance.IsDoorVisibleP1 = false;
+            //Client.Instance.IsDoorVisibleP1 = false;
         }
         
 
@@ -135,7 +135,7 @@ public class CameraInput : MonoBehaviour
         
         if (transitionCameras.Contains(CurrentCameraP2))
         {
-            Client.Instance.IsDoorVisibleP2 = true;
+            //Client.Instance.IsDoorVisibleP2 = true;
             if (Input.GetKeyUp(KeyCode.W))
             {
                 if (transitionCameras.IndexOf(CurrentCameraP2) >= 8)
@@ -150,7 +150,7 @@ public class CameraInput : MonoBehaviour
         }
         else
         {
-            Client.Instance.IsDoorVisibleP2 = false;
+            //Client.Instance.IsDoorVisibleP2 = false;
         }
     }
 
@@ -193,12 +193,13 @@ public class CameraInput : MonoBehaviour
         if (player == 1)
         {
             _roomP1 += room;
-            Client.Instance.RoomP1 = _roomP1;
+            //Client.Instance.RoomP1 = _roomP1;
         }
         else if (player == 2)
         {
             _roomP2 += room;
-            Client.Instance.RoomP2 = _roomP2;
+            Debug.Log(_roomP2);
+            //Client.Instance.RoomP2 = _roomP2;
         }
 
         SetTransitionCamera(player);
