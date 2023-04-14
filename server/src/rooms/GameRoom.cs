@@ -150,6 +150,10 @@ namespace server
 				camera.Player = 2;
 				_laptop.SendMessage(camera);
 			}
+
+			ChooseCamera cameraPhone = new ChooseCamera();
+			cameraPhone.Camera = pMessage.Camera;
+			pSender.SendMessage(cameraPhone);
 		}
 
 		private void SetTheDoorActive(DoorActive doorActive)
