@@ -23,7 +23,23 @@ public class Client : MonoBehaviour
     private int _cameraNumberP1;
     private int _cameraNumberP2;
     private int _roomP1 = 0;
-    private int _roomP2 = 1;
+    private int _roomP2 = 0;
+
+    private bool _lockPickedPhone;
+    private bool _lockPickedLaptop;
+
+    public bool LockPickedLaptop
+    {
+        get => _lockPickedLaptop;
+        set => _lockPickedLaptop = value;
+    }
+
+    public bool LockPickedPhone
+    {
+        get => _lockPickedPhone;
+        set => _lockPickedPhone = value;
+    }
+
 
     public int RoomP1
     {
@@ -152,8 +168,7 @@ public class Client : MonoBehaviour
         SetState(_startState.GetType());
         DontDestroyOnLoad(this.gameObject);
     }
-
-    //For some reason if I change it, it does not work - TODO: ask Hans
+    
     public void SetState<T>() where T : ClientState
     {
         SetState(typeof(T));
