@@ -83,6 +83,25 @@ namespace States
                 _player2CameraUpdated = true;
             }
 
+            if (!Client.IsDoorVisibleP2 && !_setInactiveProcessedP2 && Client.LockPickedLaptop)
+            {
+                DoorActive doorActive = new DoorActive();
+                doorActive.IsActive = false;
+                doorActive.Player = 2;
+                Client.Channel.SendMessage(doorActive);
+                _setActiveProcessedP2 = false;
+                _setInactiveProcessedP2 = true;
+            }
+
+            if (!_player2CameraUpdated)
+            {
+                ShowNotes camera = new ShowNotes();
+                camera.Player = 2;
+                camera.PlayerRoom = Client.RoomP2;
+                Client.Channel.SendMessage(camera);
+                _player2CameraUpdated = true;
+            }
+
             //OTHER FUNCTIONALITY
             if (Client.ButtonClicked != 0 && Client.ButtonClicked <= 3)
             {
