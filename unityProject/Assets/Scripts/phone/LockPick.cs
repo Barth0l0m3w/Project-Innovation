@@ -44,8 +44,7 @@ public class LockPick : MonoBehaviour
     void Update()
     {
         //set the rotation of the pick to the rotation of the gyro
-        transform.localPosition = pickPosition.position;
-        pickRotation.z = Input.gyro.rotationRateUnbiased.z;
+        pickRotation.x = Input.gyro.rotationRateUnbiased.z;
 
         //when not checking the position by touching the pick is movable
         if (movePick)
@@ -53,7 +52,7 @@ public class LockPick : MonoBehaviour
             //give eulerAngle the gyro information to make calculations
             eulerAngle = Input.gyro.attitude.eulerAngles.z;
 
-            transform.rotation = Quaternion.Euler(0, 0, eulerAngle - 90);
+            transform.rotation = Quaternion.Euler(eulerAngle, 0, 0);
 
             //calculate the difference between the unlockable angle and the angle the pick is in
             //NEED: make a function that gives an indication when the player is in the correct spot with the pick
@@ -110,7 +109,7 @@ public class LockPick : MonoBehaviour
     void GameDone()
     {
         Debug.Log("game finished, yay");
-        //switch scenes here
+        Client.Instance.LockPickedPhone = true;
     }
 
     void ActivateTimer()
@@ -121,7 +120,7 @@ public class LockPick : MonoBehaviour
     void RotateInner()
     {
         //rotate the inner lock image
-        innerLock.transform.Rotate(new Vector3(0, 0, -10 * lockSpeed) * Time.deltaTime);
+        innerLock.transform.Rotate(new Vector3(-10 * lockSpeed, 0, 0) * Time.deltaTime);
     }
 
     void NewLock()

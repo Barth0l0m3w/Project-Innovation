@@ -6,6 +6,7 @@ public class KeyboardManager : MonoBehaviour
     public static KeyboardManager Instance;
     [SerializeField] TextMeshProUGUI textBox;
     [SerializeField] TextMeshProUGUI printBox;
+    [SerializeField] private string correctWord;
 
     private void Start()
     {
@@ -30,6 +31,20 @@ public class KeyboardManager : MonoBehaviour
     {
         printBox.text = textBox.text;
         textBox.text = "";
+
+        CheckInput(printBox.text);
         // Debug.Log("Text submitted successfully!");
+    }
+
+    public void CheckInput(string input)
+    {
+        if (input == correctWord)
+        {
+            Debug.Log("word is correct!");
+        }
+        else
+        {
+            Debug.Log("word is incorrect.");
+        }
     }
 }

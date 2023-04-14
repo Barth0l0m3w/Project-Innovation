@@ -1,5 +1,6 @@
 using shared;
 using System;
+using System.Dynamic;
 
 namespace server
 {
@@ -12,9 +13,12 @@ namespace server
 	 * The game has no end yet (that is up to you), in other words:
 	 * all players that are added to this room, stay in here indefinitely.
 	 */
-	class GameRoom : Room
+	class GameRoom : SimpleRoom
 	{
 		public bool IsGameInPlay { get; private set; }
+		private TcpMessageChannel _player1;
+		private TcpMessageChannel _player2;
+		private TcpMessageChannel _laptop;
 
 		//wraps the board to play on...
 		private TicTacToeBoard _board = new TicTacToeBoard();
@@ -31,6 +35,25 @@ namespace server
 			addMember(pPlayer1);
 			addMember(pPlayer2);
 			addMember(laptop);
+			if (_server.GetPlayerInfo(pPlayer1).characterID == 1)
+			{
+				_player1 = pPlayer1;
+			}
+			else
+			{
+				_player2 = pPlayer1;
+			}
+			
+			if (_server.GetPlayerInfo(pPlayer2).characterID == 1)
+			{
+				_player1 = pPlayer2;
+			}
+			else
+			{
+				_player2 = pPlayer2;
+			}
+			
+			_laptop = laptop;
 			RoomEntered roomEntered = new RoomEntered();
 			roomEntered.player1 = _server.GetPlayerInfo(pPlayer1);
 			roomEntered.player2 = _server.GetPlayerInfo(pPlayer2);
@@ -54,7 +77,6 @@ namespace server
 			int oldMemberCount = memberCount;
 			base.Update();
 			int newMemberCount = memberCount;
-
 			if (oldMemberCount != newMemberCount)
 			{
 				Log.LogInfo("People left the game...", this);
@@ -63,61 +85,89 @@ namespace server
 
 		protected override void handleNetworkMessage(ASerializable pMessage, TcpMessageChannel pSender)
 		{
-			if (pMessage is MakeMoveRequest)
+			
+			if (pMessage is DoorActive)
 			{
-				handleMakeMoveRequest(pMessage as MakeMoveRequest, pSender);
+				SetTheDoorActive(pMessage as DoorActive);
 			}
 
-			if (pMessage is PlayerJoinRequest)
+			if (pMessage is ChooseCamera)
 			{
-				HandlePlayerJoin(pSender);
+				ChooseCorrectCamera(pMessage as ChooseCamera, pSender);
+			}
+
+			if (pMessage is ShowNotes)
+			{
+				ShowNotesForThePlayer(pMessage as ShowNotes);
+			}
+
+			if (pMessage is LockPickedStatus)
+			{
+				UpdateLockPickStatus(pMessage as LockPickedStatus);
+			}
+		}
+
+		private void UpdateLockPickStatus(LockPickedStatus pMessage)
+		{
+			LockPickedStatus lockPick = new LockPickedStatus();
+			lockPick.IsLockPicked = true;
+			sendToAll(lockPick);
+		}
+
+		private void ShowNotesForThePlayer(ShowNotes pMessage)
+		{
+			if (pMessage.Player == 1)
+			{
+				ShowNotes notes = new ShowNotes();
+				notes.PlayerRoom = pMessage.PlayerRoom;
+				notes.Player = 1;
+				_player1.SendMessage(notes);
+			}
+			if (pMessage.Player == 2)
+			{
+				ShowNotes notes = new ShowNotes();
+				notes.PlayerRoom = pMessage.PlayerRoom;
+				notes.Player = 2;
+				_player2.SendMessage(notes);
 			}
 		}
 
-		private void handleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)
+		private void ChooseCorrectCamera(ChooseCamera pMessage, TcpMessageChannel pSender)
 		{
-			//we have two players, so index of sender is 0 or 1, which means playerID becomes 1 or 2
-			int playerID = indexOfMember(pSender) + 1;
-			//make the requested move (0-8) on the board for the player
-			_board.MakeMove(pMessage.move, playerID);
+			int character = _server.GetPlayerInfo(pSender).characterID;
 
-			//and send the result of the boardstate back to all clients
-			MakeMoveResult makeMoveResult = new MakeMoveResult();
-			makeMoveResult.whoMadeTheMove = playerID;
-			makeMoveResult.boardData = _board.GetBoardData();
-			sendToAll(makeMoveResult);
-
-			if (makeMoveResult.boardData.WhoHasWon() > 0)
+			if (character == 1)
 			{
-				GameFinished finished = new GameFinished();
-				finished.player = _server.GetPlayerInfo(pSender);
-				sendToAll(finished);
-
-				ChatMessage winnerMessage = new ChatMessage();
-				winnerMessage.message = $"{finished.player.id} has won!";
-				sendToAll(winnerMessage);
-
-				IsGameInPlay = false;
+				ChooseCamera camera = new ChooseCamera();
+				camera.Camera = pMessage.Camera;
+				camera.Player = 1;
+				_laptop.SendMessage(camera);
+			}
+			if (character == 2)
+			{
+				ChooseCamera camera = new ChooseCamera();
+				camera.Camera = pMessage.Camera;
+				camera.Player = 2;
+				_laptop.SendMessage(camera);
 			}
 		}
-		
-		private void HandlePlayerJoin(TcpMessageChannel pSender)
+
+		private void SetTheDoorActive(DoorActive doorActive)
 		{
-			PlayerJoinResponse response = new PlayerJoinResponse();
-			response.result = PlayerJoinResponse.RequestResult.ACCEPTED;
-			PlayerInfo newPlayerInfo = _server.GetPlayerInfo(pSender);
-			if (newPlayerInfo != null)
-			{
-				removeMember(pSender);
-				pSender.SendMessage(response);
-				_infos.Remove(pSender);
-				_server.GetLobbyRoom().AddMember(pSender);
-			}
-		}
-		
-		public void AddRoom(GameRoom room)
-		{
-			_server._rooms.Add(room);
+			
+				if (doorActive.Player == 1)
+				{
+					DoorActive sendDoor = new DoorActive();
+					sendDoor.IsActive = doorActive.IsActive;
+					_player1.SendMessage(sendDoor);
+				}
+				else
+				{
+					DoorActive sendDoor = new DoorActive();
+					sendDoor.IsActive = doorActive.IsActive;
+					_player2.SendMessage(sendDoor);
+				}
+
 		}
 
 	}
