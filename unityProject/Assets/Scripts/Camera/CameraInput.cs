@@ -72,18 +72,15 @@ public class CameraInput : MonoBehaviour
 
     private void Start()
     {
-        //activate the 1st camera in the list
-        if (camerasP1.Count > 0)
+        if (camerasP1.Count != 0)
         {
             CurrentCameraP1 = camerasP1[_currentCameraIndexP1];
         }
 
-        if (camerasP2.Count > 0)
+        if (camerasP2.Count != 0)
         {
             CurrentCameraP2 = camerasP2[_currentCameraIndexP2];
         }
-
-        //player1Walking.enabled = false;
         _camerasInOneRoom = camerasP1.Count / numberOfRooms;
     }
 

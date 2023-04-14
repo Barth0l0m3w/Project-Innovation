@@ -24,6 +24,13 @@ public class Client : MonoBehaviour
     private int _cameraNumberP2;
     private int _roomP1 = 0;
     private int _roomP2 = 0;
+    private int _playerNumber;
+
+    public int PlayerNumber
+    {
+        get => _playerNumber;
+        set => _playerNumber = value;
+    }
 
     private bool _lockPickedPhone;
     private bool _lockPickedLaptop;

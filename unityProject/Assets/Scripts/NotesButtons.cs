@@ -9,20 +9,21 @@ public class NotesButtons : MonoBehaviour
 
     private void Update()
     {
-        // if (gameObject.activeSelf)
-        // {
-        //     for (int i = 0; i < positions.Count; i++)
-        //     {
-        //         if (i == Client.Instance.CameraNumberP1)
-        //         {
-        //             Debug.Log($"Showing position {i}");
-        //             positions[i].SetActive(true);
-        //         }
-        //         else
-        //         {
-        //             positions[i].SetActive(false);
-        //         }
-        //     }
-        // }
+        if (gameObject.activeSelf)
+        {
+            
+                for (int i = 0; i < positions.Count; i++)
+                {
+                    if (i == Client.Instance.CameraNumberP1)
+                    {
+                        positions[i].SetActive(true);
+                    }
+                    else
+                    {
+                        positions[i].SetActive(false);
+                    }
+                }
+            
+        }
     }
 }
