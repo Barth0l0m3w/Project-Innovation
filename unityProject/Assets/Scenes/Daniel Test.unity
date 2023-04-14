@@ -2857,7 +2857,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 20, y: 30}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 4.5200005
+  m_FocalLength: 4.7200003
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2866,7 +2866,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 146.46138
+  field of view: 145.0659
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2891,8 +2891,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275986405}
-  m_LocalRotation: {x: 0, y: 0.99939084, z: 0.034899585, w: 0}
-  m_LocalPosition: {x: 0.79, y: 2.4, z: 35.54}
+  m_LocalRotation: {x: -0.034899585, y: 0, z: 0, w: 0.99939084}
+  m_LocalPosition: {x: 25.53, y: 2.4, z: 35.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2948,12 +2948,12 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 0
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 103.78485
+    FieldOfView: 145.0659
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -3104,7 +3104,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 103.78485
+    FieldOfView: 145.0659
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -3587,7 +3587,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358502804}
   m_LocalRotation: {x: 0, y: 0.99939084, z: -0.03489949, w: 0}
-  m_LocalPosition: {x: 3.1, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5497,7 +5497,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &633047518
 GameObject:
@@ -5604,7 +5604,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 20, y: 30}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 9.999999
+  m_FocalLength: 5.9999995
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -5613,7 +5613,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 112.619865
+  field of view: 136.39719
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -5638,8 +5638,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633047518}
-  m_LocalRotation: {x: 0.020028083, y: 0.9226134, z: -0.048352063, w: 0.38215896}
-  m_LocalPosition: {x: 28.1, y: 0.12, z: 13.6}
+  m_LocalRotation: {x: 0.03489949, y: 0, z: 0, w: 0.99939084}
+  m_LocalPosition: {x: 10.12, y: 0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5800,7 +5800,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 40.343, y: 209.53, z: 283.951}
 --- !u!1 &659520731
 GameObject:
@@ -11268,7 +11268,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 103.78485
+    FieldOfView: 146.46138
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -14639,7 +14639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796595254}
   m_LocalRotation: {x: 0, y: 0.99939084, z: 0.034899585, w: 0}
-  m_LocalPosition: {x: 3.1, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14668,7 +14668,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 103.78485
+    FieldOfView: 145.0659
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -15903,7 +15903,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1965769811
 GameObject:
