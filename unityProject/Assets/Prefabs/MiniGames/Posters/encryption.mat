@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FadeMaterial
+  m_Name: encryption
   m_Shader: {fileID: -6465566751694194690, guid: 3e96b2727a6e1074f9a8937c6e880ada,
     type: 3}
   m_ValidKeywords: []
@@ -22,11 +22,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: f09eae8c0ea04254b90c5386a034a225, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7a9a2f91eba514943979b184aa455e63, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Secondary:
-        m_Texture: {fileID: 2800000, guid: 6a64277ccdb742a4ab1cc721cfc0c995, type: 3}
+        m_Texture: {fileID: 2800000, guid: e7855ec9083f61140a33871b837eca72, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:

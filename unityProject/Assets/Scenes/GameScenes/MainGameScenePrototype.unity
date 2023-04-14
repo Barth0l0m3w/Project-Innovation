@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3678,11 +3678,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1578303006605638026, guid: 28b747a2c5888124394e1575e31a90ae,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c390265d399c94fdcafa39a99a27352c, type: 2}
     - target: {fileID: 2674763938419084330, guid: 28b747a2c5888124394e1575e31a90ae,
         type: 3}
       propertyPath: m_Name
       value: AllRooms
       objectReference: {fileID: 0}
+    - target: {fileID: 4171502728040327201, guid: 28b747a2c5888124394e1575e31a90ae,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c390265d399c94fdcafa39a99a27352c, type: 2}
     - target: {fileID: 8142743789154333084, guid: 28b747a2c5888124394e1575e31a90ae,
         type: 3}
       propertyPath: m_RootOrder
@@ -4070,7 +4080,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &810094667
 MonoBehaviour:

@@ -101,7 +101,7 @@ public class CameraInput : MonoBehaviour
             Client.Instance.ButtonP1 = 0;
         }
         
-        if (transitionCameras.Contains(CurrentCameraP1))
+        if (transitionCameras.Contains(CurrentCameraP1) && Client.Instance.LockPickedLaptop)
         {
             Client.Instance.IsDoorVisibleP1 = true;
             if (Input.GetKeyUp(KeyCode.Alpha2) || Client.Instance.ButtonP1 == 2)
@@ -124,19 +124,21 @@ public class CameraInput : MonoBehaviour
         
 
         //PLAYER 2 --------------------------------
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E) || Client.Instance.ButtonP2 == 3)
         {
             SwitchToCamera(1, 2);
+            Client.Instance.ButtonP2 = 0;
         }
-        else if (Input.GetKeyUp(KeyCode.Q))
+        else if (Input.GetKeyUp(KeyCode.Q) || Client.Instance.ButtonP2 == 1)
         {
             SwitchToCamera(_camerasInOneRoom - 1, 2);
+            Client.Instance.ButtonP2 = 0;
         }
         
-        if (transitionCameras.Contains(CurrentCameraP2))
+        if (transitionCameras.Contains(CurrentCameraP2) && Client.Instance.LockPickedLaptop)
         {
             Client.Instance.IsDoorVisibleP2 = true;
-            if (Input.GetKeyUp(KeyCode.W))
+            if (Input.GetKeyUp(KeyCode.W)|| Client.Instance.ButtonP2 == 2)
             {
                 if (transitionCameras.IndexOf(CurrentCameraP2) >= 8)
                 {
@@ -146,6 +148,7 @@ public class CameraInput : MonoBehaviour
                 {
                     GoToTheRoom(1, 2);
                 }
+                Client.Instance.ButtonP2 = 0;
             }
         }
         else
@@ -158,7 +161,6 @@ public class CameraInput : MonoBehaviour
     {
         if (player == 1)
         {
-            //Debug.Log("Player 1: " + _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom);
             //Client.Instance.CameraNumberP1 = _roomP1 % numberOfRooms + Math.Abs(_currentCameraIndexP1 + cameraValue) % _camerasInOneRoom;
             CurrentCameraP1 = ChooseCorrectCamera(camerasP1, cameraValue, _currentCameraIndexP1, _roomP1);
         }
@@ -198,7 +200,6 @@ public class CameraInput : MonoBehaviour
         else if (player == 2)
         {
             _roomP2 += room;
-            Debug.Log(_roomP2);
             Client.Instance.RoomP2 = _roomP2;
         }
 

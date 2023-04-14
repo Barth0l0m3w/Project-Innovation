@@ -101,8 +101,24 @@ MonoBehaviour:
   - {fileID: -6286929189211345989}
   - {fileID: -7893295128165547882}
   - {fileID: -7011558710299706105}
-  - {fileID: 8252871936498256618}
---- !u!114 &8252871936498256618
+  - {fileID: 2984324805305885856}
+--- !u!114 &849379129802519247
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb4b772797da9440885e8bd939e9560, type: 3}
+  m_Name: ColorCurves
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
+--- !u!114 &2984324805305885856
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,19 +151,19 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.38084203
-          value: 0.43709677
-          inSlope: 1.2177756
-          outSlope: 1.2177756
+          time: 0.23908046
+          value: 0.70408165
+          inSlope: 1.4360744
+          outSlope: 1.4360744
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 0.07437205
-          outSlope: 0.07437205
+          value: 0.93877554
+          inSlope: -0.2745633
+          outSlope: -0.2745633
           tangentMode: 0
           weightedMode: 0
           inWeight: 0

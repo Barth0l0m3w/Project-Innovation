@@ -109,7 +109,7 @@ public class LockPick : MonoBehaviour
     void GameDone()
     {
         Debug.Log("game finished, yay");
-        //switch scenes here
+        Client.Instance.LockPickedPhone = true;
     }
 
     void ActivateTimer()
