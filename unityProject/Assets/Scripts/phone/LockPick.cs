@@ -74,7 +74,6 @@ public class LockPick : MonoBehaviour
             {
                 Debug.Log("unlock");
                 ActivateTimer();
-
             }
         }
         else
@@ -94,12 +93,13 @@ public class LockPick : MonoBehaviour
             {
                 //when done: up the int, reset timer, enable moving the pick and stop the function
                 timesTurned++;
+                NewLock();
                 countdownTime = timerTime;
                 movePick = true;
                 isRunning = false;
             }
         }
-
+        
         if (timesTurned == 3)
         {
             GameDone();

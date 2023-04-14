@@ -20,12 +20,6 @@ public class ScaleFromMic : MonoBehaviour
     private float blowSpeed = 20f;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //StartCoroutine(Fade());
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -37,16 +31,15 @@ public class ScaleFromMic : MonoBehaviour
         }
         if (loudness > threshold)
         {
+            //To do Kama
+            //StartCoroutine(Fade()) (fading dust) starts when loudness > threshold. it always detects. maybe put it in Fading() and call te when you activate it. 
             StartCoroutine(Fade());
-            //Fading();
         }
 
         if (material.GetFloat("_Fade") == 0)
         {
             Debug.Log("object completely cleaned");
         }
-
-        //transform.localScale = Vector3.Lerp(maxScale, minScale, loudness);
     }
 
     void Fading()
@@ -56,12 +49,12 @@ public class ScaleFromMic : MonoBehaviour
 
     IEnumerator Fade()
     {
+        //slowly lessen the opacity through the shader
         float time = 1f;
         while (time > 0f)
         {
             time -= Time.deltaTime / blowSpeed;
             material.SetFloat("_Fade", time);
-            //Debug.Log(time);
             yield return null;
         }
     }

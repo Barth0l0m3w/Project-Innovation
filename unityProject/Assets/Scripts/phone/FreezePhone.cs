@@ -8,7 +8,7 @@ public class FreezePhone : MonoBehaviour
     // Start is called before the first frame update
     Vector3 rot;
     [SerializeField] float timer = 3f;
-    [SerializeField]private float time;
+    [SerializeField] private float time;
     [SerializeField] private bool startFreeze = false;
     [SerializeField] private bool caught = false;
     [SerializeField] private float treshold = 5f;
@@ -21,6 +21,10 @@ public class FreezePhone : MonoBehaviour
         Input.gyro.enabled = true;
 
         startRot = this.transform.rotation;
+
+        //To Do Kama.
+        //i am really sorry everything is in update
+        //for now this thing starts the interaction.
         startFreeze = true;
     }
 
@@ -39,11 +43,16 @@ public class FreezePhone : MonoBehaviour
             }
         }
 
-        if(caught == true && startFreeze == true)
+        if (caught == true && startFreeze == true)
         {
             Debug.Log("caught motherfucker");
             //change scene here. or do something at least
         }
+    }
+
+    private void StartInteraction()
+    {
+
     }
 
     void rotate()
