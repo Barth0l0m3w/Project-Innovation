@@ -49,7 +49,6 @@ namespace States
                 ShowNotes camera = new ShowNotes();
                 camera.Player = 1;
                 camera.PlayerRoom = Client.RoomP1;
-                Debug.Log("Player room: " + Client.RoomP1);
                 Client.Channel.SendMessage(camera);
                 _player1CameraUpdated = true;
             }
@@ -62,8 +61,8 @@ namespace States
                 doorActive.IsActive = true;
                 doorActive.Player = 2;
                 Client.Channel.SendMessage(doorActive);
-                _setActiveProcessedP1 = true;
-                _setInactiveProcessedP1 = false;
+                _setActiveProcessedP2 = true;
+                _setInactiveProcessedP2 = false;
             }
             
             if (!Client.IsDoorVisibleP2 && !_setInactiveProcessedP2 && Client.LockPickedLaptop)
@@ -72,8 +71,8 @@ namespace States
                 doorActive.IsActive = false;
                 doorActive.Player = 2;
                 Client.Channel.SendMessage(doorActive);
-                _setActiveProcessedP1 = false;
-                _setInactiveProcessedP1 = true;
+                _setActiveProcessedP2 = false;
+                _setInactiveProcessedP2 = true;
             }
             
             if (!_player2CameraUpdated)
@@ -81,14 +80,15 @@ namespace States
                 ShowNotes camera = new ShowNotes();
                 camera.Player = 2;
                 camera.PlayerRoom = Client.RoomP2;
-                Debug.Log("Player room: " + Client.RoomP2);
                 Client.Channel.SendMessage(camera);
-                _player1CameraUpdated = true;
+                _player2CameraUpdated = true;
             }
 
             //OTHER FUNCTIONALITY
             if (Client.ButtonClicked != 0 && Client.ButtonClicked <= 3)
             {
+                Debug.Log("BUTTON CLICKED");
+                Debug.Log(Client.ButtonClicked);
                 ChooseCamera camera = new ChooseCamera();
                 camera.Camera = Client.ButtonClicked;
                 Client.Channel.SendMessage(camera);
@@ -133,17 +133,15 @@ namespace States
 
         private void UnlockTheDoors()
         {
+            _lockPickFinished = true;
             Client.LockPickedLaptop = true;
             Client.LockPickedPhone = true;
-            _lockPickFinished = true;
         }
 
         private void ShowCorrectNotes(ShowNotes pMessage)
         {
-            
             Client.Instance.RoomP1 = pMessage.PlayerRoom;
             Client.Instance.CameraNumberP1 = pMessage.Player;
-            
         }
 
         private void SwitchCameras(ChooseCamera pMessage)
@@ -152,12 +150,11 @@ namespace States
             {
                 Client.ButtonP1 = pMessage.Camera;
                 _player1CameraUpdated = false; //only laptop sees it, the phone needs to see it somehow else
-                Debug.Log(Client.ButtonP1);
             } else if (pMessage.Player == 2)
             {
+                Debug.Log("Player2 camera moving");
                 Client.ButtonP2 = pMessage.Camera;
                 _player2CameraUpdated = false; //only laptop sees it, the phone needs to see it somehow else
-                Debug.Log(Client.ButtonP2);
             }
         }
 

@@ -82,8 +82,7 @@ public class GamePhone : MonoBehaviour
                     break;
             }
         }
-
-        Debug.Log(_clientPhone.ButtonClicked + " : " +_clientPhone.RoomP1);
+        
         if (Client.Instance.ButtonClicked == 4 && Client.Instance.RoomP1 == 0)
         {
             safe.SetActive(true);

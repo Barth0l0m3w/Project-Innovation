@@ -86,16 +86,6 @@ namespace server
 		protected override void handleNetworkMessage(ASerializable pMessage, TcpMessageChannel pSender)
 		{
 			
-			// if (pMessage is MakeMoveRequest)
-			// {
-			// 	HandleMakeMoveRequest(pMessage as MakeMoveRequest, pSender);
-			// }
-			//
-			// if (pMessage is PlayerJoinRequest)
-			// {
-			// 	HandlePlayerJoin(pSender);
-			// }
-
 			if (pMessage is DoorActive)
 			{
 				SetTheDoorActive(pMessage as DoorActive);
@@ -120,7 +110,7 @@ namespace server
 		private void UpdateLockPickStatus(LockPickedStatus pMessage)
 		{
 			LockPickedStatus lockPick = new LockPickedStatus();
-			lockPick.IsLockPicked = pMessage.IsLockPicked;
+			lockPick.IsLockPicked = true;
 			sendToAll(lockPick);
 		}
 
@@ -129,7 +119,6 @@ namespace server
 			if (pMessage.Player == 1)
 			{
 				ShowNotes notes = new ShowNotes();
-				notes.PlayerCamera = pMessage.PlayerCamera;
 				notes.PlayerRoom = pMessage.PlayerRoom;
 				notes.Player = 1;
 				_player1.SendMessage(notes);
@@ -137,7 +126,6 @@ namespace server
 			if (pMessage.Player == 2)
 			{
 				ShowNotes notes = new ShowNotes();
-				notes.PlayerCamera = pMessage.PlayerCamera;
 				notes.PlayerRoom = pMessage.PlayerRoom;
 				notes.Player = 2;
 				_player2.SendMessage(notes);
@@ -180,52 +168,6 @@ namespace server
 					_player2.SendMessage(sendDoor);
 				}
 
-		}
-
-		private void HandleMakeMoveRequest(MakeMoveRequest pMessage, TcpMessageChannel pSender)
-		{
-			//we have two players, so index of sender is 0 or 1, which means playerID becomes 1 or 2
-			int playerID = indexOfMember(pSender) + 1;
-			//make the requested move (0-8) on the board for the player
-			_board.MakeMove(pMessage.move, playerID);
-
-			//and send the result of the boardstate back to all clients
-			MakeMoveResult makeMoveResult = new MakeMoveResult();
-			makeMoveResult.whoMadeTheMove = playerID;
-			makeMoveResult.boardData = _board.GetBoardData();
-			sendToAll(makeMoveResult);
-
-			if (makeMoveResult.boardData.WhoHasWon() > 0)
-			{
-				GameFinished finished = new GameFinished();
-				finished.player = _server.GetPlayerInfo(pSender);
-				sendToAll(finished);
-
-				ChatMessage winnerMessage = new ChatMessage();
-				winnerMessage.message = $"{finished.player.id} has won!";
-				sendToAll(winnerMessage);
-
-				IsGameInPlay = false;
-			}
-		}
-		
-		// private void HandlePlayerJoin(TcpMessageChannel pSender)
-		// {
-		// 	PlayerJoinResponse response = new PlayerJoinResponse();
-		// 	response.result = PlayerJoinResponse.RequestResult.ACCEPTED;
-		// 	PlayerInfo newPlayerInfo = _server.GetPlayerInfo(pSender);
-		// 	if (newPlayerInfo != null)
-		// 	{
-		// 		removeMember(pSender);
-		// 		pSender.SendMessage(response);
-		// 		_infos.Remove(pSender);
-		// 		_server.GetLobbyRoom().AddMember(pSender);
-		// 	}
-		// }
-		
-		public void AddRoom(GameRoom room)
-		{
-			_server._rooms.Add(room);
 		}
 
 	}
