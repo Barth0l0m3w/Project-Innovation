@@ -10,6 +10,7 @@ namespace shared
         public int sceneNumber;
         public int characterID;
         public int deviceType;
+        public int CameraActive;
 
         public override void Serialize(Packet pPacket)
         {
@@ -17,6 +18,7 @@ namespace shared
             pPacket.Write(sceneNumber);
             pPacket.Write(characterID);
             pPacket.Write(deviceType);
+            pPacket.Write(CameraActive);
         }
 
         public override void Deserialize(Packet pPacket)
@@ -25,6 +27,7 @@ namespace shared
             sceneNumber = pPacket.ReadInt();
             characterID = pPacket.ReadInt();
             deviceType = pPacket.ReadInt();
+            CameraActive = pPacket.ReadInt();
         }
     }
 }

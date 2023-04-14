@@ -86,8 +86,6 @@ namespace States
             //OTHER FUNCTIONALITY
             if (Client.ButtonClicked != 0 && Client.ButtonClicked <= 3)
             {
-                Debug.Log("BUTTON CLICKED");
-                Debug.Log(Client.ButtonClicked);
                 ChooseCamera camera = new ChooseCamera();
                 camera.Camera = Client.ButtonClicked;
                 Client.Channel.SendMessage(camera);
@@ -173,7 +171,7 @@ namespace States
         private void ShowCorrectNotes(ShowNotes pMessage)
         {
             Client.Instance.RoomP1 = pMessage.PlayerRoom;
-            Client.Instance.CameraNumberP1 = pMessage.Player;
+            Client.Instance.PlayerNumber = pMessage.Player;
         }
 
         private void SwitchCameras(ChooseCamera pMessage)
@@ -189,7 +187,8 @@ namespace States
                 _player2CameraUpdated = false; //only laptop sees it, the phone needs to see it somehow else
             } else if (pMessage.Player == 3)
             {
-                
+                Client.CameraNumberP1 = pMessage.Camera;
+                Debug.Log("Camera used: " + Client.CameraNumberP1);
             }
         }
 

@@ -29,7 +29,7 @@ public class GamePhone : MonoBehaviour
             forwardButton.SetActive(false);
         }
 
-        if (_clientPhone.CameraNumberP1 == 1)
+        if (_clientPhone.PlayerNumber == 1)
         {
             switch (_clientPhone.RoomP1)
             {
@@ -56,7 +56,7 @@ public class GamePhone : MonoBehaviour
             }
         }
         
-        if (_clientPhone.CameraNumberP1 == 2)
+        if (_clientPhone.PlayerNumber == 2)
         {
             switch (_clientPhone.RoomP2)
             {
