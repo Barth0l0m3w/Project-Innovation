@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GamePhone : MonoBehaviour
 {
     [SerializeField] private GameObject forwardButton;
-    [SerializeField] private List<GameObject> notes;
+   [SerializeField] private List<GameObject> notesP1;
+    [SerializeField] private List<GameObject> notesP2;
     [SerializeField] private GameObject safe;
 
     private Client _clientPhone;
@@ -34,24 +36,24 @@ public class GamePhone : MonoBehaviour
             switch (_clientPhone.RoomP1)
             {
                 case 0:
-                    notes[0].SetActive(true);
-                    notes[2].SetActive(false);
-                    notes[4].SetActive(false);
+                    notesP1[0].SetActive(true);
+                    notesP1[2].SetActive(false);
+                    notesP1[4].SetActive(false);
                     break;
                 case 2:
-                    notes[2].SetActive(true);
-                    notes[4].SetActive(false);
-                    notes[0].SetActive(false);
+                    notesP1[2].SetActive(true);
+                    notesP1[4].SetActive(false);
+                    notesP1[0].SetActive(false);
                     break;
                 case 4:
-                    notes[4].SetActive(true);
-                    notes[2].SetActive(false);
-                    notes[0].SetActive(false);
+                    notesP1[4].SetActive(true);
+                    notesP1[2].SetActive(false);
+                    notesP1[0].SetActive(false);
                     break;
                 default:
-                    notes[4].SetActive(false);
-                    notes[2].SetActive(false);
-                    notes[0].SetActive(false);
+                    notesP1[4].SetActive(false);
+                    notesP1[2].SetActive(false);
+                    notesP1[0].SetActive(false);
                     break;
             }
         }
@@ -61,24 +63,24 @@ public class GamePhone : MonoBehaviour
             switch (_clientPhone.RoomP2)
             {
                 case 0:
-                    notes[1].SetActive(true);
-                    notes[2].SetActive(false);
-                    notes[3].SetActive(false);
+                    notesP1[1].SetActive(true);
+                    notesP1[2].SetActive(false);
+                    notesP1[3].SetActive(false);
                     break;
                 case 2:
-                    notes[2].SetActive(true);
-                    notes[3].SetActive(false);
-                    notes[1].SetActive(false);
+                    notesP1[2].SetActive(true);
+                    notesP1[3].SetActive(false);
+                    notesP1[1].SetActive(false);
                     break;
                 case 4:
-                    notes[3].SetActive(true);
-                    notes[2].SetActive(false);
-                    notes[1].SetActive(false);
+                    notesP1[3].SetActive(true);
+                    notesP1[2].SetActive(false);
+                    notesP1[1].SetActive(false);
                     break;
                 default:
-                    notes[3].SetActive(false);
-                    notes[2].SetActive(false);
-                    notes[1].SetActive(false);
+                    notesP1[3].SetActive(false);
+                    notesP1[2].SetActive(false);
+                    notesP1[1].SetActive(false);
                     break;
             }
         }
