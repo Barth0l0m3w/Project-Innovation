@@ -13,10 +13,12 @@ public class Client : MonoBehaviour
     private Dictionary<Type, ClientState> _states = new Dictionary<Type, ClientState>();
     private ClientState _currentState = null;
     private TcpMessageChannel _channel;
+    //LOGIN SCREEN
     private bool _playerOneClicked;
     private bool _playerTwoClicked;
     private bool _isPlayerOneReady;
     private bool _isPlayerTwoReady;
+    //GAME SCREEN
     private bool _isDoorVisibleP1;
     private bool _isDoorVisibleP2;
     private int _buttonClicked;
@@ -24,16 +26,37 @@ public class Client : MonoBehaviour
     private int _cameraNumberP2;
     private int _roomP1 = 0;
     private int _roomP2 = 0;
+    private int _playerRoom;
+
+    public int PlayerRoom
+    {
+        get => _playerRoom;
+        set => _playerRoom = value;
+    }
+
     private int _playerNumber;
+    private bool _lockCorrect;
+    private bool _lockPickedPhone;
+    private bool _lockPickedLaptop;
+    private bool _safeOpened;
+
+    public bool SafeOpened
+    {
+        get => _safeOpened;
+        set => _safeOpened = value;
+    }
+
+    public bool LockCorrect
+    {
+        get => _lockCorrect;
+        set => _lockCorrect = value;
+    }
 
     public int PlayerNumber
     {
         get => _playerNumber;
         set => _playerNumber = value;
     }
-
-    private bool _lockPickedPhone;
-    private bool _lockPickedLaptop;
 
     public bool LockPickedLaptop
     {

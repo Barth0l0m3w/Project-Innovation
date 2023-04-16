@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -8,14 +9,18 @@ using UnityEngine.UI;
 public class GamePhone : MonoBehaviour
 {
     [SerializeField] private GameObject forwardButton;
-   [SerializeField] private List<GameObject> notesP1;
+    [SerializeField] private List<GameObject> notesP1;
     [SerializeField] private List<GameObject> notesP2;
+    [SerializeField] private GameObject lockCellDoor;
+    [SerializeField] private GameObject finalLock;
     [SerializeField] private GameObject safe;
 
     private Client _clientPhone;
 
     private void Start()
     {
+        lockCellDoor.SetActive(false);
+        finalLock.SetActive(false);
         safe.SetActive(false);
         _clientPhone = Client.Instance;
     }
@@ -31,66 +36,76 @@ public class GamePhone : MonoBehaviour
             forwardButton.SetActive(false);
         }
 
+        List<GameObject> usedNotes;
         if (_clientPhone.PlayerNumber == 1)
         {
-            switch (_clientPhone.RoomP1)
-            {
-                case 0:
-                    notesP1[0].SetActive(true);
-                    notesP1[2].SetActive(false);
-                    notesP1[4].SetActive(false);
-                    break;
-                case 2:
-                    notesP1[2].SetActive(true);
-                    notesP1[4].SetActive(false);
-                    notesP1[0].SetActive(false);
-                    break;
-                case 4:
-                    notesP1[4].SetActive(true);
-                    notesP1[2].SetActive(false);
-                    notesP1[0].SetActive(false);
-                    break;
-                default:
-                    notesP1[4].SetActive(false);
-                    notesP1[2].SetActive(false);
-                    notesP1[0].SetActive(false);
-                    break;
-            }
+            usedNotes = notesP1;
         }
-        
-        if (_clientPhone.PlayerNumber == 2)
+        else
         {
-            switch (_clientPhone.RoomP2)
-            {
-                case 0:
-                    notesP1[1].SetActive(true);
-                    notesP1[2].SetActive(false);
-                    notesP1[3].SetActive(false);
-                    break;
-                case 2:
-                    notesP1[2].SetActive(true);
-                    notesP1[3].SetActive(false);
-                    notesP1[1].SetActive(false);
-                    break;
-                case 4:
-                    notesP1[3].SetActive(true);
-                    notesP1[2].SetActive(false);
-                    notesP1[1].SetActive(false);
-                    break;
-                default:
-                    notesP1[3].SetActive(false);
-                    notesP1[2].SetActive(false);
-                    notesP1[1].SetActive(false);
-                    break;
-            }
+            usedNotes = notesP2;
+        }
+
+        //TODO: TESSST
+        for (int i = 0; i < usedNotes.Count; i++)
+        {
+            usedNotes[i].SetActive(_clientPhone.PlayerRoom == i);
         }
         
-        if (Client.Instance.ButtonClicked == 4 && Client.Instance.RoomP1 == 0)
+
+        // if (_clientPhone.PlayerNumber == 2)
+        // {
+        //     switch (_clientPhone.RoomP2)
+        //     {
+        //         case 0:
+        //             notesP1[1].SetActive(true);
+        //             notesP1[2].SetActive(false);
+        //             notesP1[3].SetActive(false);
+        //             break;
+        //         case 2:
+        //             notesP1[2].SetActive(true);
+        //             notesP1[3].SetActive(false);
+        //             notesP1[1].SetActive(false);
+        //             break;
+        //         case 4:
+        //             notesP1[3].SetActive(true);
+        //             notesP1[2].SetActive(false);
+        //             notesP1[1].SetActive(false);
+        //             break;
+        //         default:
+        //             notesP1[3].SetActive(false);
+        //             notesP1[2].SetActive(false);
+        //             notesP1[1].SetActive(false);
+        //             break;
+        //     }
+        // }
+
+        if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 0)
+        {
+            lockCellDoor.SetActive(true);
+        }
+
+        if (_clientPhone.LockPickedPhone)
+        {
+            lockCellDoor.SetActive(false);
+        }
+
+        if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 2)
+        {
+            finalLock.SetActive(false);
+        }
+
+        if (_clientPhone.LockCorrect)
+        {
+            Debug.Log("Congratulations");
+        }
+        
+        if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 3)
         {
             safe.SetActive(true);
         }
 
-        if (_clientPhone.LockPickedPhone)
+        if (_clientPhone.SafeOpened)
         {
             safe.SetActive(false);
         }

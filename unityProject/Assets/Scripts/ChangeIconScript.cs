@@ -11,6 +11,7 @@ public class ChangeIconScript : MonoBehaviour
 
     private void Update()
     {
+        //TODO: TESSSSTTT
         if (Client.Instance.IsPlayerOneReady)
         {
             p1Gretel.gameObject.SetActive(true);

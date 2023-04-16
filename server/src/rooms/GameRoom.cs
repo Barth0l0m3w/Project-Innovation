@@ -146,7 +146,6 @@ namespace server
                 _laptop.SendMessage(camera);
                 ChooseCamera cameraPhone = new ChooseCamera();
                 _startCameraP1 = NewActiveCamera(_startCameraP1, pMessage.Camera);
-                Console.WriteLine(_startCameraP1);
                 cameraPhone.Camera = _startCameraP1;
                 cameraPhone.Player = 3;
                 pSender.SendMessage(cameraPhone);
@@ -158,8 +157,10 @@ namespace server
                 camera.Camera = pMessage.Camera;
                 camera.Player = 2;
                 _laptop.SendMessage(camera);
+                //TODO: TESSSTTTT
                 ChooseCamera cameraPhone = new ChooseCamera();
-                cameraPhone.Camera = pMessage.Camera;
+                _startCameraP2 = NewActiveCamera(_startCameraP2, pMessage.Camera);
+                cameraPhone.Camera = _startCameraP2;
                 cameraPhone.Player = 3;
                 pSender.SendMessage(cameraPhone);
             }

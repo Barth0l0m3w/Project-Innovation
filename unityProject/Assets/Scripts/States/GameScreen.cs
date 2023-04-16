@@ -12,7 +12,7 @@ namespace States
         private bool _setInactiveProcessedP2;
         private bool _player1CameraUpdated;
         private bool _player2CameraUpdated;
-        private bool _lockPickFinished = false;
+        private bool _lockPickFinished;
 
         public override void EnterState()
         {
@@ -24,34 +24,38 @@ namespace States
         {
             ReceiveAndProcessNetworkMessages();
             //PLAYER 1 --------------------
-            if (Client.IsDoorVisibleP1 && !_setActiveProcessedP1 && Client.LockPickedLaptop)
-            {
-                DoorActive doorActive = new DoorActive();
-                doorActive.IsActive = true;
-                doorActive.Player = 1;
-                Client.Channel.SendMessage(doorActive);
-                _setActiveProcessedP1 = true;
-                _setInactiveProcessedP1 = false;
-            }
+            //TODO: TESSSTTT
+            ProcessPlayer(1, Client.RoomP1,Client.IsDoorVisibleP1, ref _setActiveProcessedP1, ref _setInactiveProcessedP1,
+                Client.LockPickedLaptop, ref _player1CameraUpdated);
             
-            if (!Client.IsDoorVisibleP1 && !_setInactiveProcessedP1 && Client.LockPickedLaptop)
-            {
-                DoorActive doorActive = new DoorActive();
-                doorActive.IsActive = false;
-                doorActive.Player = 1;
-                Client.Channel.SendMessage(doorActive);
-                _setActiveProcessedP1 = false;
-                _setInactiveProcessedP1 = true;
-            }
-            
-            if (!_player1CameraUpdated)
-            {
-                ShowNotes camera = new ShowNotes();
-                camera.Player = 1;
-                camera.PlayerRoom = Client.RoomP1;
-                Client.Channel.SendMessage(camera);
-                _player1CameraUpdated = true;
-            }
+            // if (Client.IsDoorVisibleP1 && !_setActiveProcessedP1 && Client.LockPickedLaptop)
+            // {
+            //     DoorActive doorActive = new DoorActive();
+            //     doorActive.IsActive = true;
+            //     doorActive.Player = 1;
+            //     Client.Channel.SendMessage(doorActive);
+            //     _setActiveProcessedP1 = true;
+            //     _setInactiveProcessedP1 = false;
+            // }
+            //
+            // if (!Client.IsDoorVisibleP1 && !_setInactiveProcessedP1 && Client.LockPickedLaptop)
+            // {
+            //     DoorActive doorActive = new DoorActive();
+            //     doorActive.IsActive = false;
+            //     doorActive.Player = 1;
+            //     Client.Channel.SendMessage(doorActive);
+            //     _setActiveProcessedP1 = false;
+            //     _setInactiveProcessedP1 = true;
+            // }
+            //
+            // if (!_player1CameraUpdated)
+            // {
+            //     ShowNotes camera = new ShowNotes();
+            //     camera.Player = 1;
+            //     camera.PlayerRoom = Client.RoomP1;
+            //     Client.Channel.SendMessage(camera);
+            //     _player1CameraUpdated = true;
+            // }
             
             //PLAYER 2 ---------------------
             if (Client.IsDoorVisibleP2 && !_setActiveProcessedP2 && Client.LockPickedLaptop)
@@ -147,8 +151,8 @@ namespace States
             }
         }
 
-        private void ProcessPlayer(int player, int playerRoom, bool isDoorVisible, bool setActiveProcessed,
-            bool setInactiveProcessed, bool lockPicked, bool cameraUpdated)
+        private void ProcessPlayer(int player, int playerRoom, bool isDoorVisible, ref bool setActiveProcessed,
+            ref bool setInactiveProcessed, bool lockPicked, ref bool cameraUpdated)
         {
             if (isDoorVisible && !setActiveProcessed && lockPicked)
             {
@@ -189,8 +193,8 @@ namespace States
 
         private void ShowCorrectNotes(ShowNotes pMessage)
         {
-            Client.Instance.RoomP1 = pMessage.PlayerRoom;
-            Client.Instance.PlayerNumber = pMessage.Player;
+            Client.PlayerRoom = pMessage.PlayerRoom;
+            Client.PlayerNumber = pMessage.Player;
         }
 
         private void SwitchCameras(ChooseCamera pMessage)

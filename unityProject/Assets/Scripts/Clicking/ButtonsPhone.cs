@@ -40,16 +40,4 @@ public class ButtonsPhone : MonoBehaviour
         Client.Instance.ButtonClicked = 4;
         Debug.Log("4 clicked");
     }
-    public void Note2()
-    {
-        Client.Instance.ButtonClicked = 5;
-    }
-    public void Note3()
-    {
-        Client.Instance.ButtonClicked = 6;
-    }
-    public void Note4()
-    {
-        Client.Instance.ButtonClicked = 7;
-    }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07131338, g: 0.07006617, b: 0.09106086, a: 1}
+  m_IndirectSpecularColor: {r: 0.06840089, g: 0.07043025, b: 0.09041055, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5497,7 +5497,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &633047518
 GameObject:
@@ -5604,7 +5604,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 20, y: 30}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 9.999999
+  m_FocalLength: 5.9999995
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -5613,7 +5613,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 112.619865
+  field of view: 136.39719
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -5638,8 +5638,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633047518}
-  m_LocalRotation: {x: 0.020028083, y: 0.9226134, z: -0.048352063, w: 0.38215896}
-  m_LocalPosition: {x: 28.1, y: 0.12, z: 13.6}
+  m_LocalRotation: {x: 0.03489949, y: 0, z: 0, w: 0.99939084}
+  m_LocalPosition: {x: 10.12, y: 0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5800,7 +5800,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 40.343, y: 209.53, z: 283.951}
 --- !u!1 &659520731
 GameObject:
@@ -14130,6 +14130,9 @@ MonoBehaviour:
   - {fileID: 1088991584}
   - {fileID: 90213248}
   - {fileID: 1318210338}
+  exitCameras:
+  - {fileID: 283240509}
+  - {fileID: 461339826}
   numberOfRooms: 5
 --- !u!4 &1690311257
 Transform:
@@ -15903,7 +15906,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1965769811
 GameObject:
