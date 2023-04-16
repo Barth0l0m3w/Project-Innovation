@@ -48,8 +48,6 @@ public class LockPick : MonoBehaviour
         //set the rotation of the pick to the rotation of the gyro
         pickRotation.z = Input.gyro.rotationRateUnbiased.z;
 
-
-
         //when not checking the position by touching the pick is movable
         if (movePick)
         {
@@ -88,26 +86,41 @@ public class LockPick : MonoBehaviour
         //timer stuff, only running when the function is needed
         if (isRunning)
         {
-            //when called start the timer, disable the moving of the pick and start rotating the inner lock
-            countdownTime -= Time.deltaTime;
-            movePick = false;
-            RotateInner();
-
-            if (countdownTime <= 0)
-            {
-                //when done: up the int, reset timer, enable moving the pick and stop the function
-                timesTurned++;
-                NewLock();
-                countdownTime = timerTime;
-                movePick = true;
-                isRunning = false;
-            }
+            RotateOuter();
         }
 
-        if (timesTurned == 3)
+        if (GetTurned() == 3)
         {
             GameDone();
         }
+    }
+
+    private void RotateOuter()
+    {
+        //when called start the timer, disable the moving of the pick and start rotating the inner lock
+        countdownTime -= Time.deltaTime;
+        movePick = false;
+        RotateInner();
+
+        if (countdownTime <= 0)
+        {
+            //when done: up the int, reset timer, enable moving the pick and stop the function
+            SetTurned();
+            NewLock();
+            countdownTime = timerTime;
+            movePick = true;
+            isRunning = false;
+        }
+    }
+
+    private int GetTurned()
+    {
+        return timesTurned;
+    }
+
+    private void SetTurned()
+    {
+        timesTurned++;
     }
 
     void GameDone()
