@@ -35,6 +35,11 @@ public class ButtonsPhone : MonoBehaviour
         Client.Instance.ButtonClicked = 3;
     }
 
+    public void ZoomOut()
+    {
+        Client.Instance.ButtonClicked = 6;
+    }
+
     public void Note()
     {
         Client.Instance.ButtonClicked = 4;

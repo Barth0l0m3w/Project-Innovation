@@ -26,7 +26,8 @@ public class Zoom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _beginPosition = _cinemachineVirtualCamera.transform.position;
+        //_beginPosition = _cinemachineVirtualCamera.transform.position;
+        _beginPosition = new Vector3(0, 0, 0);
         _beginRotation = _cinemachineVirtualCamera.transform.eulerAngles;
     }
 
@@ -49,7 +50,7 @@ public class Zoom : MonoBehaviour
             _cinemachineVirtualCamera.transform.eulerAngles = rotation1;
         }
         
-        else
+        else if (Client.Instance.ButtonClicked == 6 || Input.GetKeyDown(KeyCode.Backspace))
         {
             _cinemachineVirtualCamera.transform.localPosition = _beginPosition;
             _cinemachineVirtualCamera.transform.eulerAngles = _beginRotation;
