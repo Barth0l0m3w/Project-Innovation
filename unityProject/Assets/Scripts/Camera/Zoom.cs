@@ -17,6 +17,8 @@ public class Zoom : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,8 @@ public class Zoom : MonoBehaviour
 
     private void HandleCameraZoom()
     {
-
+        //To do Kama
+        //instead of keycode, use the zoom button on phone
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             cinemachineVirtualCamera.transform.position = position1;
