@@ -6,24 +6,22 @@ using UnityEngine;
 public class NotesButtons : MonoBehaviour
 {
     [SerializeField] private List<GameObject> positions;
+    [SerializeField] private List<GameObject> interactions;
+    [SerializeField] private int modifier;
+    [SerializeField] private bool isDefaultShown;
+
+    private int _startingNumber;
 
     private void Update()
     {
         if (gameObject.activeSelf)
         {
-            
-                for (int i = 0; i < positions.Count; i++)
-                {
-                    if (i == Client.Instance.CameraNumberP1)
-                    {
-                        positions[i].SetActive(true);
-                    }
-                    else
-                    {
-                        positions[i].SetActive(false);
-                    }
-                }
-            
+            _startingNumber = isDefaultShown ? 0 : 1;
+            for (int i = _startingNumber; i < positions.Count + _startingNumber; i++)
+            {
+                positions[i-_startingNumber].SetActive(i * modifier == Client.Instance.CameraNumberPlayer);
+                
+            }
         }
     }
 }
