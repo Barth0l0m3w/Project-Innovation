@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -41,6 +42,12 @@ public class LockPick : MonoBehaviour
         NewLock();
         pickRotation = Vector3.zero;
         Input.gyro.enabled = true;
+        
+    }
+
+    private void OnEnable()
+    {
+        Client.Instance.PuzzleSolved = false;
     }
 
     void Update()

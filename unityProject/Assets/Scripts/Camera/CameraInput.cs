@@ -109,10 +109,7 @@ public class CameraInput : MonoBehaviour
             _client.IsDoorVisibleP1 = true;
             if (Input.GetKeyUp(KeyCode.Alpha2) || _client.ButtonP1 == 2)
             {
-                if (exitCameras.Contains(CurrentCameraP1) && _client.LockCorrect)
-                {
-                    Debug.Log("GO OUT");
-                }
+                
                 if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
                 {
                     GoToTheRoom(-1, 1);
@@ -127,6 +124,11 @@ public class CameraInput : MonoBehaviour
         else
         {
             _client.IsDoorVisibleP1 = false;
+        }
+        
+        if (exitCameras.Contains(CurrentCameraP1) && _client.LockCorrect)
+        {
+            Debug.Log("GO OUT");
         }
         
 
