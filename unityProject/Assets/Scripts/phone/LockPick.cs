@@ -126,7 +126,7 @@ public class LockPick : MonoBehaviour
     void GameDone()
     {
         Debug.Log("game finished, yay");
-        //Client.Instance.LockPickedPhone = true;
+        Client.Instance.LockPickedPhone = true;
     }
 
     void ActivateTimer()
