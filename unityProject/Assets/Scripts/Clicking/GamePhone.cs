@@ -63,19 +63,19 @@ public class GamePhone : MonoBehaviour
                  switch (_clientPhone.PlayerRoom)
                  {
                      case 0:
-                         if (_clientPhone.ButtonClicked == 4&& _clientPhone.NewPuzzle) OpenPuzzle(lockedDoorPrompt);
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(lockedDoorPrompt);
                          break;
                      case 1:
-                         if (_clientPhone.ButtonClicked == 4&& _clientPhone.NewPuzzle) OpenPuzzle(number);
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(number);
                          break;
                      case 2:
-                         if (_clientPhone.ButtonClicked == 4&& _clientPhone.NewPuzzle) OpenPuzzle(poster1);
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(poster1);
                          break;
                      case 3: 
-                         if (_clientPhone.ButtonClicked == 4&& _clientPhone.NewPuzzle) OpenPuzzle(finalLock);
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(finalLock);
                          break;
                      case 4: 
-                         if (_clientPhone.ButtonClicked == 4&& _clientPhone.NewPuzzle) OpenPuzzle(cox);
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(cox);
                          break;
                  }
                  
