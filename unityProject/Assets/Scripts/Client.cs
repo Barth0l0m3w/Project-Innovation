@@ -27,7 +27,15 @@ public class Client : MonoBehaviour
     private int _roomP1 = 0;
     private int _roomP2 = 0;
     private int _playerRoom;
-    
+
+    private bool _puzzleSolved;
+
+    public bool PuzzleSolved
+    {
+        get => _puzzleSolved;
+        set => _puzzleSolved = value;
+    }
+
     private Dictionary<GameObject, bool> _interactions = new Dictionary<GameObject, bool>();
 
     public Dictionary<GameObject, bool> Interactions

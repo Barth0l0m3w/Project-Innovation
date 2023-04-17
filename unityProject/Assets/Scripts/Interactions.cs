@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotesButtons : MonoBehaviour
+public class Interactions : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> positions;
     [SerializeField] private List<GameObject> interactions;
     [SerializeField] private int modifier;
     [SerializeField] private bool isDefaultShown;
@@ -14,13 +12,12 @@ public class NotesButtons : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf && Client.Instance.ButtonClicked == 4)
         {
             _startingNumber = isDefaultShown ? 0 : 1;
-            for (int i = _startingNumber; i < positions.Count + _startingNumber; i++)
+            for (int i = _startingNumber; i < interactions.Count + _startingNumber; i++)
             {
-                positions[i-_startingNumber].SetActive(i * modifier == Client.Instance.CameraNumberPlayer);
-                
+                interactions[i-_startingNumber].SetActive(i * modifier == Client.Instance.CameraNumberPlayer);
             }
         }
     }

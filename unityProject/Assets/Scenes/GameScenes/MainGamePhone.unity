@@ -256,6 +256,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54601}
   m_CullTransparentMesh: 1
+--- !u!1 &41863606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 41863607}
+  m_Layer: 0
+  m_Name: lockedDoorPrompt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &41863607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41863606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &58701937
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +343,7 @@ MonoBehaviour:
   positions:
   - {fileID: 120882802}
   - {fileID: 1821150260}
+  interactions: []
   modifier: 0
   isDefaultShown: 0
 --- !u!114 &58701940
@@ -352,6 +384,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58701937}
   m_CullTransparentMesh: 1
+--- !u!1 &104377561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104377562}
+  m_Layer: 0
+  m_Name: manual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &104377562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104377561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120882802
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +501,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -572,7 +635,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1037,7 +1100,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1255,7 +1318,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1630,7 +1693,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1772,6 +1835,9 @@ MonoBehaviour:
   positions:
   - {fileID: 176237028}
   - {fileID: 1383326826}
+  interactions:
+  - {fileID: 928860448}
+  - {fileID: 294007193}
   modifier: 3
   isDefaultShown: 1
 --- !u!1 &555626795
@@ -1996,7 +2062,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2078,6 +2144,7 @@ MonoBehaviour:
   positions:
   - {fileID: 1434642367}
   - {fileID: 432037998}
+  interactions: []
   modifier: 2
   isDefaultShown: 1
 --- !u!114 &680591536
@@ -2273,6 +2340,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689832380}
   m_CullTransparentMesh: 1
+--- !u!1 &722859908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722859909}
+  m_Layer: 0
+  m_Name: mainDoor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &722859909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722859908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &794399357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 794399358}
+  m_Layer: 0
+  m_Name: cox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &794399358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794399357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &928860448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 928860449}
+  m_Layer: 0
+  m_Name: lockCell
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &928860449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928860448}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931189060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,7 +2519,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2946,6 +3106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positions:
   - {fileID: 493975173}
+  interactions: []
   modifier: 2
   isDefaultShown: 0
 --- !u!114 &1144907383
@@ -3040,6 +3201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positions:
   - {fileID: 1685159602}
+  interactions: []
   modifier: 2
   isDefaultShown: 0
 --- !u!114 &1153795813
@@ -3080,6 +3242,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153795810}
   m_CullTransparentMesh: 1
+--- !u!1 &1167920690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1167920691}
+  m_Layer: 0
+  m_Name: 13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1167920691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167920690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1168838301
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,6 +3395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positions:
   - {fileID: 285267315}
+  interactions: []
   modifier: 0
   isDefaultShown: 1
 --- !u!114 &1286282799
@@ -3378,6 +3572,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298669948}
   m_CullTransparentMesh: 1
+--- !u!1 &1342336148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1342336149}
+  m_Layer: 0
+  m_Name: poster1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1342336149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342336148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1383326826
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,7 +3689,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3577,7 +3802,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3836,6 +4061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positions:
   - {fileID: 931189060}
+  interactions: []
   modifier: 2
   isDefaultShown: 1
 --- !u!114 &1469815426
@@ -3876,6 +4102,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469815423}
   m_CullTransparentMesh: 1
+--- !u!1 &1528742865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1528742866}
+  m_Layer: 0
+  m_Name: teddy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1528742866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528742865}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553776690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4237,6 +4494,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587301636}
   m_CullTransparentMesh: 1
+--- !u!1 &1607909123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1607909124}
+  m_Layer: 0
+  m_Name: poster2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1607909124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607909123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.072216, y: -30.603197, z: 94.78749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1685159602
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,7 +4611,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4803,7 +5091,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4895,8 +5183,15 @@ MonoBehaviour:
   - {fileID: 58701937}
   possibleInteractions: []
   lockCellDoor: {fileID: 294007193}
-  finalLock: {fileID: 0}
+  finalLock: {fileID: 722859908}
   safe: {fileID: 294007193}
+  cox: {fileID: 794399357}
+  teddy: {fileID: 1528742865}
+  poster1: {fileID: 1342336148}
+  poster2: {fileID: 1607909123}
+  lockedDoorPrompt: {fileID: 41863606}
+  manual: {fileID: 104377561}
+  number: {fileID: 1167920690}
 --- !u!4 &1847341974
 Transform:
   m_ObjectHideFlags: 0
@@ -5104,6 +5399,7 @@ MonoBehaviour:
   positions:
   - {fileID: 592797385}
   - {fileID: 2117326744}
+  interactions: []
   modifier: 3
   isDefaultShown: 1
 --- !u!114 &2078228991
@@ -5230,7 +5526,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1553776694}
         m_TargetAssemblyTypeName: ButtonsPhone, Assembly-CSharp
-        m_MethodName: Note1
+        m_MethodName: Note
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

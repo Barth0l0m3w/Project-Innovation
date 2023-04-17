@@ -15,8 +15,18 @@ public class GamePhone : MonoBehaviour
     [SerializeField] private GameObject lockCellDoor;
     [SerializeField] private GameObject finalLock;
     [SerializeField] private GameObject safe;
+    [SerializeField] private GameObject cox;
+    [SerializeField] private GameObject teddy;
+    [SerializeField] private GameObject poster1;
+    [SerializeField] private GameObject poster2;
+    [SerializeField] private GameObject lockedDoorPrompt;
+    [SerializeField] private GameObject manual;
+    [SerializeField] private GameObject number;
+    
 
     private Client _clientPhone;
+    private List<GameObject> _usedNotes;
+    private GameObject _activePuzzle;
 
     private void Start()
     {
@@ -37,84 +47,85 @@ public class GamePhone : MonoBehaviour
             forwardButton.SetActive(false);
         }
 
-        List<GameObject> usedNotes;
         if (_clientPhone.PlayerNumber == 1)
         {
-            usedNotes = notesP1;
-            Debug.Log("I am player 1");
-        }
-        else
-        {
-            usedNotes = notesP2;
-            Debug.Log("I am player 2");
-        }
-        
-        if (_clientPhone.PlayerNumber == 1)
-        {
+            _usedNotes = notesP1;
             for (int i = 0; i < notesP1.Count; i++)
             {
                 notesP1[i].SetActive(_clientPhone.PlayerRoom == i);
             }
             
+            if (_clientPhone.ButtonClicked == 4)
+            {
+                switch (_clientPhone.PlayerRoom)
+                {
+                    case 0:
+                        OpenPuzzle(lockedDoorPrompt);
+                        break;
+                    case 1:
+                        OpenPuzzle(number);
+                        break;
+                    case 2:
+                        OpenPuzzle(poster1);
+                        break;
+                    case 3: 
+                        OpenPuzzle(finalLock);
+                        break;
+                    case 4: 
+                        OpenPuzzle(cox);
+                        break;
+                }
+                
+            }
+            
+            if (_clientPhone.ButtonClicked == 5)
+            {
+                switch (_clientPhone.PlayerRoom)
+                {
+                    case 0:
+                        OpenPuzzle(lockCellDoor);
+                        break;
+                    case 4: 
+                        OpenPuzzle(teddy);
+                        break;
+                }
+            }
+
+
+            if (_clientPhone.PuzzleSolved)
+            {
+                SolvePuzzle(_activePuzzle);
+            }
         }
         
         if (_clientPhone.PlayerNumber == 2)
         {
+            _usedNotes = notesP2;
             for (int i = 0; i < notesP2.Count; i++)
             {
                 notesP2[i].SetActive(_clientPhone.PlayerRoom == i);
             }
             
+            
+            
+            
+            
         }
 
-        // //Add first only p1
-        // foreach (GameObject interaction in possibleInteractions)
+        // if (_clientPhone.ButtonClicked == 4)
         // {
-        //     _clientPhone.Interactions.Add(interaction,false);
+        //     //Make use of disctionary
         // }
-
-        if (_clientPhone.ButtonClicked == 4)
-        {
-            //Make use of disctionary
-        }
-        
-
-        // if (_clientPhone.PlayerNumber == 2)
+        //
+        // if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 0)
         // {
-        //     switch (_clientPhone.RoomP2)
-        //     {
-        //         case 0:
-        //             notesP1[1].SetActive(true);
-        //             notesP1[2].SetActive(false);
-        //             notesP1[3].SetActive(false);
-        //             break;
-        //         case 2:
-        //             notesP1[2].SetActive(true);
-        //             notesP1[3].SetActive(false);
-        //             notesP1[1].SetActive(false);
-        //             break;
-        //         case 4:
-        //             notesP1[3].SetActive(true);
-        //             notesP1[2].SetActive(false);
-        //             notesP1[1].SetActive(false);
-        //             break;
-        //         default:
-        //             notesP1[3].SetActive(false);
-        //             notesP1[2].SetActive(false);
-        //             notesP1[1].SetActive(false);
-        //             break;
-        //     }
+        //     lockCellDoor.SetActive(true);
         // }
-
-        if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 0)
-        {
-            lockCellDoor.SetActive(true);
-        }
-
-        if (_clientPhone.LockPickedPhone)
-        {
-            lockCellDoor.SetActive(false);
-        }
+        //
+        // if (_clientPhone.LockPickedPhone)
+        // {
+        //     lockCellDoor.SetActive(false);
+        // }
 
         // if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 2)
         // {
@@ -135,5 +146,15 @@ public class GamePhone : MonoBehaviour
         // {
         //     safe.SetActive(false);
         // }
+    }
+    
+    private void SolvePuzzle(GameObject puzzle){
+        puzzle.SetActive(false);
+    }
+
+    private void OpenPuzzle(GameObject puzzle)
+    {
+        puzzle.SetActive(true);
+        _activePuzzle = puzzle;
     }
 }
