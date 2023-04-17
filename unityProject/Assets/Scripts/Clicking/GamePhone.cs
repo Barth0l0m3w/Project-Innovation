@@ -11,6 +11,7 @@ public class GamePhone : MonoBehaviour
     [SerializeField] private GameObject forwardButton;
     [SerializeField] private List<GameObject> notesP1;
     [SerializeField] private List<GameObject> notesP2;
+    [SerializeField] protected List<GameObject> possibleInteractions;
     [SerializeField] private GameObject lockCellDoor;
     [SerializeField] private GameObject finalLock;
     [SerializeField] private GameObject safe;
@@ -19,9 +20,9 @@ public class GamePhone : MonoBehaviour
 
     private void Start()
     {
-        lockCellDoor.SetActive(false);
-        finalLock.SetActive(false);
-        safe.SetActive(false);
+        // lockCellDoor.SetActive(false);
+        // finalLock.SetActive(false);
+        // safe.SetActive(false);
         _clientPhone = Client.Instance;
     }
 
@@ -40,16 +41,41 @@ public class GamePhone : MonoBehaviour
         if (_clientPhone.PlayerNumber == 1)
         {
             usedNotes = notesP1;
+            Debug.Log("I am player 1");
         }
         else
         {
             usedNotes = notesP2;
+            Debug.Log("I am player 2");
+        }
+        
+        if (_clientPhone.PlayerNumber == 1)
+        {
+            for (int i = 0; i < notesP1.Count; i++)
+            {
+                notesP1[i].SetActive(_clientPhone.PlayerRoom == i);
+            }
+            
+        }
+        
+        if (_clientPhone.PlayerNumber == 2)
+        {
+            for (int i = 0; i < notesP2.Count; i++)
+            {
+                notesP2[i].SetActive(_clientPhone.PlayerRoom == i);
+            }
+            
         }
 
-        //TODO: TESSST
-        for (int i = 0; i < usedNotes.Count; i++)
+        // //Add first only p1
+        // foreach (GameObject interaction in possibleInteractions)
+        // {
+        //     _clientPhone.Interactions.Add(interaction,false);
+        // }
+
+        if (_clientPhone.ButtonClicked == 4)
         {
-            usedNotes[i].SetActive(_clientPhone.PlayerRoom == i);
+            //Make use of disctionary
         }
         
 
@@ -90,24 +116,24 @@ public class GamePhone : MonoBehaviour
             lockCellDoor.SetActive(false);
         }
 
-        if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 2)
-        {
-            finalLock.SetActive(false);
-        }
-
-        if (_clientPhone.LockCorrect)
-        {
-            Debug.Log("Congratulations");
-        }
-        
-        if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 3)
-        {
-            safe.SetActive(true);
-        }
-
-        if (_clientPhone.SafeOpened)
-        {
-            safe.SetActive(false);
-        }
+        // if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 2)
+        // {
+        //     finalLock.SetActive(false);
+        // }
+        //
+        // if (_clientPhone.LockCorrect)
+        // {
+        //     Debug.Log("Congratulations");
+        // }
+        //
+        // if (_clientPhone.ButtonClicked == 4 && _clientPhone.PlayerRoom == 3)
+        // {
+        //     safe.SetActive(true);
+        // }
+        //
+        // if (_clientPhone.SafeOpened)
+        // {
+        //     safe.SetActive(false);
+        // }
     }
 }

@@ -11,6 +11,7 @@ public class Client : MonoBehaviour
     [SerializeField] private ClientState _startState = null;
     
     private Dictionary<Type, ClientState> _states = new Dictionary<Type, ClientState>();
+    
     private ClientState _currentState = null;
     private TcpMessageChannel _channel;
     //LOGIN SCREEN
@@ -22,11 +23,18 @@ public class Client : MonoBehaviour
     private bool _isDoorVisibleP1;
     private bool _isDoorVisibleP2;
     private int _buttonClicked;
-    private int _cameraNumberP1;
-    private int _cameraNumberP2;
+    private int _cameraNumberPlayer;
     private int _roomP1 = 0;
     private int _roomP2 = 0;
     private int _playerRoom;
+    
+    private Dictionary<GameObject, bool> _interactions = new Dictionary<GameObject, bool>();
+
+    public Dictionary<GameObject, bool> Interactions
+    {
+        get => _interactions;
+        set => _interactions = value;
+    }
 
     public int PlayerRoom
     {
@@ -84,16 +92,10 @@ public class Client : MonoBehaviour
     }
 
 
-    public int CameraNumberP1
+    public int CameraNumberPlayer
     {
-        get => _cameraNumberP1;
-        set => _cameraNumberP1 = value;
-    }
-
-    public int CameraNumberP2
-    {
-        get => _cameraNumberP2;
-        set => _cameraNumberP2 = value;
+        get => _cameraNumberPlayer;
+        set => _cameraNumberPlayer = value;
     }
 
 

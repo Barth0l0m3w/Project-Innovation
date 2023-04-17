@@ -210,8 +210,8 @@ namespace States
                 _player2CameraUpdated = false; //only laptop sees it, the phone needs to see it somehow else
             } else if (pMessage.Player == 3)
             {
-                Client.CameraNumberP1 = pMessage.Camera;
-                Debug.Log("Camera used: " + Client.CameraNumberP1);
+                Client.CameraNumberPlayer = pMessage.Camera;
+                Debug.Log("Camera used: " + Client.CameraNumberPlayer);
             }
         }
 
