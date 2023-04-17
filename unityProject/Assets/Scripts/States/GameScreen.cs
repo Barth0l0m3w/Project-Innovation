@@ -24,7 +24,6 @@ namespace States
         {
             ReceiveAndProcessNetworkMessages();
             //PLAYER 1 --------------------
-            //TODO: TESSSTTT
             ProcessPlayer(1, Client.RoomP1,Client.IsDoorVisibleP1, ref _setActiveProcessedP1, ref _setInactiveProcessedP1,
                 Client.LockPickedLaptop, ref _player1CameraUpdated);
             
