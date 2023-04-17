@@ -22,8 +22,10 @@ public class Zoom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        beginPosition = cinemachineVirtualCamera.transform.position;
-        beginRotation = cinemachineVirtualCamera.transform.eulerAngles;
+        
+            beginPosition = cinemachineVirtualCamera.transform.position;
+            beginRotation = cinemachineVirtualCamera.transform.eulerAngles;
+        
     }
 
     // Update is called once per frame

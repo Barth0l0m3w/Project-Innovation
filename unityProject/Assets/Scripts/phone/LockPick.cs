@@ -6,6 +6,16 @@ using UnityEngine;
 
 public class LockPick : MonoBehaviour
 {
+    //audio
+    [SerializeField]
+    private AudioClip soundUnlock;
+    [SerializeField]
+    private AudioSource AudioSource;
+    private bool soundIsPlaying = false;
+    private bool playSound = true;
+    private float soundTime = 2;
+    private float time;
+
     //images for the turning linked
     [SerializeField]
     private Transform innerLock;
@@ -21,7 +31,7 @@ public class LockPick : MonoBehaviour
     private float unlockAngle;
 
     [SerializeField]
-    private float differenceAngle;
+    private float differenceAngle = 70;
     private float eulerAngle;
     private Vector3 pickRotation;
 
@@ -41,6 +51,20 @@ public class LockPick : MonoBehaviour
         NewLock();
         pickRotation = Vector3.zero;
         Input.gyro.enabled = true;
+        AudioSource = GetComponent<AudioSource>();
+    }
+    private void FixedUpdate()
+    {
+        if (differenceAngle < lockRange)
+        {
+            playSound = true;
+
+            if (!soundIsPlaying && playSound)
+            {
+                soundIsPlaying = true;
+                PlayUnlockSound();
+            }
+        }
     }
 
     void Update()
@@ -92,6 +116,17 @@ public class LockPick : MonoBehaviour
         if (GetTurned() == 3)
         {
             GameDone();
+        }
+    }
+    private void PlayUnlockSound()
+    {
+        AudioSource.Play(soundUnlock);
+        time =+ Time.deltaTime * 1000;
+        if (time > soundTime)
+        {
+            soundIsPlaying = false;
+            time = 0;
+            Debug.Log("try again");
         }
     }
 
