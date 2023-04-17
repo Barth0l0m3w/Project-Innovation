@@ -125,7 +125,7 @@ public class CameraInput : MonoBehaviour
         {
             _client.IsDoorVisibleP1 = false;
         }
-        
+
         if (exitCameras.Contains(CurrentCameraP1) && _client.LockCorrect)
         {
             Debug.Log("GO OUT");

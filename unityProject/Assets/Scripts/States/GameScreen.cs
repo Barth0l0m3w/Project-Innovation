@@ -39,6 +39,12 @@ namespace States
                 camera.Camera = Client.ButtonClicked;
                 Client.Channel.SendMessage(camera);
                 Client.ButtonClicked = 0;
+            } 
+            else if (Client.ButtonClicked != 0 && Client.ButtonClicked >= 4)
+            {
+                CameraZoom zoom = new CameraZoom();
+                zoom.Button = Client.ButtonClicked;
+                Client.Channel.SendMessage(zoom);
             }
 
             if (Client.LockPickedPhone && !_lockPickFinished)
@@ -87,6 +93,17 @@ namespace States
             {
                 FinishGame();
             }
+
+            if (pMessage is CameraZoom)
+            {
+                ZoomOnObject(pMessage as CameraZoom);
+            }
+        }
+
+        private void ZoomOnObject(CameraZoom pMessage)
+        {
+            Client.ButtonClicked = pMessage.Button;
+            Client.PlayerNumber = pMessage.Player;
         }
 
         private void FinishGame()

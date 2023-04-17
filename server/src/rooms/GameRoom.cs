@@ -112,6 +112,21 @@ namespace server
             {
                 FinishGame(pMessage as FinalLock);
             }
+
+            if (pMessage is CameraZoom)
+            {
+                ZoomCorrectCamera(pMessage as CameraZoom, pSender);
+            }
+        }
+
+        private void ZoomCorrectCamera(CameraZoom pMessage, TcpMessageChannel pSender)
+        {
+            int character = _server.GetPlayerInfo(pSender).characterID;
+            
+            CameraZoom cameraZoom = new CameraZoom();
+            cameraZoom.Button = pMessage.Button;
+            cameraZoom.Player = character == 1 ? 1 : 2;
+            _laptop.SendMessage(cameraZoom);
         }
 
         private void FinishGame(FinalLock pMessage)

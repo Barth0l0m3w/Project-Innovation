@@ -758,7 +758,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -783,7 +783,6 @@ MonoBehaviour:
   rotation1: {x: 26.123636, y: 240.00009, z: 0.000016165526}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &46812211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1074,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1100,7 +1099,6 @@ MonoBehaviour:
   rotation1: {x: 4, y: 270, z: 0}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &90213246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1162,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1189,7 +1187,6 @@ MonoBehaviour:
   rotation1: {x: 2.7183728, y: 314.99988, z: -0.000014103134}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &94171366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1512,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1816,7 +1813,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2419,7 +2416,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2936,7 +2933,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2961,7 +2958,6 @@ MonoBehaviour:
   rotation1: {x: 43.442616, y: 359.61176, z: 6.577393}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &263555536
 GameObject:
   m_ObjectHideFlags: 3
@@ -3403,7 +3399,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 20, y: 30}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 4.7200003
+  m_FocalLength: 11.764706
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3412,7 +3408,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 145.0659
+  field of view: 103.78485
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3437,8 +3433,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275986405}
-  m_LocalRotation: {x: -0.024677735, y: 0.70667607, z: 0.024677735, w: 0.70667607}
-  m_LocalPosition: {x: 25.53, y: 2.4, z: 35.54}
+  m_LocalRotation: {x: 0.024677735, y: 0.70667607, z: 0.024677735, w: -0.70667607}
+  m_LocalPosition: {x: 0.79, y: 2.4, z: 35.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3567,7 +3563,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3719,7 +3715,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3744,7 +3740,6 @@ MonoBehaviour:
   rotation1: {x: 11.533229, y: 90, z: 0}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!4 &290955544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4199784330310471796, guid: d129c5be062a1194a8a07e7ae73883e7,
@@ -3893,7 +3888,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4291,7 +4286,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4621,7 +4616,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5152,7 +5147,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5177,7 +5172,6 @@ MonoBehaviour:
   rotation1: {x: 4, y: 90, z: 0}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &468763683
 GameObject:
   m_ObjectHideFlags: 0
@@ -6224,7 +6218,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 20, y: 30}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 9.999999
+  m_FocalLength: 11.764706
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -6233,7 +6227,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 112.619865
+  field of view: 103.78485
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -6258,8 +6252,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633047518}
-  m_LocalRotation: {x: 0.021250963, y: 0.9225255, z: -0.049775474, w: 0.3821225}
-  m_LocalPosition: {x: 28.1, y: 0.12, z: 13.6}
+  m_LocalRotation: {x: 0.03489949, y: 0, z: 0, w: 0.99939084}
+  m_LocalPosition: {x: 1, y: 0.12, z: 35.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6484,7 +6478,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6987,7 +6981,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7012,7 +7006,6 @@ MonoBehaviour:
   rotation1: {x: 16.193417, y: 44.999966, z: -0.000008445935}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &726466116
 GameObject:
   m_ObjectHideFlags: 0
@@ -7389,7 +7382,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7460,7 +7453,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7847,7 +7840,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -18417,7 +18410,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -18488,7 +18481,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -18757,7 +18750,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -19123,7 +19116,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -19497,7 +19490,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -21195,7 +21188,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -21472,7 +21465,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -21680,7 +21673,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -22112,7 +22105,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -22310,7 +22303,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -22335,7 +22328,6 @@ MonoBehaviour:
   rotation1: {x: 51.204464, y: 90.079666, z: 0.10687177}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &1318210336
 GameObject:
   m_ObjectHideFlags: 0
@@ -22398,7 +22390,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 20, y: 30}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -22926,7 +22918,6 @@ MonoBehaviour:
   rotation1: {x: 356, y: 180, z: -0.00000061638406}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &1411667893
 GameObject:
   m_ObjectHideFlags: 0
@@ -28459,7 +28450,6 @@ MonoBehaviour:
   rotation1: {x: 356, y: 270, z: 0}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &1484517923
 GameObject:
   m_ObjectHideFlags: 3
@@ -41451,7 +41441,6 @@ MonoBehaviour:
   rotation1: {x: 3.9999995, y: 180, z: 0}
   position2: {x: 0, y: 0, z: 0}
   rotation2: {x: 0, y: 0, z: 0}
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!1 &1903977873
 GameObject:
   m_ObjectHideFlags: 0
