@@ -6,27 +6,28 @@ using UnityEngine.UI;
 
 public class ChangeIconScript : MonoBehaviour
 {
-    [SerializeField] private Image player1;
-    [SerializeField] private Image player2;
+    [SerializeField] private Image p1Gretel;
+    [SerializeField] private Image p2Hansel;
 
     private void Update()
     {
+        //TODO: TESSSSTTT
         if (Client.Instance.IsPlayerOneReady)
         {
-            player1.color = new Color(0, 1, 0);
+            p1Gretel.gameObject.SetActive(true);
         }
         else
         {
-            player1.color = new Color(1, 1, 1);
+            p1Gretel.gameObject.SetActive(false);
         }
         
         if (Client.Instance.IsPlayerTwoReady)
         {
-            player2.color = new Color(0, 1, 0);
+            p2Hansel.gameObject.SetActive(true);
         }
         else
         {
-            player2.color = new Color(1, 1, 1);
+            p2Hansel.gameObject.SetActive(false);
         }
     }
 }
