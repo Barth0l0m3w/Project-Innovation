@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1875,7 +1875,7 @@ GameObject:
   - component: {fileID: 858696451}
   - component: {fileID: 858696453}
   - component: {fileID: 858696452}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: lockPick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2440,6 +2440,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DONTMOVE
       objectReference: {fileID: 0}
+    - target: {fileID: 552209280204008460, guid: 66c12a1d54c37c748a0a8637ba8835a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4314302511763852041, guid: 66c12a1d54c37c748a0a8637ba8835a3,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -2474,6 +2479,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314302511763852047, guid: 66c12a1d54c37c748a0a8637ba8835a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314302511811446325, guid: 66c12a1d54c37c748a0a8637ba8835a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6649678999073159838, guid: 66c12a1d54c37c748a0a8637ba8835a3,
         type: 3}
@@ -4500,7 +4515,7 @@ GameObject:
   - component: {fileID: 1338043905}
   - component: {fileID: 1338043904}
   - component: {fileID: 1338043903}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: DontMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4615,6 +4630,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Encryption for Dummies
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215677243333826885, guid: 14eaf0a610ee3f747b4dd1c0cd36d30c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1215677243333826938, guid: 14eaf0a610ee3f747b4dd1c0cd36d30c,
         type: 3}
@@ -4976,6 +4996,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lockpicking Manual
       objectReference: {fileID: 0}
+    - target: {fileID: 4199784330310471787, guid: d129c5be062a1194a8a07e7ae73883e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4199784330310471796, guid: d129c5be062a1194a8a07e7ae73883e7,
         type: 3}
       propertyPath: m_RootOrder
@@ -5066,7 +5091,7 @@ GameObject:
   - component: {fileID: 1436572508}
   - component: {fileID: 1436572507}
   - component: {fileID: 1436572506}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: BlowDust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5534,7 +5559,7 @@ GameObject:
   - component: {fileID: 1494572484}
   - component: {fileID: 1494572486}
   - component: {fileID: 1494572485}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: encryption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6557,6 +6582,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioDetector
       objectReference: {fileID: 0}
+    - target: {fileID: 5697911406098793572, guid: 0d93ca63a93292944a6cb2ec37c6eca3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d93ca63a93292944a6cb2ec37c6eca3, type: 3}
 --- !u!114 &1672866538 stripped
@@ -6948,7 +6978,7 @@ GameObject:
   - component: {fileID: 1794963003}
   - component: {fileID: 1794963005}
   - component: {fileID: 1794963004}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: MissingPoster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7378,6 +7408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576697451093416992, guid: 5ccf0ecbc55482042b783edea681ec52,
         type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576697451093416992, guid: 5ccf0ecbc55482042b783edea681ec52,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -7696,6 +7731,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5476578961072184011, guid: d40b404694db4e647b274bedd8ff4751,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476578961267789257, guid: d40b404694db4e647b274bedd8ff4751,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5476578961425731654, guid: d40b404694db4e647b274bedd8ff4751,
         type: 3}
       propertyPath: m_Camera
@@ -7813,8 +7858,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5476578961425731659, guid: d40b404694db4e647b274bedd8ff4751,
         type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476578961425731659, guid: d40b404694db4e647b274bedd8ff4751,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476578961462920588, guid: d40b404694db4e647b274bedd8ff4751,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476578963099452597, guid: d40b404694db4e647b274bedd8ff4751,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d40b404694db4e647b274bedd8ff4751, type: 3}
