@@ -31,6 +31,14 @@ public class Client : MonoBehaviour
     private bool _puzzleSolved;
     private bool _newPuzzle;
 
+    private bool _blowDust;
+
+    public bool BlowDust
+    {
+        get => _blowDust;
+        set => _blowDust = value;
+    }
+
     public bool NewPuzzle
     {
         get => _newPuzzle;
