@@ -110,6 +110,7 @@ namespace States
         {
             _puzzleSolved = true;
             Client.LockCorrect = true;
+            Client.GameWon = true;
         }
 
         private void ProcessPlayer(int player, int playerRoom, bool isDoorVisible, ref bool setActiveProcessed,
@@ -181,7 +182,7 @@ namespace States
         {
             PlayerJoinRequest join = new PlayerJoinRequest();
             Client.Channel.SendMessage(join);
-            Client.SetState<LobbyScreen>();
+            Client.SetState<EndScreen>();
         }
 
         private void HandleDoorActive(DoorActive pMessage)

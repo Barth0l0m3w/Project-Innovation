@@ -80,7 +80,7 @@ namespace server
                     _loginRoom.AddMember(channel);
                 }
 
-                //now update every single room//TODO:make a list of gamerooms
+                
                 _loginRoom.Update();
                 _lobbyRoom.Update();
                 foreach (var gameRoom in _rooms)

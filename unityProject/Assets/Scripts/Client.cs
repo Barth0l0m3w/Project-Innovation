@@ -33,6 +33,14 @@ public class Client : MonoBehaviour
 
     private bool _blowDust;
 
+    private bool _gameWon;
+
+    public bool GameWon
+    {
+        get => _gameWon;
+        set => _gameWon = value;
+    }
+
     public bool BlowDust
     {
         get => _blowDust;

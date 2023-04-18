@@ -22,15 +22,20 @@ public class ScaleFromMic : MonoBehaviour
 
     private void OnEnable()
     {
-        //Client.Instance.PuzzleSolved = false;
+        Client.Instance.PuzzleSolved = false;
+    }
+
+    private void Start()
+    {
+        material.SetFloat("_Fade", 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-            _loudness = detector.GetLoudnessFromMic() * loudnessSensibility;
-        
+
+        _loudness = detector.GetLoudnessFromMic() * loudnessSensibility;
+
 
         if (_loudness < threshold)
         {
@@ -44,11 +49,14 @@ public class ScaleFromMic : MonoBehaviour
             StartCoroutine(Fade());
         }
 
-        if (material.GetFloat("_Fade") == 0)
+        if (material.GetFloat("_Fade") <= 0.3f)
         {
-            Debug.Log("object completely cleaned");
-            // Client.Instance.BlowDust = true;
-            // Client.Instance.PuzzleSolved = true;
+            if (Input.touchCount > 0)
+            {
+                //Debug.Log("object completely cleaned");
+                Client.Instance.BlowDust = true;
+                Client.Instance.PuzzleSolved = true;
+            }
         }
     }
 
