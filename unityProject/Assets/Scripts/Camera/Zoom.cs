@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,44 +13,51 @@ public class Zoom : MonoBehaviour
     [SerializeField] private Vector3 position2;
     [SerializeField] private Vector3 rotation2;
 
-    private Vector3 beginPosition;
-    private Vector3 beginRotation;
+    private Vector3 _beginPosition;
+    private Vector3 _beginRotation;
 
-    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+    private CinemachineVirtualCamera _cinemachineVirtualCamera;
+
+    private void Awake()
+    {
+        _cinemachineVirtualCamera = GetComponentInParent<CinemachineVirtualCamera>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        beginPosition = cinemachineVirtualCamera.transform.position;
-        beginRotation = cinemachineVirtualCamera.transform.eulerAngles;
+        //_beginPosition = _cinemachineVirtualCamera.transform.position;
+        _beginPosition = new Vector3(0, 0, 0);
+        _beginRotation = _cinemachineVirtualCamera.transform.eulerAngles;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (cinemachineVirtualCamera != null)
-        {
-            HandleCameraZoom();
-        }
+        // if (_cinemachineVirtualCamera != null && _cinemachineVirtualCamera.m_Priority == 10)
+        // {
+        //     HandleCameraZoom();
+        // }
     }
 
-    private void HandleCameraZoom()
+    public void HandleCameraZoom()
     {
+        //To do Kama
+        //instead of keycode, use the zoom button on phone
+        
+    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            cinemachineVirtualCamera.transform.position = position1;
-            cinemachineVirtualCamera.transform.eulerAngles = rotation1;
-        }
-        else if (position2 != null && Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            cinemachineVirtualCamera.transform.position = position2;
-            cinemachineVirtualCamera.transform.eulerAngles = rotation2;
-        }
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            cinemachineVirtualCamera.transform.localPosition = beginPosition;
-            cinemachineVirtualCamera.transform.eulerAngles = beginRotation;
-        }
+    public void ZoomCamera()
+    {
+        
+            _cinemachineVirtualCamera.transform.position = position1;
+            _cinemachineVirtualCamera.transform.eulerAngles = rotation1;
+        
+    }
+
+    public void ZoomOutCamera()
+    {
+        _cinemachineVirtualCamera.transform.localPosition = _beginPosition;
+        _cinemachineVirtualCamera.transform.eulerAngles = _beginRotation;
     }
 }

@@ -6,6 +6,22 @@ TagManager:
   tags:
   - Player1
   - Player2
+  - c
+  - k
+  - d
+  - b
+  - x
+  - z
+  - n
+  - l
+  - m
+  - j
+  - s
+  - a
+  - h
+  - f
+  - v
+  - g
   layers:
   - Default
   - TransparentFX
@@ -17,7 +33,7 @@ TagManager:
   - P2Cam
   - Camera1Ignore
   - Camera2Ignore
-  - 
+  - MiniGamesUI
   - 
   - 
   - 
@@ -42,4 +58,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: posters
+    uniqueID: 3865953909
     locked: 0

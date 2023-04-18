@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/kamaTest.unity
-    guid: 0f50d026e7c254eecaf9522e9f299681
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/MainMenuScenes/MainMenuLaptop.unity
+    guid: 22f4670f3160d4ffaaae117e617b1535
   - enabled: 0
     path: Assets/Scenes/LoginScenes/LoginLaptop.unity
     guid: 8cb826d76c5c449559eae569d77eec8a
+  - enabled: 0
+    path: Assets/Scenes/Daniel Test.unity
+    guid: 8b042740145521240ad2401956d2cae5
   - enabled: 1
     path: Assets/Scenes/MainMenuScenes/MainMenuPhone 1.unity
     guid: 8aaa70bf67de74823a0efe8ad5ebf08b
@@ -26,7 +32,4 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/MainMenuScenes/MainMenuLaptop.unity
-    guid: 22f4670f3160d4ffaaae117e617b1535
   m_configObjects: {}

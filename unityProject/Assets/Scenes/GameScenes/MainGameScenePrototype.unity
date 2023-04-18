@@ -9202,6 +9202,9 @@ MonoBehaviour:
   - {fileID: 1088991584}
   - {fileID: 90213248}
   - {fileID: 1318210338}
+  exitCameras:
+  - {fileID: 283240509}
+  - {fileID: 461339826}
   numberOfRooms: 5
 --- !u!4 &1690311257
 Transform:

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -13,6 +14,12 @@ public class KeyboardManager : MonoBehaviour
         Instance = this;
         printBox.text = "";
         textBox.text = "";
+        
+    }
+
+    private void OnEnable()
+    {
+        Client.Instance.PuzzleSolved = false;
     }
 
     public void DeleteLetter()
@@ -41,6 +48,8 @@ public class KeyboardManager : MonoBehaviour
         if (input == correctWord)
         {
             Debug.Log("word is correct!");
+            Client.Instance.PuzzleSolved = true;
+            Client.Instance.LockCorrect = true;
         }
         else
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,6 +7,16 @@ using UnityEngine;
 
 public class LockPick : MonoBehaviour
 {
+    //audio
+    [SerializeField]
+    private ulong soundUnlock;
+    [SerializeField]
+    private AudioSource AudioSource;
+    private bool soundIsPlaying = false;
+    private bool playSound = true;
+    private float soundTime = 2;
+    private float time;
+
     //images for the turning linked
     [SerializeField]
     private Transform innerLock;
@@ -18,8 +29,10 @@ public class LockPick : MonoBehaviour
     [SerializeField]
     private float lockRange;
     [SerializeField]
-    private float unlockAngle = 15;
-    private float differenceAngle;
+    private float unlockAngle;
+
+    [SerializeField]
+    private float differenceAngle = 70;
     private float eulerAngle;
     private Vector3 pickRotation;
 
@@ -39,12 +52,33 @@ public class LockPick : MonoBehaviour
         NewLock();
         pickRotation = Vector3.zero;
         Input.gyro.enabled = true;
+        AudioSource = GetComponent<AudioSource>();
+    }
+    private void FixedUpdate()
+    {
+        if (differenceAngle < lockRange)
+        {
+            playSound = true;
+
+   
+
+            if (!soundIsPlaying && playSound)
+            {
+                soundIsPlaying = true;
+                PlayUnlockSound();
+            }
+        }
+    }
+    
+    private void OnEnable()
+    {
+        Client.Instance.PuzzleSolved = false;
     }
 
     void Update()
     {
         //set the rotation of the pick to the rotation of the gyro
-        pickRotation.x = Input.gyro.rotationRateUnbiased.z;
+        pickRotation.z = Input.gyro.rotationRateUnbiased.z;
 
         //when not checking the position by touching the pick is movable
         if (movePick)
@@ -52,7 +86,7 @@ public class LockPick : MonoBehaviour
             //give eulerAngle the gyro information to make calculations
             eulerAngle = Input.gyro.attitude.eulerAngles.z;
 
-            transform.rotation = Quaternion.Euler(eulerAngle, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 0, eulerAngle + 90);
 
             //calculate the difference between the unlockable angle and the angle the pick is in
             //NEED: make a function that gives an indication when the player is in the correct spot with the pick
@@ -74,7 +108,6 @@ public class LockPick : MonoBehaviour
             {
                 Debug.Log("unlock");
                 ActivateTimer();
-
             }
         }
         else
@@ -85,31 +118,59 @@ public class LockPick : MonoBehaviour
         //timer stuff, only running when the function is needed
         if (isRunning)
         {
-            //when called start the timer, disable the moving of the pick and start rotating the inner lock
-            countdownTime -= Time.deltaTime;
-            movePick = false;
-            RotateInner();
-
-            if (countdownTime <= 0)
-            {
-                //when done: up the int, reset timer, enable moving the pick and stop the function
-                timesTurned++;
-                countdownTime = timerTime;
-                movePick = true;
-                isRunning = false;
-            }
+            RotateOuter();
         }
 
-        if (timesTurned == 3)
+        if (GetTurned() == 3)
         {
             GameDone();
         }
+    }
+    private void PlayUnlockSound()
+    {
+        AudioSource.Play(soundUnlock);
+        time =+ Time.deltaTime * 1000;
+        if (time > soundTime)
+        {
+            soundIsPlaying = false;
+            time = 0;
+            Debug.Log("try again");
+        }
+    }
+
+    private void RotateOuter()
+    {
+        //when called start the timer, disable the moving of the pick and start rotating the inner lock
+        countdownTime -= Time.deltaTime;
+        movePick = false;
+        RotateInner();
+
+        if (countdownTime <= 0)
+        {
+            //when done: up the int, reset timer, enable moving the pick and stop the function
+            SetTurned();
+            NewLock();
+            countdownTime = timerTime;
+            movePick = true;
+            isRunning = false;
+        }
+    }
+
+    private int GetTurned()
+    {
+        return timesTurned;
+    }
+
+    private void SetTurned()
+    {
+        timesTurned++;
     }
 
     void GameDone()
     {
         Debug.Log("game finished, yay");
         Client.Instance.LockPickedPhone = true;
+        Client.Instance.PuzzleSolved = true;
     }
 
     void ActivateTimer()
@@ -120,7 +181,7 @@ public class LockPick : MonoBehaviour
     void RotateInner()
     {
         //rotate the inner lock image
-        innerLock.transform.Rotate(new Vector3(-10 * lockSpeed, 0, 0) * Time.deltaTime);
+        innerLock.transform.Rotate(new Vector3(0, 0, -10 * lockSpeed) * Time.deltaTime);
     }
 
     void NewLock()
