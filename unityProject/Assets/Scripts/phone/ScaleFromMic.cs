@@ -25,6 +25,11 @@ public class ScaleFromMic : MonoBehaviour
         Client.Instance.PuzzleSolved = false;
     }
 
+    private void Start()
+    {
+        material.SetFloat("_Fade", 1);
+    }
+
     // Update is called once per frame
     void Update()
     {
