@@ -59,3 +59,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: posters
+    uniqueID: 3865953909
+    locked: 0
