@@ -1530,6 +1530,16 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 1180789366}
+    - target: {fileID: 4199784330310471786, guid: d129c5be062a1194a8a07e7ae73883e7,
+        type: 3}
+      propertyPath: threshold
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199784330310471786, guid: d129c5be062a1194a8a07e7ae73883e7,
+        type: 3}
+      propertyPath: loudnessSensibility
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4199784330310471787, guid: d129c5be062a1194a8a07e7ae73883e7,
         type: 3}
       propertyPath: m_Name
@@ -1883,6 +1893,16 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 1660096}
+    - target: {fileID: -1978429119902366499, guid: 5ccf0ecbc55482042b783edea681ec52,
+        type: 3}
+      propertyPath: threshold
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: -1978429119902366499, guid: 5ccf0ecbc55482042b783edea681ec52,
+        type: 3}
+      propertyPath: loudnessSensibility
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2576697451093416992, guid: 5ccf0ecbc55482042b783edea681ec52,
         type: 3}
       propertyPath: m_Name
@@ -6046,6 +6066,16 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 655106520}
+    - target: {fileID: 1215677243333826884, guid: 14eaf0a610ee3f747b4dd1c0cd36d30c,
+        type: 3}
+      propertyPath: threshold
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215677243333826884, guid: 14eaf0a610ee3f747b4dd1c0cd36d30c,
+        type: 3}
+      propertyPath: loudnessSensibility
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 1215677243333826885, guid: 14eaf0a610ee3f747b4dd1c0cd36d30c,
         type: 3}
       propertyPath: m_Name
