@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -509,7 +509,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: COX
+  m_text: PAINTING
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325f05e597f5a4a138f2f2c153154051, type: 2}
   m_sharedMaterial: {fileID: 2750372215755316168, guid: 325f05e597f5a4a138f2f2c153154051,
@@ -779,7 +779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 13
+  m_text: CHALK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325f05e597f5a4a138f2f2c153154051, type: 2}
   m_sharedMaterial: {fileID: 2750372215755316168, guid: 325f05e597f5a4a138f2f2c153154051,
@@ -1652,7 +1652,7 @@ RectTransform:
   - {fileID: 786946711}
   - {fileID: 2118476271}
   m_Father: {fileID: 2139937611}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16033609, y: 0.10350225}
   m_AnchorMax: {x: 0.8383402, y: 0.5854992}
@@ -2631,7 +2631,7 @@ RectTransform:
   m_Children:
   - {fileID: 321549772}
   m_Father: {fileID: 2139937611}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.30166668, y: 0.021000002}
   m_AnchorMax: {x: 0.68100005, y: 0.10350225}
@@ -8295,7 +8295,7 @@ MonoBehaviour:
   - {fileID: 1492200390}
   interactions: []
   modifier: 2
-  isDefaultShown: 0
+  isDefaultShown: 1
 --- !u!114 &2118476273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8370,8 +8370,8 @@ RectTransform:
   - {fileID: 1763892022}
   - {fileID: 976195999}
   - {fileID: 240523984}
-  - {fileID: 483109156}
   - {fileID: 869905243}
+  - {fileID: 483109156}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
