@@ -9,7 +9,7 @@ public class LockPick : MonoBehaviour
 {
     //audio
     [SerializeField]
-    private AudioClip soundUnlock;
+    private ulong soundUnlock;
     [SerializeField]
     private AudioSource AudioSource;
     private bool soundIsPlaying = false;
@@ -60,10 +60,7 @@ public class LockPick : MonoBehaviour
         {
             playSound = true;
 
-    private void OnEnable()
-    {
-        Client.Instance.PuzzleSolved = false;
-    }
+   
 
             if (!soundIsPlaying && playSound)
             {
@@ -71,6 +68,11 @@ public class LockPick : MonoBehaviour
                 PlayUnlockSound();
             }
         }
+    }
+    
+    private void OnEnable()
+    {
+        Client.Instance.PuzzleSolved = false;
     }
 
     void Update()
