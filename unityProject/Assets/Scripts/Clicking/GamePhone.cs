@@ -27,6 +27,7 @@ public class GamePhone : MonoBehaviour
     private Client _clientPhone;
     private List<GameObject> _usedNotes;
     private GameObject _activePuzzle;
+    private bool _buttonClicked;
 
     private void Start()
     {
@@ -54,42 +55,44 @@ public class GamePhone : MonoBehaviour
             {
                 notesP1[i].SetActive(_clientPhone.PlayerRoom == i);
             }
+
             
-            if (_clientPhone.ButtonClicked == 4)
-            {
+            
+             // if (_clientPhone.ButtonClicked == 4)
+             // {
+                 switch (_clientPhone.PlayerRoom)
+                 {
+                     case 0:
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(lockedDoorPrompt);
+                         break;
+                     case 1:
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(number);
+                         break;
+                     case 2:
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(poster1);
+                         break;
+                     case 3: 
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(finalLock);
+                         break;
+                     case 4: 
+                         if (_clientPhone.ButtonClicked == 4 && _clientPhone.NewPuzzle) OpenPuzzle(cox);
+                         break;
+                 }
+                 
+            //}
+            
+            // if (_clientPhone.ButtonClicked == 5)
+            // {
                 switch (_clientPhone.PlayerRoom)
                 {
                     case 0:
-                        OpenPuzzle(lockedDoorPrompt);
-                        break;
-                    case 1:
-                        OpenPuzzle(number);
-                        break;
-                    case 2:
-                        OpenPuzzle(poster1);
-                        break;
-                    case 3: 
-                        OpenPuzzle(finalLock);
+                        if (_clientPhone.ButtonClicked == 5 && _clientPhone.NewPuzzle) OpenPuzzle(lockCellDoor);
                         break;
                     case 4: 
-                        OpenPuzzle(cox);
+                        if (_clientPhone.ButtonClicked == 5 && _clientPhone.NewPuzzle) OpenPuzzle(teddy);
                         break;
                 }
-                
-            }
-            
-            if (_clientPhone.ButtonClicked == 5)
-            {
-                switch (_clientPhone.PlayerRoom)
-                {
-                    case 0:
-                        OpenPuzzle(lockCellDoor);
-                        break;
-                    case 4: 
-                        OpenPuzzle(teddy);
-                        break;
-                }
-            }
+                // }
 
 
             if (_clientPhone.PuzzleSolved)
@@ -105,11 +108,6 @@ public class GamePhone : MonoBehaviour
             {
                 notesP2[i].SetActive(_clientPhone.PlayerRoom == i);
             }
-            
-            
-            
-            
-            
         }
 
         // if (_clientPhone.ButtonClicked == 4)
@@ -154,6 +152,7 @@ public class GamePhone : MonoBehaviour
 
     private void OpenPuzzle(GameObject puzzle)
     {
+        _clientPhone.NewPuzzle = false;
         puzzle.SetActive(true);
         _activePuzzle = puzzle;
     }

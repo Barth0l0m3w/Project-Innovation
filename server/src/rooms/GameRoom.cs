@@ -107,6 +107,33 @@ namespace server
             {
                 UpdateLockPickStatus(pMessage as LockPickedStatus);
             }
+
+            if (pMessage is FinalLock)
+            {
+                FinishGame(pMessage as FinalLock);
+            }
+
+            if (pMessage is CameraZoom)
+            {
+                ZoomCorrectCamera(pMessage as CameraZoom, pSender);
+            }
+        }
+
+        private void ZoomCorrectCamera(CameraZoom pMessage, TcpMessageChannel pSender)
+        {
+            int character = _server.GetPlayerInfo(pSender).characterID;
+            
+            CameraZoom cameraZoom = new CameraZoom();
+            cameraZoom.Button = pMessage.Button;
+            cameraZoom.Player = character == 1 ? 1 : 2;
+            _laptop.SendMessage(cameraZoom);
+        }
+
+        private void FinishGame(FinalLock pMessage)
+        {
+            FinalLock final = new FinalLock();
+            final.Solved = pMessage.Solved;
+            sendToAll(final);
         }
 
         private void UpdateLockPickStatus(LockPickedStatus pMessage)
@@ -146,9 +173,7 @@ namespace server
                 camera.Player = 1;
                 _laptop.SendMessage(camera);
                 ChooseCamera cameraPhone = new ChooseCamera();
-                Console.WriteLine("Before: " + _startCameraP1);
                 _startCameraP1 = NewActiveCamera(_startCameraP1, pMessage.Camera);
-                Console.WriteLine("After: " + _startCameraP1);
                 cameraPhone.Camera = _startCameraP1;
                 cameraPhone.Player = 3;
                 pSender.SendMessage(cameraPhone);
@@ -160,7 +185,6 @@ namespace server
                 camera.Camera = pMessage.Camera;
                 camera.Player = 2;
                 _laptop.SendMessage(camera);
-                //TODO: TESSSTTTT
                 ChooseCamera cameraPhone = new ChooseCamera();
                 _startCameraP2 = NewActiveCamera(_startCameraP2, pMessage.Camera);
                 cameraPhone.Camera = _startCameraP2;

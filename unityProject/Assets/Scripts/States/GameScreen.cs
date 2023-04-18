@@ -13,6 +13,7 @@ namespace States
         private bool _player1CameraUpdated;
         private bool _player2CameraUpdated;
         private bool _lockPickFinished;
+        private bool _puzzleSolved;
 
         public override void EnterState()
         {
@@ -26,84 +27,10 @@ namespace States
             //PLAYER 1 --------------------
             ProcessPlayer(1, Client.RoomP1,Client.IsDoorVisibleP1, ref _setActiveProcessedP1, ref _setInactiveProcessedP1,
                 Client.LockPickedLaptop, ref _player1CameraUpdated);
-            
-            // if (Client.IsDoorVisibleP1 && !_setActiveProcessedP1 && Client.LockPickedLaptop)
-            // {
-            //     DoorActive doorActive = new DoorActive();
-            //     doorActive.IsActive = true;
-            //     doorActive.Player = 1;
-            //     Client.Channel.SendMessage(doorActive);
-            //     _setActiveProcessedP1 = true;
-            //     _setInactiveProcessedP1 = false;
-            // }
-            //
-            // if (!Client.IsDoorVisibleP1 && !_setInactiveProcessedP1 && Client.LockPickedLaptop)
-            // {
-            //     DoorActive doorActive = new DoorActive();
-            //     doorActive.IsActive = false;
-            //     doorActive.Player = 1;
-            //     Client.Channel.SendMessage(doorActive);
-            //     _setActiveProcessedP1 = false;
-            //     _setInactiveProcessedP1 = true;
-            // }
-            //
-            // if (!_player1CameraUpdated)
-            // {
-            //     ShowNotes camera = new ShowNotes();
-            //     camera.Player = 1;
-            //     camera.PlayerRoom = Client.RoomP1;
-            //     Client.Channel.SendMessage(camera);
-            //     _player1CameraUpdated = true;
-            // }
-            
+
             //PLAYER 2 ---------------------
-            if (Client.IsDoorVisibleP2 && !_setActiveProcessedP2 && Client.LockPickedLaptop)
-            {
-                DoorActive doorActive = new DoorActive();
-                doorActive.IsActive = true;
-                doorActive.Player = 2;
-                Client.Channel.SendMessage(doorActive);
-                _setActiveProcessedP2 = true;
-                _setInactiveProcessedP2 = false;
-            }
-            
-            if (!Client.IsDoorVisibleP2 && !_setInactiveProcessedP2 && Client.LockPickedLaptop)
-            {
-                DoorActive doorActive = new DoorActive();
-                doorActive.IsActive = false;
-                doorActive.Player = 2;
-                Client.Channel.SendMessage(doorActive);
-                _setActiveProcessedP2 = false;
-                _setInactiveProcessedP2 = true;
-            }
-            
-            if (!_player2CameraUpdated)
-            {
-                ShowNotes camera = new ShowNotes();
-                camera.Player = 2;
-                camera.PlayerRoom = Client.RoomP2;
-                Client.Channel.SendMessage(camera);
-                _player2CameraUpdated = true;
-            }
-
-            if (!Client.IsDoorVisibleP2 && !_setInactiveProcessedP2 && Client.LockPickedLaptop)
-            {
-                DoorActive doorActive = new DoorActive();
-                doorActive.IsActive = false;
-                doorActive.Player = 2;
-                Client.Channel.SendMessage(doorActive);
-                _setActiveProcessedP2 = false;
-                _setInactiveProcessedP2 = true;
-            }
-
-            if (!_player2CameraUpdated)
-            {
-                ShowNotes camera = new ShowNotes();
-                camera.Player = 2;
-                camera.PlayerRoom = Client.RoomP2;
-                Client.Channel.SendMessage(camera);
-                _player2CameraUpdated = true;
-            }
+            ProcessPlayer(2, Client.RoomP2,Client.IsDoorVisibleP2, ref _setActiveProcessedP2, ref _setInactiveProcessedP2,
+                Client.LockPickedLaptop, ref _player2CameraUpdated);
 
             //OTHER FUNCTIONALITY
             if (Client.ButtonClicked != 0 && Client.ButtonClicked <= 3)
@@ -112,6 +39,12 @@ namespace States
                 camera.Camera = Client.ButtonClicked;
                 Client.Channel.SendMessage(camera);
                 Client.ButtonClicked = 0;
+            } 
+            else if (Client.ButtonClicked != 0 && Client.ButtonClicked >= 4)
+            {
+                CameraZoom zoom = new CameraZoom();
+                zoom.Button = Client.ButtonClicked;
+                Client.Channel.SendMessage(zoom);
             }
 
             if (Client.LockPickedPhone && !_lockPickFinished)
@@ -119,6 +52,13 @@ namespace States
                 LockPickedStatus lockPick = new LockPickedStatus();
                 lockPick.IsLockPicked = true;
                 Client.Channel.SendMessage(lockPick);
+            }
+
+            if (Client.LockCorrect && !_puzzleSolved)
+            {
+                FinalLock final = new FinalLock();
+                final.Solved = true;
+                Client.Channel.SendMessage(final);
             }
         }
 
@@ -148,6 +88,28 @@ namespace States
             {
                 UnlockTheDoors();
             }
+
+            if (pMessage is FinalLock)
+            {
+                FinishGame();
+            }
+
+            if (pMessage is CameraZoom)
+            {
+                ZoomOnObject(pMessage as CameraZoom);
+            }
+        }
+
+        private void ZoomOnObject(CameraZoom pMessage)
+        {
+            Client.ButtonClicked = pMessage.Button;
+            Client.PlayerNumber = pMessage.Player;
+        }
+
+        private void FinishGame()
+        {
+            _puzzleSolved = true;
+            Client.LockCorrect = true;
         }
 
         private void ProcessPlayer(int player, int playerRoom, bool isDoorVisible, ref bool setActiveProcessed,
@@ -194,6 +156,7 @@ namespace States
         {
             Client.PlayerRoom = pMessage.PlayerRoom;
             Client.PlayerNumber = pMessage.Player;
+            Client.NewPuzzle = true;
         }
 
         private void SwitchCameras(ChooseCamera pMessage)
