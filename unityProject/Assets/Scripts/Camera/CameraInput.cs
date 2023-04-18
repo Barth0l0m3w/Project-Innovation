@@ -13,6 +13,9 @@ public class CameraInput : MonoBehaviour
     [SerializeField] private List<CinemachineVirtualCamera> camerasP2;
     [SerializeField] private List<CinemachineVirtualCamera> transitionCameras;
     [SerializeField] private CinemachineVirtualCamera[] exitCameras = new CinemachineVirtualCamera[2];
+
+    [SerializeField]
+    private Dictionary<CinemachineVirtualCamera, Zoom> zooms = new Dictionary<CinemachineVirtualCamera, Zoom>();
     [SerializeField] private int numberOfRooms;
 
     private Client _client;
@@ -88,6 +91,22 @@ public class CameraInput : MonoBehaviour
         }
         _camerasInOneRoom = camerasP1.Count / numberOfRooms;
         _client = Client.Instance;
+
+        foreach (var cam in camerasP1)
+        {
+            if (cam.GetComponent<Zoom>())
+            {
+                zooms.Add(cam, cam.GetComponent<Zoom>());
+            }
+        }
+        
+        foreach (var cam in camerasP2)
+        {
+            if (cam.GetComponent<Zoom>())
+            {
+                zooms.Add(cam, cam.GetComponent<Zoom>());
+            }
+        }
     }
 
     void Update()
@@ -103,13 +122,13 @@ public class CameraInput : MonoBehaviour
             SwitchToCamera(_camerasInOneRoom - 1, 1);
             _client.ButtonP1 = 0;
         }
-        
+
         if (transitionCameras.Contains(CurrentCameraP1) && _client.LockPickedLaptop)
         {
             _client.IsDoorVisibleP1 = true;
             if (Input.GetKeyUp(KeyCode.Alpha2) || _client.ButtonP1 == 2)
             {
-                
+
                 if (transitionCameras.IndexOf(CurrentCameraP1) >= 8)
                 {
                     GoToTheRoom(-1, 1);
@@ -118,6 +137,7 @@ public class CameraInput : MonoBehaviour
                 {
                     GoToTheRoom(1, 1);
                 }
+
                 _client.ButtonP1 = 0;
             }
         }
@@ -130,10 +150,24 @@ public class CameraInput : MonoBehaviour
         {
             Debug.Log("GO OUT");
         }
-        
 
-        //PLAYER 2 --------------------------------
-        if (Input.GetKeyUp(KeyCode.E) || _client.ButtonP2 == 3)
+        if ((_client.ButtonClicked == 4 || _client.ButtonClicked == 5) && _client.PlayerNumber == 1)
+        {
+            if (zooms.ContainsKey(CurrentCameraP1))
+            {
+                zooms[CurrentCameraP1].ZoomCamera();
+            }
+        } else if (_client.ButtonClicked == 6 && _client.PlayerNumber == 1)
+        {
+            if (zooms.ContainsKey(CurrentCameraP1))
+            {
+                zooms[CurrentCameraP1].ZoomOutCamera();
+            }
+        }
+
+
+    //PLAYER 2 --------------------------------
+    if (Input.GetKeyUp(KeyCode.E) || _client.ButtonP2 == 3)
         {
             SwitchToCamera(1, 2);
             _client.ButtonP2 = 0;
@@ -167,6 +201,20 @@ public class CameraInput : MonoBehaviour
         else
         {
             _client.IsDoorVisibleP2 = false;
+        }
+        //BOTH PLAYERS ZOOM IN IDK WHY
+        if ((_client.ButtonClicked == 4 || _client.ButtonClicked == 5) && _client.PlayerNumber == 2)
+        {
+            if (zooms.ContainsKey(CurrentCameraP2))
+            {
+                zooms[CurrentCameraP2].ZoomCamera();
+            }
+        } else if (_client.ButtonClicked == 6 && _client.PlayerNumber == 2)
+        {
+            if (zooms.ContainsKey(CurrentCameraP2))
+            {
+                zooms[CurrentCameraP2].ZoomOutCamera();
+            }
         }
     }
 

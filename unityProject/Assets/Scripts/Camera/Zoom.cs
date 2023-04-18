@@ -34,26 +34,30 @@ public class Zoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_cinemachineVirtualCamera != null)
-        {
-            HandleCameraZoom();
-        }
+        // if (_cinemachineVirtualCamera != null && _cinemachineVirtualCamera.m_Priority == 10)
+        // {
+        //     HandleCameraZoom();
+        // }
     }
 
-    private void HandleCameraZoom()
+    public void HandleCameraZoom()
     {
         //To do Kama
         //instead of keycode, use the zoom button on phone
-        if (Input.GetKeyDown(KeyCode.Alpha4) || Client.Instance.ButtonClicked == 4 || Client.Instance.ButtonClicked == 5)
-        {
+        
+    }
+
+    public void ZoomCamera()
+    {
+        
             _cinemachineVirtualCamera.transform.position = position1;
             _cinemachineVirtualCamera.transform.eulerAngles = rotation1;
-        }
         
-        else if (Client.Instance.ButtonClicked == 6 || Input.GetKeyDown(KeyCode.Backspace))
-        {
-            _cinemachineVirtualCamera.transform.localPosition = _beginPosition;
-            _cinemachineVirtualCamera.transform.eulerAngles = _beginRotation;
-        }
+    }
+
+    public void ZoomOutCamera()
+    {
+        _cinemachineVirtualCamera.transform.localPosition = _beginPosition;
+        _cinemachineVirtualCamera.transform.eulerAngles = _beginRotation;
     }
 }
