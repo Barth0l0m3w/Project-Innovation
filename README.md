@@ -6,7 +6,7 @@ Our game is inspired by the concept of Escape rooms and incorporates a dark fant
 
 As one of the engineers on the project, my main focus was on the gameplay aspect. I designed and implemented multiple mini-games, ensuring that all the art assets were adequately integrated into the game. Additionally, I created a camera rig system that allowed players to pan between different cameras and explore their environment.
 
-One of the aspects I am particularly proud of is the integration of mobile device functions into the game. We used the gyroscope functionality to angle the lock for the pick-locking mini-game. The microphone was used to detect the player blowing on the dust-covered posters to unlock clues. Lastly, the touchscreen functionality enabled players to navigate through various rooms.
+One of the aspects I am particularly proud of is the integration of mobile device functions into the game. We used the gyroscope functionality to angle the lock for the Lock_picking mini-game. The microphone was used to detect the player blowing on the dust-covered posters to unlock clues. Lastly, the touchscreen functionality enabled players to navigate through various rooms.
 
 ![Screenshot 2023-07-01 123721](https://github.com/Barth0l0m3w/Project-Innovation/assets/94447171/95ce0d1f-970d-44eb-ac1e-307a269a713f)
 
