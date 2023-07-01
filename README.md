@@ -8,7 +8,7 @@ As one of the engineers on the project, my main focus was on the gameplay aspect
 
 One of the aspects I am particularly proud of is the integration of mobile device functions into the game. We used the gyroscope functionality to angle the lock for the pick-locking mini-game. The microphone was used to detect the player blowing on the dust-covered posters to unlock clues. Lastly, the touchscreen functionality enabled players to navigate through various rooms.
 
-![Title_Screen](https://github.com/Barth0l0m3w/Project-Innovation/assets/94447171/05258089-f01b-4bb0-9608-270cf70c1861)
+![Screenshot 2023-07-01 123721](https://github.com/Barth0l0m3w/Project-Innovation/assets/94447171/95ce0d1f-970d-44eb-ac1e-307a269a713f)
 
 ![Fail screen](https://github.com/Barth0l0m3w/Project-Innovation/assets/94447171/f2789881-0d20-4ebd-844e-70fbf4f46c1a)
 
